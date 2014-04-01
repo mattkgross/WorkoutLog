@@ -196,12 +196,12 @@ if($submission == "yes")
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </div>
+    </nav>
     <?php if(!empty($error)) {?>
     <div class="alert alert-warning alert-dismissable" style=" margin-top: -20px; text-align: center">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><?php echo $warning_message; ?></strong>
     </div>
-    </nav>
     <?php }	?>
 	<div class="container-fluid">
     	<h1 style="text-align: center">Sign Up</h1><br /><br />
