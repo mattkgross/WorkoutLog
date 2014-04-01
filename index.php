@@ -71,6 +71,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
     <![endif]-->
   </head>
   <body>
+  <nav class="navbar navbar-default" role="navigation">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -98,6 +99,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </div>
+    </nav>
 	<?php if($alert == "workout_success") {?>
     <div class="alert alert-success alert-dismissable" style=" margin-top: -20px; text-align: center">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -35,6 +35,7 @@ if(empty($ID) || empty($user)) {
     <![endif]-->
   </head>
   <body>
+  <nav class="navbar navbar-default" role="navigation">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,6 +63,7 @@ if(empty($ID) || empty($user)) {
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </div>
+    </nav>
 	<div class="container-fluid">
     	<div class="row">
         	<div class="col-md-offset-2 col-md-8">

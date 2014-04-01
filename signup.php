@@ -3,7 +3,7 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = $_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?0:$_SESSION['ID'];
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
@@ -11,7 +11,7 @@ $user = mysql_fetch_array($sql);
 if(!empty($ID) || !empty($user)) {
 	header('Location: index.php'); }
 
-$submission = stripslashes($_POST['submission']);
+$submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {
@@ -168,6 +168,7 @@ if($submission == "yes")
 	</script>
   </head>
     <body>
+  <nav class="navbar navbar-default" role="navigation">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -200,6 +201,7 @@ if($submission == "yes")
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><?php echo $warning_message; ?></strong>
     </div>
+    </nav>
     <?php }	?>
 	<div class="container-fluid">
     	<h1 style="text-align: center">Sign Up</h1><br /><br />
