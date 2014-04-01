@@ -17,7 +17,7 @@ if(empty($d_loc) || $d_loc < 0) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cockfight Workout Log</title>
+    <title>Workout Log</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -82,7 +82,7 @@ if(empty($d_loc) || $d_loc < 0) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Cockfight Workout Log</a>
+          <a class="navbar-brand" href="index.php">Workout Log</a>
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
