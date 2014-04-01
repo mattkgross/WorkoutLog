@@ -3,7 +3,7 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = $_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
@@ -11,7 +11,7 @@ $user = mysql_fetch_array($sql);
 if(!empty($ID) || !empty($user)) {
 	header('Location: index.php'); }
 
-$submission = stripslashes($_POST['submission']);
+$submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {

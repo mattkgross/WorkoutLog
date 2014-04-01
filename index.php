@@ -3,7 +3,7 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?0:$_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
@@ -231,8 +231,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 					echo "<a name=\"" . $u['u_name'] . "\"></a><td style=\"text-align: center; vertical-align: middle;\"><strong>" . stripslashes($u['f_name']) . " " . stripslashes($u['l_name']) . "</strong></td>";
 					foreach($entries as $e)
 					{
-						if(!empty($_GET['highlight']) && $e['id'] == $_GET['highlight']) {
-							$color = "#dff0d8";}
+						$color = (!empty($_GET['highlight']) && $e['id'] == $_GET['highlight'])?"#dff0d8":"";
 						
 						if($e == "No Entry") {
 						echo "<td style=\"text-align: center; vertical-align: middle; font-size: 10px; background-color: " . $color . ";\">" . $e . "</td>";

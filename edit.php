@@ -3,13 +3,13 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = $_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
-$post_id = addslashes($_POST['p_id']);
-$desc = addslashes($_POST['desc']);
-$op = $_POST['op'];
+$post_id = empty(($_POST['p_id'])?0:intval(addslashes($_POST['p_id']));
+$desc = empty($_POST['desc'])?"":addslashes($_POST['desc']);
+$op = empty($_POST['op'])?"":$_POST['op'];
 
 
 $sql = mysql_query("SELECT * FROM posts WHERE id='". $post_id . "' AND u_id='" . $ID . "'");
@@ -22,7 +22,7 @@ if(empty($ID) || empty($post) || ($op != "del" && $op != "save")) {
 if($op == "save") {
 	mysql_query("UPDATE posts SET text='". $desc . "' WHERE id='" . $post_id . "'");
 }
-else {
+if ($op == "del" || empty($desc)) {
 	mysql_query("DELETE FROM posts WHERE id='" . $post_id . "'");
 }
 

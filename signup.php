@@ -3,7 +3,7 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?0:$_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
