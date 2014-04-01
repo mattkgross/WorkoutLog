@@ -3,13 +3,12 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = $_SESSION['ID'];
+$ID = empty($_SESSION['ID'])?0:$_SESSION['ID'];
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
-$d_loc = $_GET['d_loc'];
-if(empty($d_loc) || $d_loc < 0) {
-	$d_loc = 0; }
+$d_loc = (empty($d_loc) || $d_loc < 0)?0:$_GET['d_loc'];
+$alert = empty($_GET['alert'])?"":$_GET['alert'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +71,6 @@ if(empty($d_loc) || $d_loc < 0) {
     <![endif]-->
   </head>
   <body>
-  <nav class="navbar navbar-default" role="navigation">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -100,14 +98,13 @@ if(empty($d_loc) || $d_loc < 0) {
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </div>
-    </nav>
-	<?php if($_GET['alert'] == "workout_success") {?>
+	<?php if($alert == "workout_success") {?>
     <div class="alert alert-success alert-dismissable" style=" margin-top: -20px; text-align: center">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><?php echo "Workout successfully added!"; ?></strong>
     </div>
     <?php }	?>
-    <?php if($_GET['alert'] == "workout_update") {?>
+    <?php if($alert == "workout_update") {?>
     <div class="alert alert-success alert-dismissable" style=" margin-top: -20px; text-align: center">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><?php echo "Workout successfully modified!"; ?></strong>
