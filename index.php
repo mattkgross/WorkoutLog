@@ -231,7 +231,8 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 					echo "<a name=\"" . $u['u_name'] . "\"></a><td style=\"text-align: center; vertical-align: middle;\"><strong>" . stripslashes($u['f_name']) . " " . stripslashes($u['l_name']) . "</strong></td>";
 					foreach($entries as $e)
 					{
-						$color = (!empty($_GET['highlight']) && $e['id'] == $_GET['highlight'])?"#dff0d8":"";
+            $w_id = isset($e['id'])?$e['id']:-1; 
+						$color = (!empty($_GET['highlight']) && $w_id == $_GET['highlight'])?"#dff0d8":"";
 						
 						if($e == "No Entry") {
 						echo "<td style=\"text-align: center; vertical-align: middle; font-size: 10px; background-color: " . $color . ";\">" . $e . "</td>";
