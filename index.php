@@ -93,6 +93,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
             <li><a href="workouts.php">Workouts</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          	<li><a href="join.php">Join Group</a></li>
             <li><?php if(empty($ID) || empty($user)) {?><a href="login.php">Sign In</a><?php } else { ?><a href="logout.php">Log Out</a><?php } ?></li>
             <li><a href="signup.php">Sign Up</a></li>
           </ul>
