@@ -7,7 +7,7 @@ $ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
 
-$d_loc = (empty($d_loc) || $d_loc < 0)?0:$_GET['d_loc'];
+$d_loc = (empty($_GET['d_loc']) || intval($_GET['d_loc']) < 0)?0:$_GET['d_loc'];
 $alert = empty($_GET['alert'])?"":$_GET['alert'];
 ?>
 <!DOCTYPE html>
