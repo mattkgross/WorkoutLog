@@ -4,8 +4,11 @@ session_start();
 require_once("headers/mysql.php");
 
 $ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
+$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
+$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
+$group = mysql_fetch_array($sql);
 
 // Kick out anyone who's not logged in.
 if(empty($ID) || empty($user)) {
@@ -55,8 +58,35 @@ if(empty($ID) || empty($user)) {
             <li><a href="index.php">Log</a></li>
             <li><a href="create.php">New Entry</a></li>
             <li class="active"><a href="workouts.php">Workouts</a></li>
+            <li class="dropdown">
+            <?php
+            	$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
+            	$groups = array();
+            	while($temp = mysql_fetch_array($sql)) {
+            		array_push($groups, $temp); }
+            	//print_r($groups);
+            ?>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              	<?php
+              	if(!empty($groups))
+             	{
+              		foreach ($groups as $g) {
+                		echo "<li><a href=\"switch.php?g=" . $g['id'] . "\">" . $g['name'] . "</a></li>";
+                	}
+                }
+                ?>
+              </ul>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          	<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Groups <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="join.php">Join Group</a></li>
+                <li><a href="group.php">Create Group</a></li>
+              </ul>
+            </li>
             <li><a href="logout.php">Log Out</a></li>
             <li><a href="signup.php">Sign Up</a></li>
           </ul>

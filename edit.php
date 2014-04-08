@@ -4,8 +4,11 @@ session_start();
 require_once("headers/mysql.php");
 
 $ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
+$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
+$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
+$group = mysql_fetch_array($sql);
 
 $post_id = empty(($_POST['p_id'])?0:intval(addslashes($_POST['p_id']));
 $desc = empty($_POST['desc'])?"":addslashes($_POST['desc']);

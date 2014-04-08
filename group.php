@@ -10,31 +10,40 @@ $user = mysql_fetch_array($sql);
 $sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
 $group = mysql_fetch_array($sql);
 
-// Kick out anyone who's already logged in.
-if(!empty($ID) || !empty($user)) {
-	header('Location: index.php'); }
+// Kick out anyone who's not logged in.
+if(empty($ID) || empty($user)) {
+  header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {
-	$uname = addslashes($_POST['uname']);
-	$pword = md5($_POST['pword']);
-	
-	// Prevent injection
-	if(!get_magic_quotes_gpc())
-	{
-		$uname = mysql_real_escape_string($uname);
-	}
-	
-	$sql = mysql_query("SELECT * FROM users WHERE u_name='" . $uname . "' AND password='" . $pword . "'");
-	$user = mysql_fetch_array($sql);
-	
-	if(!empty($user)) {
-		$_SESSION['ID'] = $user['id'];
-		header('Location: index.php');}
-	else {
-		$warning_message = "Incorrect username and/or password. Try again.";}
+  $name = addslashes($_POST['gname']);
+  $key = md5($_POST['pword']);
+  $key_c = md5($_POST['pword_c']);
+  
+  // Prevent injection
+  if(!get_magic_quotes_gpc())
+  {
+    $name = $name;
+  }  
+ 
+  $sql = mysql_query("SELECT * FROM groups WHERE name='" . $name . "'");
+  $check = mysql_num_rows($sql);
+  
+  if(!empty($check)) {
+    $warning_message = "A group with this name already exists!"; }
+  else if($key != $key_c) {
+    $warning_message = "Your enrollment keys do not match!"; }
+  else {
+    // Add group
+    mysql_query("INSERT INTO groups (name, enroll_key) VALUES ('$name', '$key')");
+    $w_id = mysql_insert_id();
+    // Join group
+    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$w_id', '1')");
+    $_SESSION['GROUP'] = $w_id;
+    header('Location: index.php');
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -48,10 +57,13 @@ if($submission == "yes")
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,32 +72,6 @@ if($submission == "yes")
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    
-    <script type="text/javascript">
-		$(document).ready(function(){			
-			$("#uname").focusout(function(e) {
-                if($("#uname").val().length > 0) {
-					$("#g_uname").attr("class", "form-group has-success has-feedback");
-					$("#s_uname_bad").attr("style", "display: none;");
-					$("#s_uname_ok").attr("style", "display: inline-block;");}
-				else {
-					$("#g_uname").attr("class", "form-group has-error has-feedback");
-					$("#s_uname_ok").attr("style", "display: none;");
-					$("#s_uname_bad").attr("style", "display: inline-block;");}
-            });
-			
-			$("#pword").focusout(function(e) {
-                if($("#pword").val().length > 5) {
-					$("#g_pword").attr("class", "form-group has-success has-feedback");
-					$("#s_pword_bad").attr("style", "display: none;");
-					$("#s_pword_ok").attr("style", "display: inline-block;");}
-				else {
-					$("#g_pword").attr("class", "form-group has-error has-feedback");
-					$("#s_pword_ok").attr("style", "display: none;");
-					$("#s_pword_bad").attr("style", "display: inline-block;");}
-            });
-		})
-	</script>
   </head>
   <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -110,34 +96,34 @@ if($submission == "yes")
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
             <?php
-            	$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
-            	$groups = array();
-            	while($temp = mysql_fetch_array($sql)) {
-            		array_push($groups, $temp); }
-            	//print_r($groups);
+              $sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
+              $groups = array();
+              while($temp = mysql_fetch_array($sql)) {
+                array_push($groups, $temp); }
+              //print_r($groups);
             ?>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-              	<?php
-              	if(!empty($groups))
-             	{
-              		foreach ($groups as $g) {
-                		echo "<li><a href=\"switch.php?g=" . $g['id'] . "\">" . $g['name'] . "</a></li>";
-                	}
+                <?php
+                if(!empty($groups))
+              {
+                  foreach ($groups as $g) {
+                    echo "<li><a href=\"switch.php?g=" . $g['id'] . "\">" . $g['name'] . "</a></li>";
+                  }
                 }
                 ?>
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          	<li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Groups <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="join.php">Join Group</a></li>
                 <li><a href="group.php">Create Group</a></li>
               </ul>
             </li>
-            <li class="active"><a href="login.php">Sign In</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="signup.php">Sign Up</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -149,30 +135,32 @@ if($submission == "yes")
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><?php echo $warning_message; ?></strong>
     </div>
-    <?php }	?>
-	<div class="container-fluid">
-    	<h1 style="text-align: center">Log In</h1><br /><br />
-        <form class="form-horizontal" role="form" method="post" action="login.php">
-          <div class="form-group" id="g_uname">
-            <label for="uname" class="col-md-offset-3 col-md-2 control-label">Username</label>
+    <?php } ?>
+    <div class="container-fluid">
+      <h1 style="text-align: center">Create Group</h1><br /><br />
+        <form class="form-horizontal" role="form" method="post" action="group.php">
+          <div class="form-group" id="g_gname">
+            <label for="gname" class="col-md-offset-3 col-md-2 control-label">Group Name</label>
             <div class="col-md-2">
-              <input type="text" class="form-control" id="uname" name="uname">
-              <span class="glyphicon glyphicon-ok form-control-feedback" id="s_uname_ok" style="display: none;"></span>
-              <span class="glyphicon glyphicon-remove form-control-feedback" id="s_uname_bad" style="display: none;"></span>
+              <input type="text" class="form-control" id="gname" name="gname">
             </div>
           </div>
           <div class="form-group" id="g_pword">
-            <label for="pword" class="col-md-offset-3 col-md-2 control-label">Password</label>
+            <label for="pword" class="col-md-offset-3 col-md-2 control-label">Group Key</label>
             <div class="col-md-2">
               <input type="password" class="form-control" id="pword" name="pword">
-              <span class="glyphicon glyphicon-ok form-control-feedback" id="s_pword_ok" style="display: none;"></span>
-              <span class="glyphicon glyphicon-remove form-control-feedback" id="s_pword_bad" style="display: none;"></span>
+            </div>
+          </div>
+          <div class="form-group" id="g_pword_c">
+            <label for="pword_c" class="col-md-offset-3 col-md-2 control-label">Confirm Group Key</label>
+            <div class="col-md-2">
+              <input type="password" class="form-control" id="pword_c" name="pword_c">
             </div>
           </div>
           <div class="form-group">
             <div class="col-md-offset-5 col-md-2" style="text-align: center">
               <input type="hidden" id="submission" name="submission" value="yes">
-              <button type="submit" class="btn btn-success">Log In</button>
+              <button type="submit" class="btn btn-success">Create</button>
             </div>
           </div>
         </form>
