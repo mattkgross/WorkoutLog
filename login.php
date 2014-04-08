@@ -4,11 +4,8 @@ session_start();
 require_once("headers/mysql.php");
 
 $ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
 $sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
 $user = mysql_fetch_array($sql);
-$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
-$group = mysql_fetch_array($sql);
 
 // Kick out anyone who's already logged in.
 if(!empty($ID) || !empty($user)) {
@@ -32,6 +29,10 @@ if($submission == "yes")
 	
 	if(!empty($user)) {
 		$_SESSION['ID'] = $user['id'];
+		$sql = mysql_query("SELECT g_id FROM user_groups WHERE u_id='" . $user['id'] . "' LIMIT 1");
+		$group = mysql_fetch_array($sql);
+		if(!empty($group)) {
+			$_SESSION['GROUP'] = intval($group['g_id']); }
 		header('Location: index.php');}
 	else {
 		$warning_message = "Incorrect username and/or password. Try again.";}
@@ -116,16 +117,8 @@ if($submission == "yes")
             		array_push($groups, $temp); }
             	//print_r($groups);
             ?>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">No Group <b class="caret"></b></a>
               <ul class="dropdown-menu">
-              	<?php
-              	if(!empty($groups))
-             	{
-              		foreach ($groups as $g) {
-                		echo "<li><a href=\"switch.php?g=" . $g['id'] . "\">" . $g['name'] . "</a></li>";
-                	}
-                }
-                ?>
               </ul>
             </li>
           </ul>

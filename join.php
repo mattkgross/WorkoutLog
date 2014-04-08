@@ -18,39 +18,26 @@ $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {
-  $desc = addslashes($_POST['desc']);
-  $date = stripslashes($_POST['date']);
+  $sel = intval($_POST['gname']);
+  $key = md5($_POST['pword']);
   
-  // Prevent injection
-  if(!get_magic_quotes_gpc())
-  {
-    $desc = $desc;  
-    $date = mysql_real_escape_string($date);
-  }
-  
-  // Check the date
-  list($mm,$dd,$yyyy) = explode('/', $date);
-  if (!checkdate($mm,$dd,$yyyy)) {
-      $d_error = true;
-  }
-  else {
-    $date = $yyyy . "-" . $mm . "-" . $dd;
-  }
-  
-  $sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $ID . "' AND date='" . $date . "'");
+  $sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $ID . "' AND g_id='" . $sel . "'");
   $check = mysql_num_rows($sql);
+
+  $sql = mysql_query("SELECT enroll_key FROM groups WHERE id='" . $sel . "' LIMIT 1");
+  $res = mysql_fetch_array($sql);
   
   if(!empty($check)) {
-    $warning_message = "A workout for this day already exists!"; }
-  else if(strlen($desc) < 20) {
-    $warning_message = "Your workout description needs at least 20 characters."; }
-  else if($d_error) {
-    $warning_message = "Hmm. Were you messing with my code? Something is wrong with the date format."; }
+    $warning_message = "You are already a part of this group!"; }
+  else if(empty($res)) {
+    $warning_message = "The group you are trying to join does not exist."; }
+  else if($key != $res['enroll_key']) {
+    $warning_message = "Sorry, your enrollment key was incorrect."; }
   else {
-    // Add workout
-    mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$ID', '$desc', '$date')");
-    $w_id = mysql_insert_id();
-    header('Location: index.php?alert=workout_success&highlight=' . $w_id . '#post_' . $w_id);
+    // Join group
+    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$sel', '0')");
+    $_SESSION['GROUP'] = $sel;
+    header('Location: index.php');
   }
 }
 ?>

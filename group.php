@@ -35,6 +35,8 @@ if($submission == "yes")
     $warning_message = "A group with this name already exists!"; }
   else if($key != $key_c) {
     $warning_message = "Your enrollment keys do not match!"; }
+  else if(strlen($_POST['pword']) < 7) {
+    $warning_message = "Please enter an enrollment key."; }
   else {
     // Add group
     mysql_query("INSERT INTO groups (name, enroll_key) VALUES ('$name', '$key')");
