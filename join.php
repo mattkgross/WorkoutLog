@@ -3,15 +3,11 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
-$sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
-$user = mysql_fetch_array($sql);
-$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
-$group = mysql_fetch_array($sql);
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
+$group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
 // Kick out anyone who's not logged in.
-if(empty($ID) || empty($user)) {
+if(empty($user)) {
   header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
@@ -21,7 +17,7 @@ if($submission == "yes")
   $sel = intval($_POST['gname']);
   $key = md5($_POST['pword']);
   
-  $sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $ID . "' AND g_id='" . $sel . "'");
+  $sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $user['id'] . "' AND g_id='" . $sel . "'");
   $check = mysql_num_rows($sql);
 
   $sql = mysql_query("SELECT enroll_key FROM groups WHERE id='" . $sel . "' LIMIT 1");
@@ -35,8 +31,9 @@ if($submission == "yes")
     $warning_message = "Sorry, your enrollment key was incorrect."; }
   else {
     // Join group
-    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$sel', '0')");
-    $_SESSION['GROUP'] = $sel;
+    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$user['id']', '$sel', '0')");
+    $sql = mysql_query("SELECT * FROM groups WHERE id='". $sel . "'");
+    $_SESSION['GROUP'] = mysql_fetch_array($sql);
     header('Location: index.php');
   }
 }
@@ -91,13 +88,14 @@ if($submission == "yes")
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
             <?php
+              $ID = empty($user)?0:$user['id'];
               $sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
               $groups = array();
               while($temp = mysql_fetch_array($sql)) {
                 array_push($groups, $temp); }
               //print_r($groups);
             ?>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (!empty($group))?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?php
                 if(!empty($groups))

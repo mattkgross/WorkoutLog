@@ -3,15 +3,11 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
-$sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
-$user = mysql_fetch_array($sql);
-$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
-$group = mysql_fetch_array($sql);
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
+$group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
 // Kick out anyone who's not logged in.
-if(empty($ID) || empty($user)) {
+if(empty($user)) {
 	header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
@@ -37,7 +33,7 @@ if($submission == "yes")
 		$date = $yyyy . "-" . $mm . "-" . $dd;
 	}
 	
-	$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $ID . "' AND date='" . $date . "'");
+	$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $user['id'] . "' AND date='" . $date . "'");
 	$check = mysql_num_rows($sql);
 	
 	if(!empty($check)) {
@@ -48,7 +44,7 @@ if($submission == "yes")
 		$warning_message = "Hmm. Were you messing with my code? Something is wrong with the date format."; }
 	else {
 		// Add workout
-		mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$ID', '$desc', '$date')");
+		mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$user['id']', '$desc', '$date')");
 		$w_id = mysql_insert_id();
 		header('Location: index.php?alert=workout_success&highlight=' . $w_id . '#post_' . $w_id);
 	}
@@ -133,13 +129,14 @@ if($submission == "yes")
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
             <?php
+              $ID = empty($user)?0:$user['id'];
               $sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
               $groups = array();
               while($temp = mysql_fetch_array($sql)) {
                 array_push($groups, $temp); }
               //print_r($groups);
             ?>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (!empty($group))?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?php
                 if(!empty($groups))

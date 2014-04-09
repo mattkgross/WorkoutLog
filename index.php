@@ -3,12 +3,8 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$G_ID = empty($_SESSION['GROUP'])?0:intval($_SESSION['GROUP']);
-$sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
-$user = mysql_fetch_array($sql);
-$sql = mysql_query("SELECT * FROM groups WHERE id='" . $G_ID . "'");
-$group = mysql_fetch_array($sql);
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
+$group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
 $d_loc = (empty($_GET['d_loc']) || intval($_GET['d_loc']) < 0)?0:$_GET['d_loc'];
 $alert = empty($_GET['alert'])?"":$_GET['alert'];
@@ -96,13 +92,14 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
             <?php
+            	$ID = empty($user)?0:$user['id'];
             	$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
             	$groups = array();
             	while($temp = mysql_fetch_array($sql)) {
             		array_push($groups, $temp); }
             	//print_r($groups);
             ?>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($G_ID>0)?$group['name']:"No Group"; ?> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (!empty($group))?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
               	<?php
               	if(!empty($groups))
@@ -123,7 +120,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
                 <li><a href="group.php">Create Group</a></li>
               </ul>
             </li>
-            <li><?php if(empty($ID) || empty($user)) {?><a href="login.php">Sign In</a><?php } else { ?><a href="logout.php">Log Out</a><?php } ?></li>
+            <li><?php if(empty($user)) {?><a href="login.php">Sign In</a><?php } else { ?><a href="logout.php">Log Out</a><?php } ?></li>
             <li><a href="signup.php">Sign Up</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -143,7 +140,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
     </div>
     <?php }	?>
 	<div class="container-fluid">
-    <?php if(empty($ID) || empty($user)) {?>
+    <?php if(empty($user)) {?>
     	<h1 style="text-align: center">Sign In/Up to View the Log!</h1>
     <?php } else { 
 	function week_start($date) {
@@ -232,7 +229,7 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 					);
 					
 					$edit_icon = false;
-					if($ID == $u['id']) {
+					if($user['id'] == $u['id']) {
 						$edit_icon = true;
 					}
 					

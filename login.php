@@ -3,12 +3,10 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
-$user = mysql_fetch_array($sql);
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 
 // Kick out anyone who's already logged in.
-if(!empty($ID) || !empty($user)) {
+if(!empty($user)) {
 	header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
@@ -28,11 +26,12 @@ if($submission == "yes")
 	$user = mysql_fetch_array($sql);
 	
 	if(!empty($user)) {
-		$_SESSION['ID'] = $user['id'];
+		$_SESSION['USER'] = $user;
 		$sql = mysql_query("SELECT g_id FROM user_groups WHERE u_id='" . $user['id'] . "' LIMIT 1");
 		$group = mysql_fetch_array($sql);
 		if(!empty($group)) {
-			$_SESSION['GROUP'] = intval($group['g_id']); }
+			$sql = mysql_query("SELECT * FROM groups WHERE id='" . intval($group['g_id']) . "'");
+			$_SESSION['GROUP'] = mysql_fetch_array($sql); }
 		header('Location: index.php');}
 	else {
 		$warning_message = "Incorrect username and/or password. Try again.";}
@@ -110,13 +109,6 @@ if($submission == "yes")
             <li><a href="create.php">New Entry</a></li>
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
-            <?php
-            	$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
-            	$groups = array();
-            	while($temp = mysql_fetch_array($sql)) {
-            		array_push($groups, $temp); }
-            	//print_r($groups);
-            ?>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">No Group <b class="caret"></b></a>
               <ul class="dropdown-menu">
               </ul>

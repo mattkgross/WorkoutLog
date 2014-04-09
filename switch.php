@@ -3,15 +3,14 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$ID = empty($_SESSION['ID'])?"":intval($_SESSION['ID']);
-$sql = mysql_query("SELECT * FROM users WHERE id='" . $ID . "'");
-$user = mysql_fetch_array($sql);
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 
-$sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $ID . "' AND g_id='" . intval(addslashes($_GET['g'])) . "'");
+$sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $user['id'] . "' AND g_id='" . intval(addslashes($_GET['g'])) . "'");
 $count = mysql_num_rows($sql);
 
 if($count == 1) {
-	$_SESSION['GROUP'] = intval(addslashes($_GET['g'])); }
+	$sql = mysql_query("SELECT * FROM groups WHERE id='". intval(addslashes($_GET['g'])) . "'");
+    $_SESSION['GROUP'] = mysql_fetch_array($sql); }
 
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>
