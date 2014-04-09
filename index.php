@@ -211,12 +211,12 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 				
 				$start = date("Y", $start) . "-" . date("m", $start) . "-" . date("d", $start);
 				$end = date("Y", $end) . "-" . date("m", $end) . "-" . date("d", $end);
-			
-				$users = mysql_query("SELECT * FROM users ORDER BY l_name ASC, f_name ASC");
+				
+				$users = mysql_query("SELECT * FROM users WHERE id IN (SELECT u_id FROM user_groups WHERE g_id='" . $group['id'] . "') ORDER BY l_name ASC, f_name ASC");
 
 				while($u = mysql_fetch_array($users))
 				{					
-					$week_workouts = mysql_query("SELECT * FROM posts WHERE u_id='" . $u['id'] . "' AND date >= '" . $start . "' AND date <= '" . $end . "'");
+					$week_workouts = mysql_query("SELECT * FROM posts WHERE u_id='" . $u['id'] . "' AND g_id='" . $group['id'] . "' AND date >= '" . $start . "' AND date <= '" . $end . "'");
 					
 					$entries = array(
 					"sunday" => "No Entry",
