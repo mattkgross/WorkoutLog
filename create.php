@@ -6,8 +6,8 @@ require_once("headers/mysql.php");
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
-// Kick out anyone who's not logged in.
-if(empty($user)) {
+// Kick out anyone who's not logged in or in a group.
+if(empty($user) || empty($group)) {
 	header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
