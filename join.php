@@ -31,7 +31,8 @@ if($submission == "yes")
     $warning_message = "Sorry, your enrollment key was incorrect."; }
   else {
     // Join group
-    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$user['id']', '$sel', '0')");
+    $ID = $user['id'];
+    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$sel', '0')");
     $sql = mysql_query("SELECT * FROM groups WHERE id='". $sel . "'");
     $_SESSION['GROUP'] = mysql_fetch_array($sql);
     header('Location: index.php');

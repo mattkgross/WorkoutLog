@@ -44,7 +44,8 @@ if($submission == "yes")
 		$warning_message = "Hmm. Were you messing with my code? Something is wrong with the date format."; }
 	else {
 		// Add workout
-		mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$user['id']', '$desc', '$date')");
+		$ID = $user['id'];
+		mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$ID', '$desc', '$date')");
 		$w_id = mysql_insert_id();
 		header('Location: index.php?alert=workout_success&highlight=' . $w_id . '#post_' . $w_id);
 	}

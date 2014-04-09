@@ -38,7 +38,8 @@ if($submission == "yes")
     mysql_query("INSERT INTO groups (name, enroll_key) VALUES ('$name', '$key')");
     $w_id = mysql_insert_id();
     // Join group
-    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$user['id']', '$w_id', '1')");
+    $ID = $user['id'];
+    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$w_id', '1')");
     $sql = mysql_query("SELECT * FROM groups WHERE id='". $sel . "'");
     $_SESSION['GROUP'] = mysql_fetch_array($sql);
     header('Location: index.php');
