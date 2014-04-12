@@ -142,7 +142,11 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 	<div class="container-fluid">
     <?php if(empty($user)) {?>
     	<h1 style="text-align: center">Sign In/Up to View the Log!</h1>
-    <?php } else { 
+    <?php } 
+    else if(empty($group)) {?>
+    	<h1 style="text-align: center">Create or Join a Group to Start Logging!</h1>
+    <?php }
+    else { 
 	function week_start($date) {
     	$ts = strtotime($date);
     	$start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
