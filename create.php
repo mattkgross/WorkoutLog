@@ -10,10 +10,17 @@ $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 if(empty($user) || empty($group)) {
 	header('Location: index.php'); }
 
+$ID = empty($user)?0:$user['id'];
+$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
+$groups = array();
+while($temp = mysql_fetch_array($sql)) {
+  array_push($groups, $temp); }
+
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {
+	$gs = $_POST['group[]'];
 	$desc = addslashes($_POST['desc']);
 	$date = stripslashes($_POST['date']);
 	
@@ -32,6 +39,10 @@ if($submission == "yes")
 	else {
 		$date = $yyyy . "-" . $mm . "-" . $dd;
 	}
+
+
+	// from groups submitted, delete any that are not in $groups
+	// Check to make sure a post has not been made to the same group on the same day	
 	
 	$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $user['id'] . "' AND date='" . $date . "'");
 	$check = mysql_num_rows($sql);
@@ -42,6 +53,9 @@ if($submission == "yes")
 		$warning_message = "Your workout description needs at least 20 characters."; }
 	else if($d_error) {
 		$warning_message = "Hmm. Were you messing with my code? Something is wrong with the date format."; }
+	else if(empty($gs)) {
+		$warning_message = "You must add this workout to at least one group.";
+	}
 	else {
 		// Add workout
 		$ID = $user['id'];
@@ -129,14 +143,6 @@ if($submission == "yes")
             <li class="active"><a href="create.php">New Entry</a></li>
             <li><a href="workouts.php">Workouts</a></li>
             <li class="dropdown">
-            <?php
-              $ID = empty($user)?0:$user['id'];
-              $sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
-              $groups = array();
-              while($temp = mysql_fetch_array($sql)) {
-                array_push($groups, $temp); }
-              //print_r($groups);
-            ?>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (!empty($group))?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?php
@@ -174,18 +180,24 @@ if($submission == "yes")
 	<div class="container-fluid">
     	<h1 style="text-align: center">Add Workout Entry</h1><br /><br />
         <form class="form-horizontal" role="form" method="post" action="create.php">
-          <div class="form-group" id="g_uname">
-            <label for="uname" class="col-md-offset-2 col-md-2 control-label">User</label>
-            <div class="col-md-2">
-              <input type="text" class="form-control" id="uname" placeholder="<?php echo stripslashes($user['u_name']); ?>" disabled>
-            </div>
-          </div>
           <div class="form-group" id="g_desc">
             <label for="desc" class="col-md-offset-2 col-md-2 control-label">Workout Description</label>
             <div class="col-md-4">
               <textarea class="form-control" rows="5" id="desc" name="desc"><?php if(!empty($desc)) {echo $desc;} else {echo "- ";} ?></textarea>
               <span class="glyphicon glyphicon-ok form-control-feedback" id="s_desc_ok" style="display: none;"></span>
               <span class="glyphicon glyphicon-remove form-control-feedback" id="s_desc_bad" style="display: none;"></span>
+            </div>
+          </div>
+          <div class="form-group" id="g_group">
+          	<label for="group" class="col-md-offset-2 col-md-2 control-label">Add to Groups</label>
+            <div class="col-md-4">
+            <?php
+            foreach ($groups as $g) {
+	            echo "<label class=\"checkbox-inline\">";
+	            echo "<input type=\"checkbox\" id=\"group[]\" value=\"" . $g['id'] . "\" checked> " . $g['name'];
+	            echo "</label>";
+	        }
+            ?>
             </div>
           </div>
           <?php $cur = date("m") . "/" . date("d") . "/" . date("Y"); ?>
