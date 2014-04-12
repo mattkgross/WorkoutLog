@@ -7,7 +7,7 @@ $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
 // Kick out anyone who's already logged in.
-if(empty($user)) {
+if(!empty($user)) {
 	header('Location: index.php'); }
 
 $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
