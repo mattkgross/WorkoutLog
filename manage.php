@@ -19,7 +19,7 @@ if(!empty($user) && $admin)
 		mysql_query("UPDATE user_groups SET admin='0' WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
 	}
 	else if($req == "del") {
-
+		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
 	}
 	else {
 		echo "No operation request was matched.";

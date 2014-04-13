@@ -96,8 +96,9 @@ Rights: This software is openly distributed and may be used, altered, and redist
 	$(document).ready(function(e) {
         $('.del-member').click(function(e) {
             var m_id = $(this).attr('member');
-
-			sendAjax("del", m_id);
+            var row = $(this).closest('tr');
+            row.fadeOut(1000);
+			var res = sendAjax("del", m_id);
         });
     });
 
@@ -106,14 +107,14 @@ Rights: This software is openly distributed and may be used, altered, and redist
         $('.admin-member').click(function(e) {
             var m_id = $(this).attr('member');
             $(this).toggleClass('admin-member n-admin-member');
-			sendAjax("r-ad", m_id);
+			var res = sendAjax("r-ad", m_id);
         });
     });
     $(document).ready(function(e) {
         $('.n-admin-member').click(function(e) {
             var m_id = $(this).attr('member');
             $(this).toggleClass('n-admin-member admin-member');
-			sendAjax("a-ad", m_id);
+			var res = sendAjax("a-ad", m_id);
         });
     });
 	</script>
