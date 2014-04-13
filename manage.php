@@ -14,9 +14,11 @@ if(!empty($user) && $admin)
 {
 	if($req == "a-ad") {
 		mysql_query("UPDATE user_groups SET admin='1' WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
+	echo "nudlyf!";
 	}
 	else if($req == "r-ad") {
 		mysql_query("UPDATE user_groups SET admin='0' WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
+	echo "nudlyf!";
 	}
 	else if($req == "del") {
 		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");

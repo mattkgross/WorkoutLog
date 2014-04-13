@@ -84,10 +84,10 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	return xmlhttp;
+		    	return xmlhttp.responseText;
 		    }
 		}
-		xmlhttp.open("POST","manage.php",true);
+		xmlhttp.open("POST","manage.php",false);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("req="+req+"&body="+body);
 	}
@@ -98,7 +98,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
             var m_id = $(this).attr('member');
             var row = $(this).closest('tr');
             row.fadeOut(1000);
-			var res = sendAjax("del", m_id);
+			      var res = sendAjax("del", m_id);
         });
     });
 
@@ -107,14 +107,18 @@ Rights: This software is openly distributed and may be used, altered, and redist
         $('.admin-member').click(function(e) {
             var m_id = $(this).attr('member');
             $(this).toggleClass('admin-member n-admin-member');
-			var res = sendAjax("r-ad", m_id);
+            var res = sendAjax("r-ad", m_id);
+            console.log(res);
+
         });
     });
     $(document).ready(function(e) {
         $('.n-admin-member').click(function(e) {
             var m_id = $(this).attr('member');
             $(this).toggleClass('n-admin-member admin-member');
-			var res = sendAjax("a-ad", m_id);
+			      var res = sendAjax("a-ad", m_id);
+            console.log(res);
+
         });
     });
 	</script>
@@ -188,7 +192,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
     <div class="container-fluid">
       <h1 style="text-align: center"><?php echo $group['name']; ?></h1><br /><br />
       <div class="row">
-      	<div class="col-md-offset-1 col-md-2">
+      	<div class="col-md-offset-1 col-md-3">
       		<div class="panel panel-default">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Members</h3>
