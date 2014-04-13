@@ -22,6 +22,7 @@ if($op == "save") {
 	mysql_query("UPDATE posts SET text='". $desc . "' WHERE id='" . $post_id . "'");
 }
 if ($op == "del" || empty($desc)) {
+	mysql_query("DELETE FROM post_groups WHERE p_id='" . $post_id . "'");
 	mysql_query("DELETE FROM posts WHERE id='" . $post_id . "'");
 }
 
