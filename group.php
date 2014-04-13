@@ -33,7 +33,7 @@ if($submission == "yes")
   else if($key != $key_c) {
     $warning_message = "Your enrollment keys do not match!"; }
   else if(strlen($_POST['pword']) < 7) {
-    $warning_message = "Please enter an enrollment key."; }
+    $warning_message = "Please enter an enrollment key greater than 6 characters."; }
   else {
     // Add group
     mysql_query("INSERT INTO groups (name, enroll_key) VALUES ('$name', '$key')");
