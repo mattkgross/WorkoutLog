@@ -70,6 +70,25 @@ Rights: This software is openly distributed and may be used, altered, and redist
 			$("#desc").val(desc);
 			$("#date").val(date);
 			$("#p_id").val(post);
+
+			// Get group data via AJAX to PHP request
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+			  	xmlhttp=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			xmlhttp.onreadystatechange=function() {
+			  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			    	document.getElementById("u_groups").innerHTML=xmlhttp.responseText;
+			    }
+			}
+			xmlhttp.open("GET","getgroups.php?p="+post,true);
+			xmlhttp.send();
+
 			// Show it
 			$('#myModal').modal('show');
         });
@@ -319,18 +338,16 @@ Rights: This software is openly distributed and may be used, altered, and redist
           </div>
           <div class="modal-body">
               <form class="form-horizontal" role="form" method="post" action="edit.php">
-              <div class="form-group" id="g_uname">
-                <label for="uname" class="col-md-2 control-label">User</label>
-                <div class="col-md-5">
-                  <input type="text" class="form-control" id="uname" placeholder="<?php echo stripslashes($user['u_name']); ?>" disabled>
-                </div>
-              </div>
               <div class="form-group" id="g_desc">
                 <label for="desc" class="col-md-2 control-label">Workout</label>
                 <div class="col-md-9">
                   <textarea class="form-control" rows="12" id="desc" name="desc"></textarea>
                 </div>
               </div>
+              <div class="form-group" id="g_group">
+	          	<label for="group" class="col-md-2 control-label">Groups</label>
+	            <div class="col-md-9" id="u_groups"></div>
+	          </div>
               <div class="form-group" id="g_date">
                 <label for="date" class="col-md-2 control-label">Date</label>
                 <div class="col-md-5">
