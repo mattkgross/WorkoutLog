@@ -6,7 +6,7 @@ require_once("headers/mysql.php");
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 
-$post_id = empty(($_POST['p_id'])?0:intval(addslashes($_POST['p_id']));
+$post_id = empty($_POST['p_id'])?0:intval(addslashes($_POST['p_id']));
 $desc = empty($_POST['desc'])?"":addslashes($_POST['desc']);
 $op = empty($_POST['op'])?"":$_POST['op'];
 

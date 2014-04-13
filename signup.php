@@ -200,7 +200,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
           <ul class="nav navbar-nav">
             <li><a href="index.php">Log</a></li>
             <li><a href="create.php">New Entry</a></li>
-            <li><a href="workouts.php">Workouts</a></li>
+            <li><a href="team.php">Team</a></li>
             <li class="dropdown">
             <?php
             	$ID = empty($user)?0:$user['id'];

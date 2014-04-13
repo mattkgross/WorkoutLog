@@ -121,7 +121,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
           <ul class="nav navbar-nav">
             <li><a href="index.php">Log</a></li>
             <li><a href="create.php">New Entry</a></li>
-            <li><a href="workouts.php">Workouts</a></li>
+            <li><a href="team.php">Team</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">No Group <b class="caret"></b></a>
               <ul class="dropdown-menu">
