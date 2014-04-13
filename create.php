@@ -20,7 +20,7 @@ $submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
 
 if($submission == "yes")
 {
-	$gs = $_POST['group[]'];
+	$gs = $_POST['group'];
 	$desc = addslashes($_POST['desc']);
 	$date = stripslashes($_POST['date']);
 	
@@ -32,6 +32,7 @@ if($submission == "yes")
 	}
 	
 	// Check the date
+	$d_error = false;
 	list($mm,$dd,$yyyy) = explode('/', $date);
 	if (!checkdate($mm,$dd,$yyyy)) {
 			$d_error = true;
@@ -40,11 +41,22 @@ if($submission == "yes")
 		$date = $yyyy . "-" . $mm . "-" . $dd;
 	}
 
+	$g_check = array();
+	foreach ($groups as $key => $value) {
+		array_push($g_check, $value['id']);
+	}
+	// From groups submitted, delete any that are not in $g_check
+	foreach ($gs as $key => $g) {
+		if(!in_array($g, $g_check)) {
+			unset($gs[$key]);
+			array_values($gs);
+		}
+	}
 
-	// from groups submitted, delete any that are not in $groups
 	// Check to make sure a post has not been made to the same group on the same day	
-	
-	$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $user['id'] . "' AND date='" . $date . "'");
+	//$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $user['id'] . "' AND date='" . $date . "'");
+	$in_str = "'" . implode("', '", $gs) . "'";
+	$sql = mysql_query("SELECT * FROM posts WHERE u_id='" . $user['id'] . "' AND date='" . $date . "' AND id IN (SELECT p_id FROM post_groups WHERE g_id IN (" . $in_str . "))");
 	$check = mysql_num_rows($sql);
 	
 	if(!empty($check)) {
@@ -61,6 +73,9 @@ if($submission == "yes")
 		$ID = $user['id'];
 		mysql_query("INSERT INTO posts (u_id, text, date) VALUES ('$ID', '$desc', '$date')");
 		$w_id = mysql_insert_id();
+		foreach ($gs as $key => $value) {
+			mysql_query("INSERT INTO post_groups (p_id, g_id) VALUES (" . $w_id . ", " . $value . ")");
+		}
 		header('Location: index.php?alert=workout_success&highlight=' . $w_id . '#post_' . $w_id);
 	}
 }
@@ -194,7 +209,7 @@ if($submission == "yes")
             <?php
             foreach ($groups as $g) {
 	            echo "<label class=\"checkbox-inline\">";
-	            echo "<input type=\"checkbox\" id=\"group[]\" value=\"" . $g['id'] . "\" checked> " . $g['name'];
+	            echo "<input type=\"checkbox\" name=\"group[]\" value=\"" . $g['id'] . "\" checked> " . $g['name'];
 	            echo "</label>";
 	        }
             ?>
