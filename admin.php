@@ -50,7 +50,74 @@ Rights: This software is openly distributed and may be used, altered, and redist
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+	.del-member {
+		color: red;
+	}
+	.admin-member {
+		color: green;
+	}
+	.n-admin-member {
+		color: black;
+	}
+    </style>
     
+    <script type="text/javascript">
+    // Initialize the Tooltips & Popovers
+	$(function() {
+    	$('a[rel="tooltip"]').tooltip();
+	});
+
+    // AJAX Handler
+    function sendAjax(req, body)
+    {
+    	// Get group data via AJAX to PHP request
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+		  	xmlhttp=new XMLHttpRequest();
+		}
+		else {
+			// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange=function() {
+		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		    	return xmlhttp;
+		    }
+		}
+		xmlhttp.open("POST","manage.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send("req="+req+"&body="+body);
+	}
+
+	// Member Management
+	$(document).ready(function(e) {
+        $('.del-member').click(function(e) {
+            var m_id = $(this).attr('member');
+
+			sendAjax("del", m_id);
+        });
+    });
+
+    // Admin Management
+	$(document).ready(function(e) {
+        $('.admin-member').click(function(e) {
+            var m_id = $(this).attr('member');
+            $(this).toggleClass('admin-member n-admin-member');
+			sendAjax("r-ad", m_id);
+        });
+    });
+    $(document).ready(function(e) {
+        $('.n-admin-member').click(function(e) {
+            var m_id = $(this).attr('member');
+            $(this).toggleClass('n-admin-member admin-member');
+			sendAjax("a-ad", m_id);
+        });
+    });
+	</script>
+
   </head>
   <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -118,33 +185,44 @@ Rights: This software is openly distributed and may be used, altered, and redist
     </div>
     <?php } ?>
     <div class="container-fluid">
-      <h1 style="text-align: center">Create Group</h1><br /><br />
-        <form class="form-horizontal" role="form" method="post" action="group.php">
-          <div class="form-group" id="g_gname">
-            <label for="gname" class="col-md-offset-3 col-md-2 control-label">Group Name</label>
-            <div class="col-md-2">
-              <input type="text" class="form-control" id="gname" name="gname">
-            </div>
-          </div>
-          <div class="form-group" id="g_pword">
-            <label for="pword" class="col-md-offset-3 col-md-2 control-label">Group Key</label>
-            <div class="col-md-2">
-              <input type="password" class="form-control" id="pword" name="pword">
-            </div>
-          </div>
-          <div class="form-group" id="g_pword_c">
-            <label for="pword_c" class="col-md-offset-3 col-md-2 control-label">Confirm Group Key</label>
-            <div class="col-md-2">
-              <input type="password" class="form-control" id="pword_c" name="pword_c">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-offset-5 col-md-2" style="text-align: center">
-              <input type="hidden" id="submission" name="submission" value="yes">
-              <button type="submit" class="btn btn-success">Create</button>
-            </div>
-          </div>
-        </form>
+      <h1 style="text-align: center"><?php echo $group['name']; ?></h1><br /><br />
+      <div class="row">
+      	<div class="col-md-offset-1 col-md-2">
+      		<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Members</h3>
+			  </div>
+			  <div class="panel-body">
+			  	  <div class="table-responsive">
+				  <table class="table table-hover table-condensed" id="table1">
+	                
+							  <?php 
+							  	$sql = mysql_query("SELECT u_id,admin FROM user_groups WHERE g_id='" . $group['id'] . "'");
+							  	$user_admin = array();
+							  	while($temp = mysql_fetch_array($sql)) {
+							  		$user_admin[$temp['u_id']] = intval($temp['admin']);
+							  	}
+
+							  	$sql = mysql_query("SELECT id,f_name,l_name,u_name,email FROM users WHERE id IN (SELECT u_id FROM user_groups WHERE g_id='" . $group['id'] . "')");
+							  	$members = array();
+							  	while($temp = mysql_fetch_array($sql)) {
+							  		array_push($members, $temp);
+							  		echo "<tr style=\"vertical-align: middle;\">
+	                    					<td style=\"text-align: left;\">";
+							  		echo $temp['f_name'] . " " . $temp['l_name'];
+							  		echo "</td>
+	                    				  <td style=\"text-align: right;\">";
+	                    			$m_admin = ($user_admin[$temp['id']]==1)?"admin-member":"n-admin-member";
+	                    			echo "<a href=\"mailto:" . $temp['email'] . "\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"left\" data-container=\"body\" title=\"Email " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-envelope\"></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"top\" data-container=\"body\" title=\"Remove " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-ban-circle del-member\" member=" . $temp['id'] . "></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Toggle Admin\" data-container=\"body\"><span class=\"glyphicon glyphicon-user " . $m_admin . "\" member=" . $temp['id'] . "></span></a>";
+	                    			echo "</td></tr>";
+							  	}
+							  ?>
+				  </table>
+				  </div>
+			  </div>
+			</div>
+      	</div>
+      </div>
     </div>
   </body>
 </html>

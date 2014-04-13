@@ -3,11 +3,10 @@ session_start();
 
 require_once("headers/mysql.php");
 
-$post = intval($_GET['p']);
+$post = empty($_GET['p'])?0:intval($_GET['p']);
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 
-// Kick out anyone who's not logged in.
-if(!empty($user)) 
+if(!empty($user))
 {
 
   $sql = mysql_query("SELECT id, name FROM groups WHERE id IN (SELECT g_id FROM post_groups WHERE p_id='" . $post . "')");
