@@ -5,7 +5,12 @@ require_once("headers/mysql.php");
 
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
-$admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
+
+// Check every time to be extra sure they are admin
+$sql = mysql_query("SELECT admin FROM user_groups WHERE u_id='" . $user['id'] . "' AND g_id='" . $group['id'] . "'");
+$temp = mysql_fetch_array($sql);
+$_SESSION['G_ADMIN'] = (intval($temp['admin']==1))?true:false;
+$admin = $_SESSION['G_ADMIN'];
 
 // Kick out anyone who's not logged in or an admin.
 if(empty($user) || !$admin) {
