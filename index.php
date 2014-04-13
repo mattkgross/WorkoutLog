@@ -220,7 +220,8 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
 
 				while($u = mysql_fetch_array($users))
 				{					
-					$week_workouts = mysql_query("SELECT * FROM posts WHERE u_id='" . $u['id'] . "' AND g_id='" . $group['id'] . "' AND date >= '" . $start . "' AND date <= '" . $end . "'");
+					//$week_workouts = mysql_query("SELECT * FROM posts WHERE u_id='" . $u['id'] . "' AND g_id='" . $group['id'] . "' AND date >= '" . $start . "' AND date <= '" . $end . "'");
+					$week_workouts = mysql_query("SELECT * FROM posts WHERE u_id='" . $u['id'] . "' AND date >= '" . $start . "' AND date <= '" . $end . "' AND id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id'] . "')");
 					
 					$entries = array(
 					"sunday" => "No Entry",
