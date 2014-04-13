@@ -9,6 +9,20 @@ $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 $d_loc = (empty($_GET['d_loc']) || intval($_GET['d_loc']) < 0)?0:$_GET['d_loc'];
 $alert = empty($_GET['alert'])?"":$_GET['alert'];
 ?>
+<!--
+Workout Log
+===========
+
+Developer: Matthew Gross
+Email: mattkgross@gmail.com
+Website: http://www.mattkgross.com
+Repository: https://github.com/mattkgross/WorkoutLogger
+Disclaimer: The author of this tool is not responsible for any misuse, loss, or distribution of data or information associated with this site.
+This product is provided AS IS and, by using this software, the site owner agrees to all responsibility resulting from any actions taken when using this service.
+Rights: This software is openly distributed and may be used, altered, and redistributed so long as credit remains given where it is due.
+
+=================================================================================================================================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -333,7 +347,6 @@ $alert = empty($_GET['alert'])?"":$_GET['alert'];
         </div>
       </div>
     </div>
-    
     
     </div>
   </body>
