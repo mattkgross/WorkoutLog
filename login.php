@@ -27,14 +27,18 @@ if($submission == "yes")
 	
 	if(!empty($user)) {
 		$_SESSION['USER'] = $user;
-		$sql = mysql_query("SELECT g_id FROM user_groups WHERE u_id='" . $user['id'] . "' LIMIT 1");
+		$sql = mysql_query("SELECT g_id,admin FROM user_groups WHERE u_id='" . $user['id'] . "' LIMIT 1");
 		$group = mysql_fetch_array($sql);
 		if(!empty($group)) {
 			$sql = mysql_query("SELECT * FROM groups WHERE id='" . intval($group['g_id']) . "'");
-			$_SESSION['GROUP'] = mysql_fetch_array($sql); }
-		header('Location: index.php');}
+			$_SESSION['GROUP'] = mysql_fetch_array($sql);
+			$_SESSION['G_ADMIN'] = (intval($group['admin']) == 1)?true:false;
+		}
+		header('Location: index.php');
+	}
 	else {
-		$warning_message = "Incorrect username and/or password. Try again.";}
+		$warning_message = "Incorrect username and/or password. Try again.";
+	}
 }
 ?>
 <!--

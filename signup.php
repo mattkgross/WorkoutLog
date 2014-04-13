@@ -5,6 +5,7 @@ require_once("headers/mysql.php");
 
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
+$admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
 
 // Kick out anyone who's already logged in.
 if(!empty($user)) {

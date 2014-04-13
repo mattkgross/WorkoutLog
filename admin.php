@@ -7,39 +7,9 @@ $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 $admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
 
-// Kick out anyone who's not logged in.
-if(empty($user)) {
-  header('Location: index.php'); }
-
-$submission = empty($_POST['submission'])?"":stripslashes($_POST['submission']);
-
-if($submission == "yes")
-{
-  $sel = intval($_POST['gname']);
-  $key = md5($_POST['pword']);
-  
-  $sql = mysql_query("SELECT * FROM user_groups WHERE u_id='" . $user['id'] . "' AND g_id='" . $sel . "'");
-  $check = mysql_num_rows($sql);
-
-  $sql = mysql_query("SELECT enroll_key FROM groups WHERE id='" . $sel . "' LIMIT 1");
-  $res = mysql_fetch_array($sql);
-  
-  if(!empty($check)) {
-    $warning_message = "You are already a part of this group!"; }
-  else if(empty($res)) {
-    $warning_message = "The group you are trying to join does not exist."; }
-  else if($key != $res['enroll_key']) {
-    $warning_message = "Sorry, your enrollment key was incorrect."; }
-  else {
-    // Join group
-    $ID = $user['id'];
-    mysql_query("INSERT INTO user_groups (u_id, g_id, admin) VALUES ('$ID', '$sel', '0')");
-    $sql = mysql_query("SELECT * FROM groups WHERE id='". $sel . "'");
-    $_SESSION['GROUP'] = mysql_fetch_array($sql);
-    $_SESSION['G_ADMIN'] = false;
-    header('Location: index.php');
-  }
-}
+// Kick out anyone who's not logged in or an admin.
+if(empty($user) || !$admin) {
+	header('Location: index.php'); }
 ?>
 <!--
 Workout Log
@@ -131,7 +101,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
               <ul class="dropdown-menu">
                 <li><a href="join.php">Join Group</a></li>
                 <li><a href="group.php">Create Group</a></li>
-                <?php if($admin) {echo "<li><a href=\"admin.php\">Manage Group</a></li>";} ?>
+                <li><a href="admin.php">Manage Group</a></li>
               </ul>
             </li>
             <li><a href="logout.php">Log Out</a></li>
@@ -148,22 +118,12 @@ Rights: This software is openly distributed and may be used, altered, and redist
     </div>
     <?php } ?>
     <div class="container-fluid">
-      <h1 style="text-align: center">Join Group</h1><br /><br />
-        <form class="form-horizontal" role="form" method="post" action="join.php">
+      <h1 style="text-align: center">Create Group</h1><br /><br />
+        <form class="form-horizontal" role="form" method="post" action="group.php">
           <div class="form-group" id="g_gname">
             <label for="gname" class="col-md-offset-3 col-md-2 control-label">Group Name</label>
             <div class="col-md-2">
-              <select class="form-control" id="gname" name="gname">
-              <?php
-                $sql = mysql_query("SELECT id,name FROM groups");
-                $groups = array();
-                while($temp = mysql_fetch_array($sql)) {
-                  array_push($groups, $temp); }
-                foreach ($groups as $group) {
-                  echo "<option value=\"" . $group['id'] . "\">" . $group['name'] . "</option>";
-                }
-              ?>
-              </select>
+              <input type="text" class="form-control" id="gname" name="gname">
             </div>
           </div>
           <div class="form-group" id="g_pword">
@@ -172,10 +132,16 @@ Rights: This software is openly distributed and may be used, altered, and redist
               <input type="password" class="form-control" id="pword" name="pword">
             </div>
           </div>
+          <div class="form-group" id="g_pword_c">
+            <label for="pword_c" class="col-md-offset-3 col-md-2 control-label">Confirm Group Key</label>
+            <div class="col-md-2">
+              <input type="password" class="form-control" id="pword_c" name="pword_c">
+            </div>
+          </div>
           <div class="form-group">
             <div class="col-md-offset-5 col-md-2" style="text-align: center">
               <input type="hidden" id="submission" name="submission" value="yes">
-              <button type="submit" class="btn btn-success">Join</button>
+              <button type="submit" class="btn btn-success">Create</button>
             </div>
           </div>
         </form>

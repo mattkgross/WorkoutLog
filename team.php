@@ -5,6 +5,7 @@ require_once("headers/mysql.php");
 
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
+$admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
 
 // Kick out anyone who's not logged in.
 if(empty($user)) {
@@ -96,6 +97,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
               <ul class="dropdown-menu">
                 <li><a href="join.php">Join Group</a></li>
                 <li><a href="group.php">Create Group</a></li>
+                <?php if($admin) {echo "<li><a href=\"admin.php\">Manage Group</a></li>";} ?>
               </ul>
             </li>
             <li><a href="logout.php">Log Out</a></li>
