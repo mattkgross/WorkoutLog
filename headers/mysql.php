@@ -34,6 +34,6 @@ else {
 	$con = mysql_connect(ini_get("mysql.default_host"), "root", "");
 }
 if(!$con)
-	die("Database connection failure! Please alert webmaster.");
+	die("Database connection failure! Please alert webmaster. Nud!");
 mysql_select_db("workout");
 ?>
