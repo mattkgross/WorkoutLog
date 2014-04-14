@@ -105,7 +105,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` text NOT NULL,
   `u_name` text NOT NULL,
   `password` text NOT NULL,
-  `salt` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
