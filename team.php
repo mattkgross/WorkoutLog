@@ -210,54 +210,91 @@ Rights: This software is openly distributed and may be used, altered, and redist
         <div class="tab-pane" id="workouts">
             <h1>Workouts</h1>
             <p>
-              <div class="row">
-              <div class="col-md-offset-2 col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Prep Phase</h3>
-                  </div>
-                  <div class="panel-body">
-                    <strong>Instructions:</strong> Look at the <a href="workouts/Prep_Phase_Scheduling.pdf" target="_blank">Schedule</a> pdf for guidance on how to plan your workouts. For instructional guidance with regards to form and technique, send BZ or a captain an email to schedule a training session.
-                  </div>
-                  <div class="panel-footer">
-                    <ul class="list-inline">
-                      <li><a href="workouts/Prep_Phase_Scheduling.pdf" target="_blank">Schedule</a></li> |
-                        <li><a href="workouts/Prep_Phase_Conditioning.pdf" target="_blank">Conditioning</a></li> |
-                        <li><a href="workouts/Prep_Phase_SAQ.pdf" target="_blank">SAQ</a></li> |
-                        <li><a href="workouts/Prep_Phase_Core_Circuits.pdf" target="_blank">Core Circuits</a></li> |
-                        <li><a href="workouts/Prep_Phase_Strength_Day_1.pdf" target="_blank">Strength 1</a></li> |
-                        <li><a href="workouts/Prep_Phase_Strength_Day_1_Coaching_Cues.pdf" target="_blank">Strength 1 - Cues</a></li> |
-                        <li><a href="workouts/Prep_Phase_Strength_Day_2.pdf" target="_blank">Strength 2</a></li> |
-                        <li><a href="workouts/Prep_Phase_Strength_Day_2_Coaching_Cues.pdf" target="_blank">Strength 2 - Cues</a></li>
-                    </ul>
-                  </div>
+
+                <?php
+                $sql = mysql_query("SELECT * FROM workoutitems where g_id='" . $group['id'] . "'");
+                $workoutItems = array();
+                while($temp = mysql_fetch_array($sql)) {
+                  array_push($workoutItems, $temp); }
+                if (!empty($workoutItems))
+                {
+                foreach ($workoutItems as $workoutItems) 
+                {
+                 ?>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <?php
+                      echo "<h3 class=\"panel-title\">" . $workoutItems['title'] . "</h3>";
+                      ?>
+                         </div>
+                         <div class="panel-body">
+                            
+                            <?php 
+                            echo $workoutItems['w_loc'];
+                            ?>
+                            
+                         </div>
+                        
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <?php 
+                }
+                }
+                else 
+                {
+                  echo "This group has no workouts to display.";
+                } 
+
+                ?>
             </p>
         </div>
         <div class="tab-pane" id="plays">
             <h1>Plays</h1>
             <p>
-              <div class="row">
-          <div class="col-md-offset-2 col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Circuit Training</h3>
-                  </div>
-                  <div class="panel-body">
-                    <strong>Instructions:</strong> Perform each circuit 3 times (3 sets). Between each set of the circuit, leave time for recovery (about one minute of rest). For the ladder exercises, refer to <a href="#v_1">Video 1</a> &amp; <a href="#v_2">Video 2</a>.
-                  </div>
-                  <div class="panel-footer">
-                    <ul class="list-inline">
-                      <li><a href="workouts/Circuit_1.pdf" target="_blank">Circuit 1</a></li> |
-                        <li><a href="workouts/Circuit_2.pdf" target="_blank">Circuit 2</a></li> |
-                        <li><a href="workouts/Circuit_3.pdf" target="_blank">Circuit 3</a></li>
-                    </ul>
-                  </div>
+
+                <?php
+                $sql = mysql_query("SELECT * FROM playitems where g_id='" . $group['id'] . "'");
+                $playItems = array();
+                while($temp = mysql_fetch_array($sql)) {
+                  array_push($playItems, $temp); }
+                if (!empty($playItems))
+                {
+                foreach ($playItems as $playItems) 
+                {
+                 ?>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <?php
+                      echo "<h3 class=\"panel-title\">" . $playItems['title'] . "</h3>";
+                      ?>
+                         </div>
+                         <div class="panel-body">
+                            
+                            <?php 
+                            echo $playItems['p_loc'] ;
+                             ?>
+                            
+                         </div>
+                        
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <?php 
+                }
+                }
+                else 
+                {
+                  echo "This group has no videos to display.";
+                } 
+
+                ?>
             </p>
         </div>
     </div>
