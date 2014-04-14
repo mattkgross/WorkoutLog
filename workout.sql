@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2014 at 09:53 PM
+-- Generation Time: Apr 14, 2014 at 03:46 AM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -31,7 +31,38 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `name` text NOT NULL,
   `enroll_key` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsitems`
+--
+
+CREATE TABLE IF NOT EXISTS `newsitems` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(11) NOT NULL,
+  `date` date NOT NULL,
+  `n_text` text NOT NULL,
+  `n_title` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `playitems`
+--
+
+CREATE TABLE IF NOT EXISTS `playitems` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(20) NOT NULL,
+  `title` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `p_loc` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -75,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `u_name` text NOT NULL,
   `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -91,7 +122,37 @@ CREATE TABLE IF NOT EXISTS `user_groups` (
   PRIMARY KEY (`id`),
   KEY `g_id` (`g_id`),
   KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videoitems`
+--
+
+CREATE TABLE IF NOT EXISTS `videoitems` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(20) NOT NULL,
+  `title` text NOT NULL,
+  `link` text NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `workoutitems`
+--
+
+CREATE TABLE IF NOT EXISTS `workoutitems` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `g_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `title` text NOT NULL,
+  `w_loc` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

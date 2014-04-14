@@ -125,23 +125,36 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 $sql = mysql_query("SELECT * FROM newsitems where g_id='" . $group['id'] . "'");
                 $newsItems = array();
                 while($temp = mysql_fetch_array($sql)) {
-                  array_push($newsItems, $temp); }
-                foreach ($newsItems as $newsItems) 
+                array_push($newsItems, $temp); }
+                if (!empty($newsItems))
                 {
-                 ?>
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
-                    <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <?php
-                      echo "<h3 class=\"panel-title\">" . $newsItems['n_title'] . "</h3>";
-                      ?>
-                         </div>
-                          <?php echo "<div class=\"panel-body\">" . $newsItems['n_text'] . "</div>" ?>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
+
+                  foreach ($newsItems as $newsItems) 
+                  {
+                  ?>
+                  <div class="row">
+                      <div class="col-md-offset-2 col-md-8">
+                      <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <?php
+                        echo "<h3 class=\"panel-title\">" . $newsItems['n_title'] . "</h3>";
+                        ?>
+                           </div>
+                            <?php echo "<div class=\"panel-body\">" . $newsItems['n_text'] . "</div>" ?>
+                          </div>
+                      </div>
+                  </div>
+                  <?php 
+                }
+              }
+                else 
+                {
+                  echo "This group has no news items to display.";
+                } 
+                  
+                ?>
+
+
             </p>
         </div>
 
@@ -149,26 +162,48 @@ Rights: This software is openly distributed and may be used, altered, and redist
         <div class="tab-pane" id="videos">
             <h1>Videos</h1>
             <p>
-                    
-        <div class="row">
-          <div class="col-md-offset-2 col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Videos</h3>
-                  </div>
-                  <div class="panel-body">
-                    <a name="v_1"></a>
-                    <strong>Video 1:</strong><br /><br />
-                    <iframe width="420" height="315" src="//www.youtube.com/embed/5bisvx72HuY" frameborder="0" allowfullscreen></iframe><br /><br />
-                    
-                    <a name="v_2"></a>
-                    <strong>Video 2:</strong><br /><br />
-                    <iframe width="560" height="315" src="//www.youtube.com/embed/e6IT6nOhWiU" frameborder="0" allowfullscreen></iframe>
-                  </div>
+
+                <?php
+                $sql = mysql_query("SELECT * FROM videoitems where g_id='" . $group['id'] . "'");
+                $videoItems = array();
+                while($temp = mysql_fetch_array($sql)) {
+                  array_push($videoItems, $temp); }
+                if (!empty($videoItems))
+                {
+                foreach ($videoItems as $videoItems) 
+                {
+                 ?>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <?php
+                      echo "<h3 class=\"panel-title\">" . $videoItems['title'] . "</h3>";
+                      ?>
+                         </div>
+                         <div class="panel-body">
+                            
+                            <?php echo "<iframe width=\"420\" height=\"315\" src=\"" . $videoItems['link'] . "\" frameborder=\"0\" allowfullscreen>" ?>
+                            </iframe>
+                            <br /><br />
+                         </div>
+                        
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <?php 
+                }
+                }
+                else 
+                {
+                  echo "This group has no videos to display.";
+                } 
+
+                ?>
             </p>
+                    
+      
         </div>
 
 
