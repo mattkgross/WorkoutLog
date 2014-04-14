@@ -61,7 +61,7 @@ if($submission == "yes")
 		// Sign them up and go to log page
 		mysql_query("INSERT INTO users (f_name, l_name, email, u_name, password) VALUES ('$fname', '$lname', '$email', '$uname', '$pword')");
 		$_SESSION['USER'] = mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='" . mysql_insert_id() . "'"));
-		header('Location: index.php');
+		header('Location: index.php?nud');
 	}
 	
 	if($error == "uname") {

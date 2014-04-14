@@ -30,7 +30,6 @@ $conn_str = getenv("MYSQLCONNSTR_DefaultConnection");
 if(!empty($conn_str)) {
 	$conn_array = connStrToArray($conn_str);
 	$con = mysql_connect($conn_array['Data Source'], $conn_array['User Id'], $conn_array['Password']);
-    echo mysql_num_rows(mysql_query("SELECT * FROM users"));
 }
 // Localhost connection
 else {
