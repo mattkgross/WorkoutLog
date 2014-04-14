@@ -1,160 +1,267 @@
--- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
+CREATE DATABASE  IF NOT EXISTS `workout` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `workout`;
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 14, 2014 at 08:02 AM
--- Server version: 5.6.15-log
--- PHP Version: 5.5.8
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: 127.0.0.1    Database: workout
+-- ------------------------------------------------------
+-- Server version	5.6.15-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Database: `workout`
---
-
--- --------------------------------------------------------
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `groups`
 --
 
-CREATE TABLE IF NOT EXISTS `groups` (
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
-  `enroll_key` text NOT NULL,
+  `enroll_key` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `newsitems`
---
-
-CREATE TABLE IF NOT EXISTS `newsitems` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `g_id` bigint(11) NOT NULL,
-  `date` date NOT NULL,
-  `n_text` text NOT NULL,
-  `n_title` text NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
-
--- --------------------------------------------------------
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `playitems`
+-- Dumping data for table `groups`
 --
 
-CREATE TABLE IF NOT EXISTS `playitems` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `g_id` bigint(20) NOT NULL,
-  `title` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `p_loc` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Table structure for table `posts`
+-- Table structure for table `news`
 --
 
-CREATE TABLE IF NOT EXISTS `posts` (
+DROP TABLE IF EXISTS `news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `news` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `u_id` bigint(20) NOT NULL,
+  `g_id` bigint(20) unsigned NOT NULL,
+  `title` text NOT NULL,
   `text` longtext NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `u_id` (`u_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `news`
+--
+
+LOCK TABLES `news` WRITE;
+/*!40000 ALTER TABLE `news` DISABLE KEYS */;
+/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plays`
+--
+
+DROP TABLE IF EXISTS `plays`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `plays` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(20) unsigned NOT NULL,
+  `title` text NOT NULL,
+  `filename` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plays`
+--
+
+LOCK TABLES `plays` WRITE;
+/*!40000 ALTER TABLE `plays` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plays` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `post_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `post_groups` (
+DROP TABLE IF EXISTS `post_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `p_id` bigint(20) NOT NULL,
-  `g_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+  `p_id` bigint(20) unsigned NOT NULL,
+  `g_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `p_id_idx` (`p_id`),
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `users`
+-- Dumping data for table `post_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `f_name` text NOT NULL,
-  `l_name` text NOT NULL,
-  `email` text NOT NULL,
-  `u_name` text NOT NULL,
-  `password` text NOT NULL,
-  `salt` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+LOCK TABLES `post_groups` WRITE;
+/*!40000 ALTER TABLE `post_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_groups` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- --------------------------------------------------------
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `u_id` bigint(20) unsigned NOT NULL,
+  `text` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `u_id_idx` (`u_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts`
+--
+
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `user_groups` (
+DROP TABLE IF EXISTS `user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `u_id` bigint(20) unsigned NOT NULL,
   `g_id` bigint(20) unsigned NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `g_id` (`g_id`),
-  KEY `u_id` (`u_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
-
--- --------------------------------------------------------
+  KEY `u_id_idx` (`u_id`),
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `videoitems`
+-- Dumping data for table `user_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `videoitems` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `g_id` bigint(20) NOT NULL,
-  `title` text NOT NULL,
-  `link` text NOT NULL,
-  `date` date NOT NULL,
+LOCK TABLES `user_groups` WRITE;
+/*!40000 ALTER TABLE `user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `f_name` text NOT NULL,
+  `l_name` text NOT NULL,
+  `email` text NOT NULL,
+  `u_name` text NOT NULL,
+  `password` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `workoutitems`
+-- Dumping data for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `workoutitems` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `g_id` int(11) NOT NULL,
-  `date` date NOT NULL,
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `videos`
+--
+
+DROP TABLE IF EXISTS `videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `videos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
-  `w_loc` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `filename` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `videos`
+--
+
+LOCK TABLES `videos` WRITE;
+/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `workouts`
+--
+
+DROP TABLE IF EXISTS `workouts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `workouts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `g_id` bigint(20) unsigned NOT NULL,
+  `title` text NOT NULL,
+  `filename` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `g_id_idx` (`g_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `workouts`
+--
+
+LOCK TABLES `workouts` WRITE;
+/*!40000 ALTER TABLE `workouts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `workouts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-04-14 17:39:40
