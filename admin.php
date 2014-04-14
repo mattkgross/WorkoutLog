@@ -89,7 +89,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	console.log(xmlhttp.responseText);
+		    	//console.log(xmlhttp.responseText);
 		    }
 		}
 		xmlhttp.open("POST","manage.php",true);
@@ -109,21 +109,17 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
     // Admin Management
 	$(document).ready(function(e) {
-        $('.admin-member').click(function(e) {
-            var m_id = $(this).attr('member');
-            //$(this).toggleClass('admin-member n-admin-member');
-            $(this).attr('class', 'glyphicon glyphicon-user n-admin-member');
-            sendAjax("r-ad", m_id);
-        });
-    });
-    $(document).ready(function(e) {
-        $('.n-admin-member').click(function(e) {
-            var m_id = $(this).attr('member');
-            //$(this).toggleClass('n-admin-member admin-member');
-            $(this).attr('class', 'glyphicon glyphicon-user admin-member');
-			sendAjax("a-ad", m_id);
-        });
-    });
+	    $('#table1').on('click', '.admin-member', function(e) {
+	        var m_id = $(this).attr('member');
+	        $(this).toggleClass('admin-member n-admin-member');
+	        sendAjax("r-ad", m_id);
+	    });  
+	    $('#table1').on('click', '.n-admin-member', function(e) {
+	        var m_id = $(this).attr('member');
+	        $(this).toggleClass('n-admin-member admin-member');
+	        sendAjax("a-ad", m_id);
+	    });
+	});
 	</script>
 
   </head>
