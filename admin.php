@@ -89,10 +89,10 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	return xmlhttp.responseText;
+		    	console.log(xmlhttp.responseText);
 		    }
 		}
-		xmlhttp.open("POST","manage.php",false);
+		xmlhttp.open("POST","manage.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("req="+req+"&body="+body);
 	}
@@ -103,7 +103,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
             var m_id = $(this).attr('member');
             var row = $(this).closest('tr');
             row.fadeOut(1000);
-			      var res = sendAjax("del", m_id);
+			sendAjax("del", m_id);
         });
     });
 
@@ -111,19 +111,17 @@ Rights: This software is openly distributed and may be used, altered, and redist
 	$(document).ready(function(e) {
         $('.admin-member').click(function(e) {
             var m_id = $(this).attr('member');
-            $(this).toggleClass('admin-member n-admin-member');
-            var res = sendAjax("r-ad", m_id);
-            console.log(res);
-
+            //$(this).toggleClass('admin-member n-admin-member');
+            $(this).attr('class', 'glyphicon glyphicon-user n-admin-member');
+            sendAjax("r-ad", m_id);
         });
     });
     $(document).ready(function(e) {
         $('.n-admin-member').click(function(e) {
             var m_id = $(this).attr('member');
-            $(this).toggleClass('n-admin-member admin-member');
-			      var res = sendAjax("a-ad", m_id);
-            console.log(res);
-
+            //$(this).toggleClass('n-admin-member admin-member');
+            $(this).attr('class', 'glyphicon glyphicon-user admin-member');
+			sendAjax("a-ad", m_id);
         });
     });
 	</script>
@@ -223,7 +221,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
 							  		echo "</td>
 	                    				  <td style=\"text-align: right;\">";
 	                    			$m_admin = ($user_admin[$temp['id']]==1)?"admin-member":"n-admin-member";
-	                    			echo "<a href=\"mailto:" . $temp['email'] . "\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"left\" data-container=\"body\" title=\"Email " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-envelope\"></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"top\" data-container=\"body\" title=\"Remove " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-ban-circle del-member\" member=" . $temp['id'] . "></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Toggle Admin\" data-container=\"body\"><span class=\"glyphicon glyphicon-user " . $m_admin . "\" member=" . $temp['id'] . "></span></a>";
+	                    			echo "<a href=\"mailto:" . $temp['email'] . "\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"left\" data-container=\"body\" title=\"Email " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-envelope\"></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"top\" data-container=\"body\" title=\"Remove " . $temp['f_name'] . "\"><span class=\"glyphicon glyphicon-ban-circle del-member\" member=\"" . $temp['id'] . "\"></span></a>&emsp;<a href=\"#\" rel=\"tooltip\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Toggle Admin\" data-container=\"body\"><span class=\"glyphicon glyphicon-user " . $m_admin . "\" member=\"" . $temp['id'] . "\"></span></a>";
 	                    			echo "</td></tr>";
 							  	}
 							  ?>
