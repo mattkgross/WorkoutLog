@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.4
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2014 at 03:46 AM
+-- Generation Time: Apr 14, 2014 at 08:02 AM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` text NOT NULL,
   `u_name` text NOT NULL,
   `password` text NOT NULL,
+  `salt` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 

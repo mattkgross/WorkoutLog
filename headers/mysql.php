@@ -26,10 +26,12 @@ function connStrToArray($conn_str){
 
 $conn_str = getenv("MYSQLCONNSTR_DefaultConnection");
 
+// Azure Connection
 if(!empty($conn_str)) {
 	$conn_array = connStrToArray($conn_str);
 	$con = mysql_connect($conn_array['Data Source'], $conn_array['User Id'], $conn_array['Password']);
 }
+// Localhost connection
 else {
 	$con = mysql_connect(ini_get("mysql.default_host"), "root", "");
 }

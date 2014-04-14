@@ -3,6 +3,8 @@ session_start();
 
 require_once("headers/mysql.php");
 
+require("headers/salt.php");
+
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 $admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
@@ -53,6 +55,9 @@ if($submission == "yes")
 		$error = "pword";
 	}
 	else {
+		// Salt the password
+		$pword = create_hash($pword);
+
 		// Sign them up and go to log page
 		mysql_query("INSERT INTO users (f_name, l_name, email, u_name, password) VALUES ('$fname', '$lname', '$email', '$uname', '$pword')");
 		$_SESSION['USER'] = mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='" . mysql_insert_id() . "'"));

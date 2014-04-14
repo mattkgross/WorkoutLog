@@ -3,6 +3,8 @@ session_start();
 
 require_once("headers/mysql.php");
 
+require("headers/salt.php");
+
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 
 // Kick out anyone who's already logged in.
@@ -22,10 +24,10 @@ if($submission == "yes")
 		$uname = mysql_real_escape_string($uname);
 	}
 	
-	$sql = mysql_query("SELECT * FROM users WHERE u_name='" . $uname . "' AND password='" . $pword . "'");
+	$sql = mysql_query("SELECT * FROM users WHERE u_name='" . $uname . "' LIMIT 1");
 	$user = mysql_fetch_array($sql);
 	
-	if(!empty($user)) {
+	if(!empty($user) && validate_password($pword, $user['password'])) {
 		$_SESSION['USER'] = $user;
 		$sql = mysql_query("SELECT g_id,admin FROM user_groups WHERE u_id='" . $user['id'] . "' LIMIT 1");
 		$group = mysql_fetch_array($sql);
