@@ -108,21 +108,75 @@ Rights: This software is openly distributed and may be used, altered, and redist
     </div>
     </nav>
 	<div class="container-fluid">
-    	<div class="row">
-        	<div class="col-md-offset-2 col-md-8">
+
+    <div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#news" data-toggle="tab">News</a></li>
+        <li><a href="#videos" data-toggle="tab">Videos</a></li>
+        <li><a href="#workouts" data-toggle="tab">Workouts</a></li>
+        <li><a href="#plays" data-toggle="tab">Plays</a></li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="news">
+            <h1>News</h1>
+            <p>
+
+                <?php
+                $sql = mysql_query("SELECT * FROM newsitems where g_id='" . $group['id'] . "'");
+                $newsItems = array();
+                while($temp = mysql_fetch_array($sql)) {
+                  array_push($newsItems, $temp); }
+                foreach ($newsItems as $newsItems) 
+                {
+                 ?>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <?php
+                      echo "<h3 class=\"panel-title\">" . $newsItems['n_title'] . "</h3>";
+                      ?>
+                         </div>
+                          <?php echo "<div class=\"panel-body\">" . $newsItems['n_text'] . "</div>" ?>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+            </p>
+        </div>
+
+
+        <div class="tab-pane" id="videos">
+            <h1>Videos</h1>
+            <p>
+                    
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">News</h3>
+                    <h3 class="panel-title">Videos</h3>
                   </div>
                   <div class="panel-body">
-                    Got this thing working for mobile, too. Access it from wherever.
+                    <a name="v_1"></a>
+                    <strong>Video 1:</strong><br /><br />
+                    <iframe width="420" height="315" src="//www.youtube.com/embed/5bisvx72HuY" frameborder="0" allowfullscreen></iframe><br /><br />
+                    
+                    <a name="v_2"></a>
+                    <strong>Video 2:</strong><br /><br />
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/e6IT6nOhWiU" frameborder="0" allowfullscreen></iframe>
                   </div>
                 </div>
             </div>
         </div>
-    
-		<div class="row">
-        	<div class="col-md-offset-2 col-md-8">
+            </p>
+        </div>
+
+
+        <div class="tab-pane" id="workouts">
+            <h1>Workouts</h1>
+            <p>
+              <div class="row">
+              <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">Prep Phase</h3>
@@ -132,7 +186,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                   </div>
                   <div class="panel-footer">
                     <ul class="list-inline">
-                    	<li><a href="workouts/Prep_Phase_Scheduling.pdf" target="_blank">Schedule</a></li> |
+                      <li><a href="workouts/Prep_Phase_Scheduling.pdf" target="_blank">Schedule</a></li> |
                         <li><a href="workouts/Prep_Phase_Conditioning.pdf" target="_blank">Conditioning</a></li> |
                         <li><a href="workouts/Prep_Phase_SAQ.pdf" target="_blank">SAQ</a></li> |
                         <li><a href="workouts/Prep_Phase_Core_Circuits.pdf" target="_blank">Core Circuits</a></li> |
@@ -145,9 +199,13 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 </div>
             </div>
         </div>
-        
-        <div class="row">
-        	<div class="col-md-offset-2 col-md-8">
+            </p>
+        </div>
+        <div class="tab-pane" id="plays">
+            <h1>Plays</h1>
+            <p>
+              <div class="row">
+          <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">Circuit Training</h3>
@@ -157,7 +215,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                   </div>
                   <div class="panel-footer">
                     <ul class="list-inline">
-                    	<li><a href="workouts/Circuit_1.pdf" target="_blank">Circuit 1</a></li> |
+                      <li><a href="workouts/Circuit_1.pdf" target="_blank">Circuit 1</a></li> |
                         <li><a href="workouts/Circuit_2.pdf" target="_blank">Circuit 2</a></li> |
                         <li><a href="workouts/Circuit_3.pdf" target="_blank">Circuit 3</a></li>
                     </ul>
@@ -165,25 +223,13 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 </div>
             </div>
         </div>
-        
-        <div class="row">
-        	<div class="col-md-offset-2 col-md-8">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Videos</h3>
-                  </div>
-                  <div class="panel-body">
-                  	<a name="v_1"></a>
-                    <strong>Video 1:</strong><br /><br />
-                    <iframe width="420" height="315" src="//www.youtube.com/embed/5bisvx72HuY" frameborder="0" allowfullscreen></iframe><br /><br />
-                    
-                    <a name="v_2"></a>
-                    <strong>Video 2:</strong><br /><br />
-                    <iframe width="560" height="315" src="//www.youtube.com/embed/e6IT6nOhWiU" frameborder="0" allowfullscreen></iframe>
-                  </div>
-                </div>
-            </div>
+            </p>
         </div>
+    </div>
+</div>
+
+
+    	  
         
         
     </div>
