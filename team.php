@@ -172,7 +172,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                         echo "<h3 class=\"panel-title\">" . $workout['title'] . "</h3>";
                         ?>
                       </div>                            
-                      <?php echo "<div class=\"panel-body\">" . $workout['filename'] . "</div>"; ?>
+                      <?php echo "<div class=\"panel-body\">" . $workout['filepath'] . "</div>"; ?>
                     </div>
                   </div>
                 </div>
@@ -207,7 +207,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                         echo "<h3 class=\"panel-title\">" . $play['title'] . "</h3>";
                         ?>
                       </div>                            
-                      <?php echo "<div class=\"panel-body\">" . $play['filename'] . "</div>"; ?>              
+                      <?php echo "<div class=\"panel-body\">" . $play['filepath'] . "</div>"; ?>         
                     </div>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                       echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
                       ?>
                     </div>                          
-                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filename'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
+                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
                   </div>
                 </div>
               </div>

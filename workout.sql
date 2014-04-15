@@ -69,6 +69,31 @@ LOCK TABLES `news` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `play_files`
+--
+
+DROP TABLE IF EXISTS `play_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `play_files` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `p_id` bigint(20) unsigned NOT NULL,
+  `filepath` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `p_id_idx` (`p_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `play_files`
+--
+
+LOCK TABLES `play_files` WRITE;
+/*!40000 ALTER TABLE `play_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `play_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `plays`
 --
 
@@ -79,7 +104,7 @@ CREATE TABLE `plays` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
-  `filename` longtext NOT NULL,
+  `text` longtext NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
@@ -212,7 +237,7 @@ CREATE TABLE `videos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
-  `filename` longtext NOT NULL,
+  `filepath` longtext NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
@@ -229,6 +254,31 @@ LOCK TABLES `videos` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `workout_files`
+--
+
+DROP TABLE IF EXISTS `workout_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `workout_files` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `w_id` bigint(20) unsigned NOT NULL,
+  `filepath` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `w_id_idx` (`w_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `workout_files`
+--
+
+LOCK TABLES `workout_files` WRITE;
+/*!40000 ALTER TABLE `workout_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `workout_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `workouts`
 --
 
@@ -239,7 +289,7 @@ CREATE TABLE `workouts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
-  `filename` longtext NOT NULL,
+  `text` longtext NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
@@ -264,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-14 17:39:40
+-- Dump completed on 2014-04-15  1:01:23
