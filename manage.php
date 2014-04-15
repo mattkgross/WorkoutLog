@@ -23,6 +23,30 @@ if(!empty($user) && $admin)
 	else if($req == "del") {
 		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
 	}
+	else if($req == "news") {
+		$body = json_decode($body);
+		$args = array();
+		foreach ($body as $b) {
+			array_push($args, $b);
+		}
+
+		// [0] = g_id, [1] = title, [2] = text
+		if($args[0] == $group['id']) {
+			$date = date("Y") . "-" . date("m") . "-" . date("d");
+			$count = mysql_num_rows(mysql_query("SELECT * FROM news WHERE g_id='" . $group['id'] . "' AND date='" . $date . "'"));
+
+			if($count == 0) {
+				mysql_query("INSERT INTO news (g_id, title, text, date) VALUES (" . $group['id'] . ", '" . addslashes($args[1]) . "', '" . addslashes($args[2]) . "', '" . $date . "')");
+				echo "Added news story!";
+			}
+			else {
+				echo "Post already exists for today!";
+			}
+		}
+		else {
+			echo "Groups did not match in the request!";
+		}
+	}
 	else {
 		echo "No operation request was matched.";
 	}

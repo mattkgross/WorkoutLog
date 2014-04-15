@@ -89,7 +89,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	//console.log(xmlhttp.responseText);
+		    	console.log(xmlhttp.responseText);
 		    }
 		}
 		xmlhttp.open("POST","manage.php",true);
@@ -118,6 +118,26 @@ Rights: This software is openly distributed and may be used, altered, and redist
 	        var m_id = $(this).attr('member');
 	        $(this).toggleClass('n-admin-member admin-member');
 	        sendAjax("a-ad", m_id);
+	    });
+	});
+
+	// Forms Management
+	$(document).ready(function(e) {
+	    $('#news_form').on('click', '#news_btn', function(e) {
+	    	var g_id = <?php echo $group['id']; ?>;
+	    	var atitle = $("#atitle").val();
+	    	var atext = $("#atext").val();
+	        var m_id = {
+	        	'g_id' : g_id,
+	        	'title' : atitle,
+	        	'text' : atext,
+	        };
+	        m_id = JSON.stringify(m_id);
+
+	        sendAjax("news", m_id);
+
+	        $("#atitle").val("");
+	        $("#atext").val("");
 	    });
 	});
 	</script>
@@ -223,6 +243,64 @@ Rights: This software is openly distributed and may be used, altered, and redist
 							  ?>
 				  </table>
 				  </div>
+			  </div>
+			</div>
+      	</div>
+
+      	<div class="col-md-7">
+      		<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Dashboard</h3>
+			  </div>
+			  <div class="panel-body">
+			  	    <!-- Nav tabs -->
+					<ul class="nav nav-pills">
+					  <li class="active"><a href="#news" data-toggle="tab">News</a></li>
+					  <li><a href="#workouts" data-toggle="tab">Workouts</a></li>
+					  <li><a href="#plays" data-toggle="tab">Plays</a></li>
+					  <li><a href="#videos" data-toggle="tab">Videos</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+					  <div class="tab-pane active" id="news">
+
+					  	<h3 style="text-align: center;">Create News Item</h3><br/>
+
+					  	<form class="form-horizontal" role="form" id="news_form" method="post" onSubmit="return false;">
+				          <div class="form-group" id="g_atitle">
+				            <label for="atitle" class="col-md-offset-1 col-md-2 control-label">Article Title</label>
+				            <div class="col-md-4">
+				              <input type="text" class="form-control" id="atitle" name="atitle" placeholder="New Workouts Posted">
+				            </div>
+				          </div>
+				          <div class="form-group" id="g_atext">
+				            <label for="atext" class="col-md-offset-1 col-md-2 control-label">Body</label>
+				            <div class="col-md-7">
+				              <textarea class="form-control" id="atext" name="atext" rows="10" placeholder="Take a look at our videos page for new workout techniques."></textarea>
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <div class="col-md-offset-2 col-md-8" style="text-align: center">
+				              <button class="btn btn-success" id="news_btn">Post News</button><br/><br/>
+				              <span style="text-align: center; font-style: italic;">Note: You are limited to one news post per day.</span>
+				            </div>
+				          </div>
+				        </form>
+					  </div>
+
+					  <div class="tab-pane" id="workouts">
+
+					  </div>
+
+					  <div class="tab-pane" id="plays">
+
+					  </div>
+
+					  <div class="tab-pane" id="videos">
+
+					  </div>
+					</div>
 			  </div>
 			</div>
       	</div>

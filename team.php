@@ -120,7 +120,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
           <h1 style="text-align: center;">News</h1><br/>
           <p>
               <?php
-              $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date");
+              $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date DESC");
               $newsItems = array();
               while($temp = mysql_fetch_array($sql)) {
                 array_push($newsItems, $temp);
@@ -131,13 +131,19 @@ Rights: This software is openly distributed and may be used, altered, and redist
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
-                  <div class="panel panel-default">
+                  <!--<div class="panel panel-default">
                     <div class="panel-heading">
                       <?php
                       echo "<h3 class=\"panel-title\">" . $news['title'] . "</h3>";
                       ?>
                     </div>
                     <?php echo "<div class=\"panel-body\">" . $news['text'] . "</div>"; ?>
+                  </div>-->
+                  <div class="well">
+                      <?php
+                      echo "<h3>" . $news['title'] . "</h3>";
+                      echo "<br/>" . $news['text']; 
+                      ?>
                   </div>
                 </div>
               </div>
