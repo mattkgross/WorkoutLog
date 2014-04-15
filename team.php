@@ -127,17 +127,17 @@ Rights: This software is openly distributed and may be used, altered, and redist
               }
               
               if (!empty($newsItems)) {
-                foreach ($newsItems as $newsItems) {
+                foreach ($newsItems as $news) {
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <?php
-                      echo "<h3 class=\"panel-title\">" . $newsItems['title'] . "</h3>";
+                      echo "<h3 class=\"panel-title\">" . $news['title'] . "</h3>";
                       ?>
                     </div>
-                    <?php echo "<div class=\"panel-body\">" . $newsItems['text'] . "</div>"; ?>
+                    <?php echo "<div class=\"panel-body\">" . $news['text'] . "</div>"; ?>
                   </div>
                 </div>
               </div>
@@ -162,17 +162,17 @@ Rights: This software is openly distributed and may be used, altered, and redist
               }
               
               if (!empty($videoItems)) {
-                foreach ($videoItems as $videoItems) {
+                foreach ($videoItems as $video) {
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <?php
-                      echo "<h3 class=\"panel-title\">" . $videoItems['title'] . "</h3>";
+                      echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
                       ?>
                     </div>                          
-                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $videoItems['filename'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
+                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filename'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
                   </div>
                 </div>
               </div>
@@ -198,18 +198,18 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 }
 
                 if (!empty($workoutItems)) {
-                  foreach ($workoutItems as $workoutItems) {
+                  foreach ($workoutItems as $workout) {
                  ?>
                 <div class="row">
                   <div class="col-md-offset-2 col-md-8">
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <?php
-                        echo "<h3 class=\"panel-title\">" . $workoutItems['title'] . "</h3>";
+                        echo "<h3 class=\"panel-title\">" . $workout['title'] . "</h3>";
                         ?>
                       </div>                            
                       <?php 
-                      echo "<div class=\"panel-body\">" . $workoutItems['filename'] . "</div>";
+                      echo "<div class=\"panel-body\">" . $workout['filename'] . "</div>";
                       ?>
                     </div>
                   </div>
@@ -235,18 +235,18 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 }
 
                 if (!empty($playItems)) {
-                  foreach ($playItems as $playItems) {
+                  foreach ($playItems as $play) {
                 ?>
                 <div class="row">
                   <div class="col-md-offset-2 col-md-8">
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <?php
-                        echo "<h3 class=\"panel-title\">" . $playItems['title'] . "</h3>";
+                        echo "<h3 class=\"panel-title\">" . $play['title'] . "</h3>";
                         ?>
                       </div>                            
                       <?php 
-                      echo "<div class="panel-body">" . $playItems['filename'] . "</div>" ;
+                      echo "<div class="panel-body">" . $play['filename'] . "</div>" ;
                        ?>              
                     </div>
                   </div>
