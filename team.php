@@ -111,13 +111,13 @@ Rights: This software is openly distributed and may be used, altered, and redist
     <div id="content">
       <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li class="active"><a href="#news" data-toggle="tab">News</a></li>
-          <li><a href="#videos" data-toggle="tab">Videos</a></li>
           <li><a href="#workouts" data-toggle="tab">Workouts</a></li>
           <li><a href="#plays" data-toggle="tab">Plays</a></li>
+          <li><a href="#videos" data-toggle="tab">Videos</a></li>
       </ul>
-    <div id="my-tab-content" class="tab-content">
-        <div class="tab-panel active" id="news">
-          <h1>News</h1>
+      <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane fade in active" id="news">
+          <h1 style="text-align: center;">News</h1><br/>
           <p>
               <?php
               $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date");
@@ -149,46 +149,10 @@ Rights: This software is openly distributed and may be used, altered, and redist
               }                  
               ?>
           </p>
-        </div>
+        </div>        
 
-        <div class="tab-panel" id="videos">
-          <h1>Videos</h1>
-          <p>
-              <?php
-              $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date");
-              $videoItems = array();
-              while($temp = mysql_fetch_array($sql)) {
-                array_push($videoItems, $temp); 
-              }
-              
-              if (!empty($videoItems)) {
-                foreach ($videoItems as $video) {
-              ?>
-              <div class="row">
-                <div class="col-md-offset-2 col-md-8">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <?php
-                      echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
-                      ?>
-                    </div>                          
-                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filename'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
-                  </div>
-                </div>
-              </div>
-              <?php 
-                }
-              }
-              else {
-                echo "This group has no videos to display.";
-              } 
-
-              ?>
-          </p>     
-        </div>
-
-        <div class="tab-panel" id="workouts">
-            <h1>Workouts</h1>
+        <div class="tab-pane fade" id="workouts">
+            <h1 style="text-align: center;">Workouts</h1><br/>
             <p>
                 <?php
                 $sql = mysql_query("SELECT * FROM workouts where g_id='" . $group['id'] . "' ORDER BY date");
@@ -222,8 +186,8 @@ Rights: This software is openly distributed and may be used, altered, and redist
             </p>
         </div>
 
-        <div class="tab-panel" id="plays">
-            <h1>Plays</h1>
+        <div class="tab-pane fade" id="plays">
+            <h1 style="text-align: center;">Plays</h1><br/>
             <p>
                 <?php
                 $sql = mysql_query("SELECT * FROM plays where g_id='" . $group['id'] . "' ORDER BY date");
@@ -256,7 +220,45 @@ Rights: This software is openly distributed and may be used, altered, and redist
                 ?>
             </p>
         </div>
+
+        <div class="tab-pane fade" id="videos">
+          <h1 style="text-align: center;">Videos</h1><br/>
+          <p>
+              <?php
+              $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date");
+              $videoItems = array();
+              while($temp = mysql_fetch_array($sql)) {
+                array_push($videoItems, $temp); 
+              }
+              
+              if (!empty($videoItems)) {
+                foreach ($videoItems as $video) {
+              ?>
+              <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <?php
+                      echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
+                      ?>
+                    </div>                          
+                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filename'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
+                  </div>
+                </div>
+              </div>
+              <?php 
+                }
+              }
+              else {
+                echo "This group has no videos to display.";
+              } 
+
+              ?>
+          </p>     
+        </div>        
       </div>
+
+
       </div>        
     </div>
   </body>
