@@ -208,9 +208,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                         echo "<h3 class=\"panel-title\">" . $workout['title'] . "</h3>";
                         ?>
                       </div>                            
-                      <?php 
-                      echo "<div class=\"panel-body\">" . $workout['filename'] . "</div>";
-                      ?>
+                      <?php echo "<div class=\"panel-body\">" . $workout['filename'] . "</div>"; ?>
                     </div>
                   </div>
                 </div>
@@ -245,9 +243,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
                         echo "<h3 class=\"panel-title\">" . $play['title'] . "</h3>";
                         ?>
                       </div>                            
-                      <?php 
-                      echo "<div class="panel-body">" . $play['filename'] . "</div>" ;
-                       ?>              
+                      <?php echo "<div class=\"panel-body\">" . $play['filename'] . "</div>"; ?>              
                     </div>
                   </div>
                 </div>
