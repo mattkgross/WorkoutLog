@@ -255,13 +255,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <?php
-                      echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
-                      ?>
-                    </div>                          
-                    <?php echo "<div class=\"panel-body\"><div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br /></div>"; ?>
+                  <div class="well">
+                    <?php
+                    echo "<h3>" . $video['title'] . "</h3>";
+                    echo "<div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br />Link: <a href=\"" . $video['filepath'] . "\" target=\"_blank\">" . $video['filepath'] . "</a>";
+                    ?>
                   </div>
                 </div>
               </div>
