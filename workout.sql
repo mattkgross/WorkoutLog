@@ -53,7 +53,7 @@ CREATE TABLE `news` (
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
   `text` longtext NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

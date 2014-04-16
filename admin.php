@@ -282,8 +282,7 @@ Rights: This software is openly distributed and may be used, altered, and redist
 				          </div>
 				          <div class="form-group">
 				            <div class="col-md-offset-2 col-md-8" style="text-align: center">
-				              <button class="btn btn-success" id="news_btn">Post News</button><br/><br/>
-				              <span style="text-align: center; font-style: italic;">Note: You are limited to one news post per day.</span>
+				              <button class="btn btn-success" id="news_btn">Post News</button>
 				            </div>
 				          </div>
 				        </form>

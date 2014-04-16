@@ -32,16 +32,8 @@ if(!empty($user) && $admin)
 
 		// [0] = g_id, [1] = title, [2] = text
 		if($args[0] == $group['id']) {
-			$date = date("Y") . "-" . date("m") . "-" . date("d");
-			$count = mysql_num_rows(mysql_query("SELECT * FROM news WHERE g_id='" . $group['id'] . "' AND date='" . $date . "'"));
-
-			if($count == 0) {
-				mysql_query("INSERT INTO news (g_id, title, text, date) VALUES (" . $group['id'] . ", '" . addslashes($args[1]) . "', '" . addslashes($args[2]) . "', '" . $date . "')");
-				echo "Added news story!";
-			}
-			else {
-				echo "Post already exists for today!";
-			}
+				mysql_query("INSERT INTO news (g_id, title, text) VALUES (" . $group['id'] . ", '" . addslashes($args[1]) . "', '" . addslashes($args[2]) . "')");
+				echo "Added news post!";
 		}
 		else {
 			echo "Groups did not match in the request!";

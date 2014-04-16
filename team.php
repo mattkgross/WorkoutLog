@@ -47,6 +47,12 @@ Rights: This software is openly distributed and may be used, altered, and redist
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+    .news_content {
+      font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    }
+    </style>
   </head>
   <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -129,22 +135,13 @@ Rights: This software is openly distributed and may be used, altered, and redist
               if (!empty($newsItems)) {
                 foreach ($newsItems as $news) {
               ?>
-              <div class="row">
+              <div class="row news_content">
                 <div class="col-md-offset-2 col-md-8">
-                  <!--<div class="panel panel-default">
-                    <div class="panel-heading">
-                      <?php
-                      echo "<h3 class=\"panel-title\">" . $news['title'] . "</h3>";
-                      ?>
-                    </div>
-                    <?php echo "<div class=\"panel-body\">" . $news['text'] . "</div>"; ?>
-                  </div>-->
-                  <div class="well">
-                      <?php
-                      echo "<h3>" . $news['title'] . "</h3>";
-                      echo "<br/>" . $news['text']; 
-                      ?>
-                  </div>
+                  <?php
+                  echo "<h2>" . $news['title'] . "</h2>";
+                  echo "<br/><blockquote><p>" . $news['text'] . "</p><footer>" . date('F jS, Y - g:i A',strtotime($news['date'])) . "</footer></blockquote>";
+                  ?>
+                  <br/><hr/><br/>
                 </div>
               </div>
               <?php 
