@@ -138,8 +138,8 @@ Rights: This software is openly distributed and may be used, altered, and redist
               <div class="row news_content">
                 <div class="col-md-offset-2 col-md-8">
                   <?php
-                  echo "<h2>" . $news['title'] . "</h2>";
-                  echo "<br/><blockquote><p>" . $news['text'] . "</p><footer>" . date('F jS, Y - g:i A',strtotime($news['date'])) . "</footer></blockquote>";
+                  echo "<h2>" . stripslashes($news['title']) . "</h2>";
+                  echo "<br/><blockquote><p>" . stripslashes($news['text']) . "</p><footer>" . date('F jS, Y - g:i A',strtotime($news['date'])) . "</footer></blockquote>";
                   ?>
                   <br/><hr/><br/>
                 </div>

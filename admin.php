@@ -66,12 +66,27 @@ Rights: This software is openly distributed and may be used, altered, and redist
 	.n-admin-member {
 		color: black;
 	}
+
+	.feedback {
+		margin-top: -22px;
+		text-align: center;
+		width: 100%;
+	}
     </style>
     
     <script type="text/javascript">
     // Initialize the Tooltips & Popovers
 	$(function() {
     	$('a[rel="tooltip"]').tooltip();
+	});
+
+	// Close alert
+	$(document).ready(function(e) {
+		$("#feedback").hide();
+
+		$("#feedback").on('click', '#feedback_btn', function(e) {
+			$("#feedback").hide();
+		})
 	});
 
     // AJAX Handler
@@ -89,12 +104,31 @@ Rights: This software is openly distributed and may be used, altered, and redist
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	console.log(xmlhttp.responseText);
+		    	//console.log(xmlhttp.responseText);
+		    	responseHandle(xmlhttp.responseText);
 		    }
 		}
 		xmlhttp.open("POST","manage.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("req="+req+"&body="+body);
+	}
+
+	// Response Handler
+	function responseHandle(resp)
+	{
+		if(resp == "Added news post!") {
+			$("#feedback").attr("class", "alert alert-success alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Groups did not match in the request!") {
+			$("#feedback").attr("class", "alert alert-danger alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else {
+			// For good measure...
+		}
 	}
 
 	// Member Management
@@ -202,12 +236,10 @@ Rights: This software is openly distributed and may be used, altered, and redist
       </div><!-- /.container-fluid -->
     </div>
     </nav>
-    <?php if(!empty($warning_message)) {?>
-    <div class="alert alert-warning alert-dismissable" style=" margin-top: -20px; text-align: center">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong><?php echo $warning_message; ?></strong>
+    <div class="alert alert-warning alert-dismissable in fade feedback" id="feedback">
+      <button type="button" class="close" aria-hidden="true" id="feedback_btn">&times;</button>
+      <strong><span id="feedback_text"></span></strong>
     </div>
-    <?php } ?>
     <div class="container-fluid">
       <h1 style="text-align: center"><?php echo $group['name']; ?></h1><br /><br />
       <div class="row">

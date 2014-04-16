@@ -22,6 +22,7 @@ if(!empty($user) && $admin)
 	}
 	else if($req == "del") {
 		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
+		echo "User Removed!";
 	}
 	else if($req == "news") {
 		$body = json_decode($body);
