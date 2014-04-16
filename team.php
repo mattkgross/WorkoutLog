@@ -174,7 +174,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <h1 style="text-align: center;">Workouts</h1><br/>
             <p>
                 <?php
-                $sql = mysql_query("SELECT * FROM workouts where g_id='" . $group['id'] . "' ORDER BY date");
+                $sql = mysql_query("SELECT * FROM workouts where g_id='" . $group['id'] . "' ORDER BY date DESC");
                 $workoutItems = array();
                 while($temp = mysql_fetch_array($sql)) {
                   array_push($workoutItems, $temp); 
@@ -209,7 +209,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <h1 style="text-align: center;">Plays</h1><br/>
             <p>
                 <?php
-                $sql = mysql_query("SELECT * FROM plays where g_id='" . $group['id'] . "' ORDER BY date");
+                $sql = mysql_query("SELECT * FROM plays where g_id='" . $group['id'] . "' ORDER BY date DESC");
                 $playItems = array();
                 while($temp = mysql_fetch_array($sql)) {
                   array_push($playItems, $temp); 
@@ -244,7 +244,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
           <h1 style="text-align: center;">Videos</h1><br/>
           <p>
               <?php
-              $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date");
+              $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date DESC");
               $videoItems = array();
               while($temp = mysql_fetch_array($sql)) {
                 array_push($videoItems, $temp); 
@@ -261,7 +261,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                       echo "<h3 class=\"panel-title\">" . $video['title'] . "</h3>";
                       ?>
                     </div>                          
-                    <?php echo "<div class=\"panel-body\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe><br /><br /></div>"; ?>
+                    <?php echo "<div class=\"panel-body\"><div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br /></div>"; ?>
                   </div>
                 </div>
               </div>

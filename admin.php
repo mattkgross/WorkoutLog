@@ -120,7 +120,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 		xmlhttp.onreadystatechange=function() {
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		    	//console.log(xmlhttp.responseText);
+		    	console.log(xmlhttp.responseText);
 		    	responseHandle(xmlhttp.responseText);
 		    }
 		}
@@ -132,12 +132,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	// Response Handler
 	function responseHandle(resp)
 	{
+		// News
 		if(resp == "Added news post!") {
 			$("#feedback").attr("class", "alert alert-success alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
-		else if(resp == "Groups did not match in the request!") {
+		else if(resp == "Groups did not match in the news post request!") {
+			$("#feedback").attr("class", "alert alert-danger alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Your post must have a title and a body!") {
+			$("#feedback").attr("class", "alert alert-danger alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		//Videos
+		else if(resp == "Added video post!") {
+			$("#feedback").attr("class", "alert alert-success alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Groups did not match in the video post request!") {
+			$("#feedback").attr("class", "alert alert-danger alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Your post must have a title and a link!") {
 			$("#feedback").attr("class", "alert alert-danger alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
@@ -173,6 +195,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 	// Forms Management
 	$(document).ready(function(e) {
+	    // News
 	    $('#news_form').on('click', '#news_btn', function(e) {
 	    	var g_id = <?php echo $group['id']; ?>;
 	    	var atitle = $("#atitle").val();
@@ -188,6 +211,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 	        $("#atitle").val("");
 	        $("#atext").val("");
+	    });
+	    // Videos
+	    $('#video_form').on('click', '#video_btn', function(e) {
+	    	var g_id = <?php echo $group['id']; ?>;
+	    	var vtitle = $("#vtitle").val();
+	    	var vlink = $("#vlink").val();
+	        var m_id = {
+	        	'g_id' : g_id,
+	        	'title' : vtitle,
+	        	'link' : vlink,
+	        };
+	        m_id = JSON.stringify(m_id);
+
+	        sendAjax("video", m_id);
+
+	        $("#vtitle").val("");
+	        $("#vlink").val("");
 	    });
 	});
 	</script>
@@ -346,6 +386,28 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  <div class="tab-pane" id="videos">
 
+					  <h3 style="text-align: center;">Create Video Link</h3><br/>
+
+					  	<form class="form-horizontal" role="form" id="video_form" method="post" onSubmit="return false;">
+				          <div class="form-group" id="g_vtitle">
+				            <label for="vtitle" class="col-md-offset-1 col-md-2 control-label">Video Title</label>
+				            <div class="col-md-4">
+				              <input type="text" class="form-control" id="vtitle" name="vtitle" placeholder="Ladder Workout Demonstration">
+				            </div>
+				          </div>
+				          <div class="form-group" id="g_vlink">
+				            <label for="vlink" class="col-md-offset-1 col-md-2 control-label">Link</label>
+				            <div class="col-md-7">
+				              <input type="text" class="form-control" id="vlink" name="vlink" placeholder="http://www.youtube.com/embed/fhJasdjd7f">
+				              <span style="text-align: center; font-style: italic;"><small>Note: Be sure to used the <strong>embed</strong> link for the video or it may not display properly.</small></span>
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <div class="col-md-offset-2 col-md-8" style="text-align: center">
+				              <button class="btn btn-success" id="video_btn">Post Video</button>
+				            </div>
+				          </div>
+				        </form>
 					  </div>
 					</div>
 			  </div>

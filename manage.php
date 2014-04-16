@@ -32,12 +32,34 @@ if(!empty($user) && $admin)
 		}
 
 		// [0] = g_id, [1] = title, [2] = text
-		if($args[0] == $group['id']) {
+		if(empty($args[1]) || $empty($args[2])) {
+			echo "Your post must have a title and a body!";
+		}
+		else if($args[0] == $group['id']) {
 				mysql_query("INSERT INTO news (g_id, title, text) VALUES (" . $group['id'] . ", '" . addslashes($args[1]) . "', '" . addslashes($args[2]) . "')");
 				echo "Added news post!";
 		}
 		else {
-			echo "Groups did not match in the request!";
+			echo "Groups did not match in the news post request!";
+		}
+	}
+	else if($req == "video") {
+		$body = json_decode($body);
+		$args = array();
+		foreach ($body as $b) {
+			array_push($args, $b);
+		}
+
+		// [0] = g_id, [1] = title, [2] = video link
+		if(empty($args[1]) || empty($args[2])) {
+			echo "Your post must have a title and a link!";
+		}
+		else if($args[0] == $group['id']) {
+			mysql_query("INSERT INTO videos (g_id, title, filepath) VALUES (" . $group['id'] . ", '" . addslashes($args[1]) . "', '" . addslashes($args[2]) . "')");
+			echo "Added video post!";
+		}
+		else {
+			echo "Groups did not match in the video post request!";
 		}
 	}
 	else {
