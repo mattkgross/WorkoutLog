@@ -69,6 +69,63 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     }
     </style>
+
+    <?php
+      $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date DESC");
+      $news_num = mysql_num_rows($sql);
+      $newsItems = array();
+      while($temp = mysql_fetch_array($sql)) {
+        $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
+        array_push($newsItems, $temp);
+      }
+
+      $news_json = json_encode($newsItems);
+      $news_max = ceil($news_num/5);
+    ?>
+
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+      var news = <?php echo $news_json; ?>;
+      var news_c = <?php echo $news_num; ?>;
+      var news_p = 0;
+      var p_max = <?php echo $news_max; ?>;
+
+      function displayNews() {
+        for (var i = 5*news_p; i < 5*(news_p+1); i++) {
+          var n_id = "#news" + ((i%5)+1).toString();
+          if(news_c > i) {
+            $(n_id + "title").text(news[i]['title']);
+            $(n_id + "text").text(news[i]['text']);
+            $(n_id + "date").text(news[i]['date']);
+            $(n_id).attr("style", "display: block;");
+          }
+          else {
+            $(n_id).attr("style", "display: none;");
+          }
+        }
+      }
+
+      displayNews();
+
+      $("#newstabs").on('click', '#newstab_back', function(e) {
+        if(news_p > 0) {
+          $("#newstab" + (news_p+1).toString()).attr("class", "");
+          $("#newstab" + (--news_p+1).toString()).attr("class", "active");
+          displayNews();
+        }
+      });
+      $("#newstabs").on('click', '#newstab_next', function(e) {
+        if(news_p < p_max-1) {
+          $("#newstab" + (news_p+1).toString()).attr("class", "");
+          $("#newstab" + (++news_p+1).toString()).attr("class", "active");
+          displayNews();
+        }
+      });
+      /*$("#newstabs").on('click', '#', function(e) {
+
+      });*/
+    });
+    </script>
   </head>
   <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -141,32 +198,50 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <div class="tab-pane fade in active" id="news">
           <h1 style="text-align: center;">News</h1><br/>
           <p>
-              <?php
-              $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date DESC");
-              $newsItems = array();
-              while($temp = mysql_fetch_array($sql)) {
-                array_push($newsItems, $temp);
-              }
-              
-              if (!empty($newsItems)) {
-                foreach ($newsItems as $news) {
-              ?>
-              <div class="row news_content">
-                <div class="col-md-offset-2 col-md-8">
-                  <?php
-                  echo "<h2>" . stripslashes($news['title']) . "</h2>";
-                  echo "<br/><blockquote><p>" . stripslashes($news['text']) . "</p><footer>" . date('F jS, Y - g:i A',strtotime($news['date'])) . "</footer></blockquote>";
-                  ?>
+            <div class="row news_content">
+              <div class="col-md-offset-2 col-md-8">
+                <div id="news1" style="display: none;">
+                  <h2 id="news1title"></h2>
+                  <br/><blockquote><p id="news1text"></p><footer id="news1date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
+                <div id="news2" style="display: none;">
+                  <h2 id="news2title"></h2>
+                  <br/><blockquote><p id="news2text"></p><footer id="news2date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="news3" style="display: none;">
+                  <h2 id="news3title"></h2>
+                  <br/><blockquote><p id="news3text"></p><footer id="news3date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="news4" style="display: none;">
+                  <h2 id="news4title"></h2>
+                  <br/><blockquote><p id="news4text"></p><footer id="news4date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="news5" style="display: none;">
+                  <h2 id="news5title"></h2>
+                  <br/><blockquote><p id="news5text"></p><footer id="news5date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <br/>
+                <div class="text-center" id="newstabs">
+                  <ul class="pagination">
+                    <li id="newstab_back"><a href="#">&laquo;</a></li>
+                    <?php
+                    for ($i = 1; $i <= $news_max; $i++) {
+                      if($i == 1)
+                        echo "<li class=\"active\" id=\"newstab1\"><a href=\"#\">1</a></li>";
+                      else
+                        echo "<li id=\"newstab" . $i . "\"><a href=\"#\">" . $i . "</a></li>";
+                    }
+                    ?>
+                    <li id="newstab_next"><a href="#">&raquo;</a></li>
+                  </ul>
+                </div>
               </div>
-              <?php 
-                }
-              }
-              else {
-                echo "This group has no news items to display.";
-              }                  
-              ?>
+            </div>
           </p>
         </div>        
 
