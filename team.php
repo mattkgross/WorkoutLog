@@ -84,6 +84,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     ?>
 
     <script type="text/javascript">
+    // News navigation
     $(document).ready(function(e) {
       var news = <?php echo $news_json; ?>;
       var news_c = <?php echo $news_num; ?>;
@@ -107,23 +108,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       displayNews();
 
-      $("#newstabs").on('click', '#newstab_back', function(e) {
+      $("#newstabs").on('click', '#nav_newstab_back', function(e) {
         if(news_p > 0) {
           $("#newstab" + (news_p+1).toString()).attr("class", "");
           $("#newstab" + (--news_p+1).toString()).attr("class", "active");
           displayNews();
         }
       });
-      $("#newstabs").on('click', '#newstab_next', function(e) {
+      $("#newstabs").on('click', '#nav_newstab_next', function(e) {
         if(news_p < p_max-1) {
           $("#newstab" + (news_p+1).toString()).attr("class", "");
           $("#newstab" + (++news_p+1).toString()).attr("class", "active");
           displayNews();
         }
       });
-      /*$("#newstabs").on('click', '#', function(e) {
-
-      });*/
+      $("#newstabs").on('click', '[id^="newstab"]', function(e) {
+        $("#newstab" + (news_p+1).toString()).attr("class", "");
+        $(this).attr("class", "active");
+        news_p = parseInt((this.id).slice(-1))-1;
+        displayNews();
+      });
     });
     </script>
   </head>
@@ -228,7 +232,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                 <br/>
                 <div class="text-center" id="newstabs">
                   <ul class="pagination">
-                    <li id="newstab_back"><a href="#">&laquo;</a></li>
+                    <li id="nav_newstab_back"><a href="#">&laquo;</a></li>
                     <?php
                     for ($i = 1; $i <= $news_max; $i++) {
                       if($i == 1)
@@ -237,7 +241,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                         echo "<li id=\"newstab" . $i . "\"><a href=\"#\">" . $i . "</a></li>";
                     }
                     ?>
-                    <li id="newstab_next"><a href="#">&raquo;</a></li>
+                    <li id="nav_newstab_next"><a href="#">&raquo;</a></li>
                   </ul>
                 </div>
               </div>
