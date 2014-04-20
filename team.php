@@ -334,12 +334,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
-                  <div class="well">
+                <hr>
                     <?php
                     echo "<h3>" . $video['title'] . "</h3>";
                     echo "<div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br />Link: <a href=\"" . $video['filepath'] . "\" target=\"_blank\">" . $video['filepath'] . "</a>";
                     ?>
-                  </div>
                 </div>
               </div>
               <?php 
