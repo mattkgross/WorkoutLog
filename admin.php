@@ -360,13 +360,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  	<form class="form-horizontal" role="form" id="news_form" method="post" onSubmit="return false;">
 				          <div class="form-group" id="g_atitle">
-				            <label for="atitle" class="col-md-offset-1 col-md-2 control-label">Article Title</label>
+				            <label for="atitle" class="col-md-offset-1 col-md-3 control-label">Article Title</label>
 				            <div class="col-md-4">
 				              <input type="text" class="form-control" id="atitle" name="atitle" placeholder="New Workouts Posted">
 				            </div>
 				          </div>
 				          <div class="form-group" id="g_atext">
-				            <label for="atext" class="col-md-offset-1 col-md-2 control-label">Body</label>
+				            <label for="atext" class="col-md-offset-1 col-md-3 control-label">Body</label>
 				            <div class="col-md-7">
 				              <textarea class="form-control" id="atext" name="atext" rows="10" placeholder="Take a look at our videos page for new workout techniques."></textarea>
 				            </div>
@@ -381,10 +381,54 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  <div class="tab-pane" id="workouts">
 
+            <h3 style="text-align: center;">Create Workout Item</h3><br/>
+
+            <form class="form-horizontal" role="form" id="workout_form" method="post" onSubmit="return false;">
+                  <div class="form-group" id="g_wtitle">
+                    <label for="vtitle" class="col-md-offset-1 col-md-3 control-label">Workout Title</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" id="wtitle" name="wtitle" placeholder="Ladder Workout Manual">
+                    </div>
+                  </div>
+                  <div class="form-group" id="g_wpdf">
+                    <label for="wpdf" class="col-md-offset-1 col-md-3 control-label">PDF</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" id="wpdf" name="wpdf" placeholder="replace with updload file">
+                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload a PDF file</small></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
+                      <button class="btn btn-success" id="video_btn">Post Workout</button>
+                    </div>
+                  </div>
+                </form>
 					  </div>
 
 					  <div class="tab-pane" id="plays">
 
+              <h3 style="text-align: center;">Create Play Item</h3><br/>
+
+                <form class="form-horizontal" role="form" id="play_form" method="post" onSubmit="return false;">
+                  <div class="form-group" id="g_ptitle">
+                    <label for="ptitle" class="col-md-offset-1 col-md-3 control-label">Play Title</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" id="ptitle" name="ptitle" placeholder="Nud Play Diagram">
+                    </div>
+                  </div>
+                  <div class="form-group" id="g_ppdf">
+                    <label for="ppdf" class="col-md-offset-1 col-md-3 control-label">Play</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" id="ppdf" name="ppdf" placeholder="replace with upload file">
+                      <span style="text-align: center; font-style: italic;"><small>Note: Please upload a PDF file </small></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
+                      <button class="btn btn-success" id="play_btn">Post Play</button>
+                    </div>
+                  </div>
+                </form>
 					  </div>
 
 					  <div class="tab-pane" id="videos">
@@ -393,13 +437,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  	<form class="form-horizontal" role="form" id="video_form" method="post" onSubmit="return false;">
 				          <div class="form-group" id="g_vtitle">
-				            <label for="vtitle" class="col-md-offset-1 col-md-2 control-label">Video Title</label>
+				            <label for="vtitle" class="col-md-offset-1 col-md-3 control-label">Video Title</label>
 				            <div class="col-md-4">
 				              <input type="text" class="form-control" id="vtitle" name="vtitle" placeholder="Ladder Workout Demonstration">
 				            </div>
 				          </div>
 				          <div class="form-group" id="g_vlink">
-				            <label for="vlink" class="col-md-offset-1 col-md-2 control-label">Link</label>
+				            <label for="vlink" class="col-md-offset-1 col-md-3 control-label">Link</label>
 				            <div class="col-md-7">
 				              <input type="text" class="form-control" id="vlink" name="vlink" placeholder="http://www.youtube.com/embed/fhJasdjd7f">
 				              <span style="text-align: center; font-style: italic;"><small>Note: Be sure to used the <strong>embed</strong> link for the video or it may not display properly.</small></span>
