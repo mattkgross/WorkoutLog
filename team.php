@@ -153,25 +153,25 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       displayVideos();
 
-      $("#newstabs").on('click', '#nav_newstab_back', function(e) {
-        if(news_p > 0) {
-          $("#newstab" + (news_p+1).toString()).attr("class", "");
-          $("#newstab" + (--news_p+1).toString()).attr("class", "active");
-          displayNews();
+      $("#videostabs").on('click', '#nav_videostab_back', function(e) {
+        if(videos_p > 0) {
+          $("#videostab" + (videos_p+1).toString()).attr("class", "");
+          $("#videostab" + (--videos_p+1).toString()).attr("class", "active");
+          displayVideos();
         }
       });
-      $("#newstabs").on('click', '#nav_newstab_next', function(e) {
-        if(news_p < vp_max-1) {
-          $("#newstab" + (news_p+1).toString()).attr("class", "");
-          $("#newstab" + (++news_p+1).toString()).attr("class", "active");
-          displayNews();
+      $("#videostabs").on('click', '#nav_videostab_next', function(e) {
+        if(videos_p < vp_max-1) {
+          $("#videostab" + (videos_p+1).toString()).attr("class", "");
+          $("#videostab" + (++videos_p+1).toString()).attr("class", "active");
+          displayVideos();
         }
       });
-      $("#newstabs").on('click', '[id^="newstab"]', function(e) {
-        $("#newstab" + (news_p+1).toString()).attr("class", "");
+      $("#videostabs").on('click', '[id^="videostab"]', function(e) {
+        $("#videostab" + (videos_p+1).toString()).attr("class", "");
         $(this).attr("class", "active");
-        news_p = parseInt((this.id).slice(-1))-1;
-        displayNews();
+        videos_p = parseInt((this.id).slice(-1))-1;
+        displayVideos();
       });*/
     });
     </script>
