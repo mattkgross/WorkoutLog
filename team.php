@@ -89,7 +89,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       var news = <?php echo $news_json; ?>;
       var news_c = <?php echo $news_num; ?>;
       var news_p = 0;
-      var p_max = <?php echo $news_max; ?>;
+      var np_max = <?php echo $news_max; ?>;
 
       function displayNews() {
         for (var i = 5*news_p; i < 5*(news_p+1); i++) {
@@ -116,7 +116,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         }
       });
       $("#newstabs").on('click', '#nav_newstab_next', function(e) {
-        if(news_p < p_max-1) {
+        if(news_p < np_max-1) {
           $("#newstab" + (news_p+1).toString()).attr("class", "");
           $("#newstab" + (++news_p+1).toString()).attr("class", "active");
           displayNews();
@@ -128,6 +128,51 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         news_p = parseInt((this.id).slice(-1))-1;
         displayNews();
       });
+
+      // Video navigation
+      /*$(document).ready(function(e) {
+      var videos = <?php echo $videos_json; ?>;
+      var videos_c = <?php echo $videos_num; ?>;
+      var videos_p = 0;
+      var vp_max = <?php echo $videos_max; ?>;
+
+      function displayVideos() {
+        for (var i = 5*videos_p; i < 5*(videos_p+1); i++) {
+          var v_id = "#news" + ((i%5)+1).toString();
+          if(news_c > i) {
+            $(v_id + "title").text(videos[i]['title']);
+            $(v_id + "text").text(videos[i]['text']);
+            $(v_id + "date").text(videos[i]['date']);
+            $(v_id).attr("style", "display: block;");
+          }
+          else {
+            $(v_id).attr("style", "display: none;");
+          }
+        }
+      }
+
+      displayVideos();
+
+      $("#newstabs").on('click', '#nav_newstab_back', function(e) {
+        if(news_p > 0) {
+          $("#newstab" + (news_p+1).toString()).attr("class", "");
+          $("#newstab" + (--news_p+1).toString()).attr("class", "active");
+          displayNews();
+        }
+      });
+      $("#newstabs").on('click', '#nav_newstab_next', function(e) {
+        if(news_p < vp_max-1) {
+          $("#newstab" + (news_p+1).toString()).attr("class", "");
+          $("#newstab" + (++news_p+1).toString()).attr("class", "active");
+          displayNews();
+        }
+      });
+      $("#newstabs").on('click', '[id^="newstab"]', function(e) {
+        $("#newstab" + (news_p+1).toString()).attr("class", "");
+        $(this).attr("class", "active");
+        news_p = parseInt((this.id).slice(-1))-1;
+        displayNews();
+      });*/
     });
     </script>
   </head>
@@ -334,7 +379,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
               ?>
               <div class="row">
                 <div class="col-md-offset-2 col-md-8">
-                <hr>
+                  <hr/>
                     <?php
                     echo "<h3>" . $video['title'] . "</h3>";
                     echo "<div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br />Link: <a href=\"" . $video['filepath'] . "\" target=\"_blank\">" . $video['filepath'] . "</a>";
