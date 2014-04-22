@@ -68,6 +68,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     .news_content {
       font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     }
+    .videos_content {
+
+    }
     </style>
 
     <?php
@@ -81,6 +84,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       $news_json = json_encode($newsItems);
       $news_max = ceil($news_num/5);
+
+      $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date DESC");
+      $videos_num = mysql_num_rows($sql);
+      $videosItems = array();
+      while($temp = mysql_fetch_array($sql)) {
+        $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
+        array_push($videosItems, $temp);
+      }
+
+      $videos_json = json_encode($videosItems);
+      $videos_max = ceil($videos_num/5);
     ?>
 
     <script type="text/javascript">
@@ -130,7 +144,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       });
 
       // Video navigation
-      /*$(document).ready(function(e) {
       var videos = <?php echo $videos_json; ?>;
       var videos_c = <?php echo $videos_num; ?>;
       var videos_p = 0;
@@ -138,10 +151,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       function displayVideos() {
         for (var i = 5*videos_p; i < 5*(videos_p+1); i++) {
-          var v_id = "#news" + ((i%5)+1).toString();
-          if(news_c > i) {
+          var v_id = "#videos" + ((i%5)+1).toString();
+          if(videos_c > i) {
             $(v_id + "title").text(videos[i]['title']);
-            $(v_id + "text").text(videos[i]['text']);
+            $(v_id + "src").attr("src", videos[i]['filepath']);
+            $(v_id + "link").attr("href", videos[i]['filepath']);
+            $(v_id + "link").text(videos[i]['filepath']);
             $(v_id + "date").text(videos[i]['date']);
             $(v_id).attr("style", "display: block;");
           }
@@ -172,7 +187,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         $(this).attr("class", "active");
         videos_p = parseInt((this.id).slice(-1))-1;
         displayVideos();
-      });*/
+      });
     });
     </script>
   </head>
@@ -367,34 +382,52 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <div class="tab-pane fade" id="videos">
           <h1 style="text-align: center;">Videos</h1><br/>
           <p>
-              <?php
-              $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date DESC");
-              $videoItems = array();
-              while($temp = mysql_fetch_array($sql)) {
-                array_push($videoItems, $temp); 
-              }
-              
-              if (!empty($videoItems)) {
-                foreach ($videoItems as $video) {
-              ?>
-              <div class="row">
-                <div class="col-md-offset-2 col-md-8">
-                  <hr/>
+            <div class="row videos_content">
+              <div class="col-md-offset-2 col-md-8">
+                <div id="videos1" style="display: none;">
+                  <h2 id="videos1title"></h2>
+                  <br/><blockquote><div class="text-center"><iframe id="videos1src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos1link" target="_blank"></a><footer id="videos1date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="videos2" style="display: none;">
+                  <h2 id="videos2title"></h2>
+                  <br/><blockquote><div class="text-center"><iframe id="videos2src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos2link" target="_blank"></a><footer id="videos2date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="videos3" style="display: none;">
+                  <h2 id="videos3title"></h2>
+                  <br/><blockquote><div class="text-center"><iframe id="videos3src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos3link" target="_blank"></a><footer id="videos3date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="videos4" style="display: none;">
+                  <h2 id="videos4title"></h2>
+                  <br/><blockquote><div class="text-center"><iframe id="videos4src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos4link" target="_blank"></a><footer id="videos4date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <div id="videos5" style="display: none;">
+                  <h2 id="videos5title"></h2>
+                  <br/><blockquote><div class="text-center"><iframe id="videos5src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos5link" target="_blank"></a><footer id="videos5date"></footer></blockquote>
+                  <br/><hr/><br/>
+                </div>
+                <br/>
+                <div class="text-center" id="videostabs">
+                  <ul class="pagination">
+                    <li id="nav_videostab_back"><a href="#">&laquo;</a></li>
                     <?php
-                    echo "<h3>" . $video['title'] . "</h3>";
-                    echo "<div class=\"text-center\"><iframe width=\"420\" height=\"315\" src=\"" . $video['filepath'] . "\" frameborder=\"0\" allowfullscreen></iframe></div><br /><br />Link: <a href=\"" . $video['filepath'] . "\" target=\"_blank\">" . $video['filepath'] . "</a>";
+                    for ($i = 1; $i <= $videos_max; $i++) {
+                      if($i == 1)
+                        echo "<li class=\"active\" id=\"videostab1\"><a href=\"#\">1</a></li>";
+                      else
+                        echo "<li id=\"videostab" . $i . "\"><a href=\"#\">" . $i . "</a></li>";
+                    }
                     ?>
+                    <li id="nav_videostab_next"><a href="#">&raquo;</a></li>
+                  </ul>
                 </div>
               </div>
-              <?php 
-                }
-              }
-              else {
-                echo "This group has no videos to display.";
-              } 
-
-              ?>
-          </p>     
+            </div>
+          </p>
+     
         </div>        
       </div>
 
