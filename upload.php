@@ -25,31 +25,69 @@ else
 		$files = array();
 	 
 		if($pg == "workout") {
-			$uploaddir = './workouts/';
+			$uploaddir = 'workouts';
 		}
 		else if ($pg == "play") {
-			$uploaddir = './plays/';
+			$uploaddir = 'plays';
 		}
 		else
 		{
 			$error = true;
 		}
 
-		foreach($_FILES as $file)
-		{
-			$characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-			$filename = '';
-			for ($i = 0; $i < 64; $i++) {
-			    $filename .= $characters[rand(0, strlen($characters) - 1)];
-			}
+		switch ($_FILES['upfile']['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_NO_FILE:
+        	// No file sent
+            $error = true;
+        case UPLOAD_ERR_INI_SIZE:
+        	$error = true;
+        case UPLOAD_ERR_FORM_SIZE:
+        	// Exceeded file size limit
+            $error = true;
+        default:
+        	// Unknown errors
+            $error = true;
+    	}
 
-			if(move_uploaded_file($file['tmp_name'], $uploaddir . $filename))
+		if(!$error) {
+			foreach($_FILES as $file)
 			{
-				$files[] = $uploaddir . $filename;
-			}
-			else
-			{
-			    $error = true;
+				if ($_FILES['size'] > 1000000) {
+		        	// Exceeded file size limit
+		        	$error = true;
+		    	}
+
+				// DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+			    // Check MIME Type by yourself.
+			    $finfo = new finfo(FILEINFO_MIME_TYPE);
+			    if (false === $ext = array_search(
+			        $finfo->file($_FILES['tmp_name']),
+			        array(
+			            'pdf' => 'application/pdf',
+			        ),
+			        true
+			    )) {
+			        // Invalid file format
+			        $error = true;
+			    }
+
+
+				$characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+				$filename = '';
+				for ($i = 0; $i < 64; $i++) {
+				    $filename .= $characters[rand(0, strlen($characters) - 1)];
+				}
+
+				if(move_uploaded_file($file['tmp_name'], sprintf('./%s/%s.%s', $uploaddir, sha1_file($_FILES['tmp_name']), $ext)))
+				{
+					$files[] = $uploaddir . $filename;
+				}
+				else
+				{
+				    $error = true;
+				}
 			}
 		}
 		$data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
@@ -61,71 +99,3 @@ else
 	 
 	echo json_encode($data);
 }
-
-header('Content-Type: text/plain; charset=utf-8');
-
-try {
-    
-    // Undefined | Multiple Files | $_FILES Corruption Attack
-    // If this request falls under any of them, treat it invalid.
-    if (
-        !isset($_FILES['upfile']['error']) ||
-        is_array($_FILES['upfile']['error'])
-    ) {
-        throw new RuntimeException('Invalid parameters.');
-    }
-
-    // Check $_FILES['upfile']['error'] value.
-    switch ($_FILES['upfile']['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-            throw new RuntimeException('Exceeded filesize limit.');
-        default:
-            throw new RuntimeException('Unknown errors.');
-    }
-
-    // You should also check filesize here. 
-    if ($_FILES['upfile']['size'] > 1000000) {
-        throw new RuntimeException('Exceeded filesize limit.');
-    }
-
-    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
-    // Check MIME Type by yourself.
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    if (false === $ext = array_search(
-        $finfo->file($_FILES['upfile']['tmp_name']),
-        array(
-            'jpg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-        ),
-        true
-    )) {
-        throw new RuntimeException('Invalid file format.');
-    }
-
-    // You should name it uniquely.
-    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-    // On this example, obtain safe unique name from its binary data.
-    if (!move_uploaded_file(
-        $_FILES['upfile']['tmp_name'],
-        sprintf('./uploads/%s.%s',
-            sha1_file($_FILES['upfile']['tmp_name']),
-            $ext
-        )
-    )) {
-        throw new RuntimeException('Failed to move uploaded file.');
-    }
-
-    echo 'File is uploaded successfully.';
-
-} catch (RuntimeException $e) {
-
-    echo $e->getMessage();
-
-}
-?>
