@@ -239,9 +239,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 
 	    // Workouts
-	    $('#workout_form').on('click', '#wpdf_adder', function (e) {
-	    	$("#wpdf_container").append("<input type='file' class='form-control workout' name='wpdf[]' accept='application/pdf'>");
-	    });
 	    $('#workout_form').on('click', '#workout_btn', function(e) {
 	    	var g_id = <?php echo $group['id']; ?>;
 	    	var wtitle = $("#wtitle").val();
@@ -249,9 +246,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 	    });
 	    // Plays
-	    $('#play_form').on('click', '#ppdf_adder', function (e) {
-	    	$("#ppdf_container").append("<input type='file' class='form-control play' name='ppdf[]' accept='application/pdf'>");
-	    });
 	    $('#play_form').on('click', '#play_btn', function(e) {
 	    	var g_id = <?php echo $group['id']; ?>;
 	    	var ptitle = $("#ptitle").val();
@@ -426,11 +420,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  <div class="form-group" id="g_wpdf">
 		                    <label for="wpdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <div id="wpdf_container">
-		                      	<input type="file" class="form-control workout" name="wpdf[]" accept="application/pdf">
-		                      </div>
-		                      <a href="#" id="wpdf_adder">+&ensp;Add another file</a><br/>
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs.</small></span>
+		                      <input type="file" class="form-control workout" name="wpdf" accept="application/pdf" multiple>
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold Ctrl to select multiple files.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
@@ -461,11 +452,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  <div class="form-group" id="g_ppdf">
 		                    <label for="ppdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <div id="ppdf_container">
-		                      	<input type="file" class="form-control play" name="ppdf[]" accept="application/pdf">
-		                      </div>
-		                      <a href="#" id="ppdf_adder">+&ensp;Add another file</a><br/>
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs.</small></span>
+		                      <input type="file" class="form-control play" name="ppdf" accept="application/pdf">
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold Ctrl to select multiple files.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
