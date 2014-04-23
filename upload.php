@@ -73,20 +73,15 @@ else
 			        $error = true;
 			    }
 
-
-				$characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-				$filename = '';
-				for ($i = 0; $i < 64; $i++) {
-				    $filename .= $characters[rand(0, strlen($characters) - 1)];
-				}
-
-				if(move_uploaded_file($file['tmp_name'], sprintf('./%s/%s.%s', $uploaddir, sha1_file($_FILES['tmp_name']), $ext)))
-				{
-					$files[] = $uploaddir . $filename;
-				}
-				else
-				{
-				    $error = true;
+			    if(!$error) {
+					if(move_uploaded_file($file['tmp_name'], sprintf('./%s/%s.%s', $uploaddir, sha1_file($_FILES['tmp_name']), $ext)))
+					{
+						$files[] = $uploaddir . $filename;
+					}
+					else
+					{
+					    $error = true;
+					}
 				}
 			}
 		}
