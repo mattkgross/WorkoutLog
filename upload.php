@@ -1,4 +1,67 @@
 <?php
+
+session_start();
+
+require_once("headers/mysql.php");
+
+$user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
+$group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
+$admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
+
+if(empty($user) || empty($group) || !$admin)
+{
+	echo "Get out of here! You don't have privileges in these lands.";
+}
+
+else
+{
+	$data = array();
+
+	$pg = $_GET['pg'];
+ 
+	if(isset($_GET['files']))
+	{  
+		$error = false;
+		$files = array();
+	 
+		if($pg == "workout") {
+			$uploaddir = './workouts/';
+		}
+		else if ($pg == "play") {
+			$uploaddir = './plays/';
+		}
+		else
+		{
+			$error = true;
+		}
+
+		foreach($_FILES as $file)
+		{
+			$characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+			$filename = '';
+			for ($i = 0; $i < 64; $i++) {
+			    $filename .= $characters[rand(0, strlen($characters) - 1)];
+			}
+
+			if(move_uploaded_file($file['tmp_name'], $uploaddir . $filename))
+			{
+				$files[] = $uploaddir . $filename;
+			}
+			else
+			{
+			    $error = true;
+			}
+		}
+		$data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
+	}
+	else
+	{
+		$data = array('success' => 'Form was submitted', 'formData' => $_POST);
+	}
+	 
+	echo json_encode($data);
+}
+
 header('Content-Type: text/plain; charset=utf-8');
 
 try {

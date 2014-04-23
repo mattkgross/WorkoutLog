@@ -90,6 +90,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		text-align: center;
 		width: 100%;
 	}
+	.load_bar {
+		height: 34px;
+		width: 112px;
+		font-size: 14px;
+		margin-right: auto;
+		margin-left: auto;
+		display: none;
+	}
     </style>
     
     <script type="text/javascript">
@@ -234,7 +242,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	    var w_files;
 
 	    $('input[type=file] .workout').on('click', function(event) {
-	    	files = event.target.files;
+	    	w_files = event.target.files;
 	    });
 
 
@@ -243,6 +251,50 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	    	var g_id = <?php echo $group['id']; ?>;
 	    	var wtitle = $("#wtitle").val();
 	    	var wtext = $("#wtext").val();
+
+	    	e.stopPropagation();
+	    	e.preventDefault();
+
+	    	$(this).attr("style", "display: none;");
+	    	$("#workout_bar").attr("style", "display: inline-block;");
+
+	    	var data = new FormData();
+	    	$.each(w_files, function(key, value) {
+				data.append(key, value);
+			});
+
+
+			// Submit
+			$.ajax({
+		        url: 'upload.php?files&pg=workout',
+		        type: 'POST',
+		        data: data,
+		        cache: false,
+		        dataType: 'json',
+		        processData: false, // Don't process the files
+		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		        success: function(data, textStatus, jqXHR)
+		        {
+		        	if(typeof data.error === 'undefined')
+		        	{
+		        		// Success so call function to process the form
+		        		submitForm(event, data);
+		        	}
+		        	else
+		        	{
+		        		// Handle errors here
+		        		console.log('ERRORS: ' + data.error);
+		        	}
+		        },
+		        error: function(jqXHR, textStatus, errorThrown)
+		        {
+		        	// Handle errors here
+		        	console.log('ERRORS: ' + textStatus);
+
+		        	$("#workout_bar").attr("style", "display: none;");
+		    		$(this).attr("style", "display: inline-block;");
+		        }
+		    });
 
 	    });
 	    // Plays
@@ -421,12 +473,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                    <label for="wpdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
 		                      <input type="file" class="form-control workout" name="wpdf" accept="application/pdf" multiple>
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold Ctrl to select multiple files.</small></span>
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold &quot;Ctrl&quot; to select multiple files.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
 		                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
 		                      <button class="btn btn-success" id="workout_btn">Post Workout</button>
+		                      <div class="progress progress-striped active load_bar" id="workout_bar">
+								<div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+								  <span class="sr-only">Posting...</span>
+								</div>
+							  </div>
 		                    </div>
 		                  </div>
 		                </form>
@@ -452,13 +509,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  <div class="form-group" id="g_ppdf">
 		                    <label for="ppdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <input type="file" class="form-control play" name="ppdf" accept="application/pdf">
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold Ctrl to select multiple files.</small></span>
+		                      <input type="file" class="form-control play" name="ppdf" accept="application/pdf" multiple>
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold &quot;Ctrl&quot; to select multiple files.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
 		                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
 		                      <button class="btn btn-success" id="play_btn">Post Workout</button>
+		                      <div class="progress progress-striped active load_bar" id="play_bar">
+								<div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+								  <span class="sr-only">Posting...</span>
+								</div>
+							  </div>
 		                    </div>
 		                  </div>
 		                </form>
