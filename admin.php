@@ -171,18 +171,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		}
 	}
 
-	// Member Management
 	$(document).ready(function(e) {
+
+		// Member Management
         $('.del-member').click(function(e) {
             var m_id = $(this).attr('member');
             var row = $(this).closest('tr');
             row.fadeOut(1000);
 			sendAjax("del", m_id);
         });
-    });
 
-    // Admin Management
-	$(document).ready(function(e) {
+    	// Admin Management
 	    $('#table1').on('click', '.admin-member', function(e) {
 	        var m_id = $(this).attr('member');
 	        $(this).toggleClass('admin-member n-admin-member');
@@ -193,10 +192,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	        $(this).toggleClass('n-admin-member admin-member');
 	        sendAjax("a-ad", m_id);
 	    });
-	});
 
-	// Forms Management
-	$(document).ready(function(e) {
+
+		// Forms Management
 	    // News
 	    $('#news_form').on('click', '#news_btn', function(e) {
 	    	var g_id = <?php echo $group['id']; ?>;
@@ -230,6 +228,35 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 	        $("#vtitle").val("");
 	        $("#vlink").val("");
+	    });
+
+	    // Globals for files
+	    var w_files;
+
+	    $('input[type=file] .workout').on('click', function(event) {
+	    	files = event.target.files;
+	    });
+
+
+	    // Workouts
+	    $('#workout_form').on('click', '#wpdf_adder', function (e) {
+	    	$("#wpdf_container").append("<input type='file' class='form-control workout' name='wpdf[]' accept='application/pdf'>");
+	    });
+	    $('#workout_form').on('click', '#workout_btn', function(e) {
+	    	var g_id = <?php echo $group['id']; ?>;
+	    	var wtitle = $("#wtitle").val();
+	    	var wtext = $("#wtext").val();
+
+	    });
+	    // Plays
+	    $('#play_form').on('click', '#ppdf_adder', function (e) {
+	    	$("#ppdf_container").append("<input type='file' class='form-control play' name='ppdf[]' accept='application/pdf'>");
+	    });
+	    $('#play_form').on('click', '#play_btn', function(e) {
+	    	var g_id = <?php echo $group['id']; ?>;
+	    	var ptitle = $("#ptitle").val();
+	    	var ptext = $("#ptext").val();
+
 	    });
 	});
 	</script>
@@ -381,20 +408,29 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  <div class="tab-pane" id="workouts">
 
-					  	<h3 style="text-align: center;">Create Workout Item</h3><br/>
+					  	<h3 style="text-align: center;">Create A Workout</h3><br/>
 
 			            <form class="form-horizontal" role="form" id="workout_form" method="post" onSubmit="return false;">
 		                  <div class="form-group" id="g_wtitle">
-		                    <label for="wtitle" class="col-md-offset-1 col-md-3 control-label">Workout Title</label>
+		                    <label for="wtitle" class="col-md-3 control-label">Workout Title</label>
 		                    <div class="col-md-4">
 		                      <input type="text" class="form-control" id="wtitle" name="wtitle" placeholder="Ladder Workout Manual">
 		                    </div>
 		                  </div>
+		                  <div class="form-group" id="g_wtext">
+				            <label for="wtext" class="col-md-3 control-label">Body</label>
+				            <div class="col-md-7">
+				              <textarea class="form-control" id="wtext" name="wtext" rows="10" placeholder="Follow the instructions of the pdf below to complete leg day."></textarea>
+				            </div>
+				          </div>
 		                  <div class="form-group" id="g_wpdf">
-		                    <label for="wpdf" class="col-md-offset-1 col-md-3 control-label">PDF</label>
+		                    <label for="wpdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <input type="text" class="form-control" id="wpdf" name="wpdf" placeholder="replace with updload file">
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload a PDF file</small></span>
+		                      <div id="wpdf_container">
+		                      	<input type="file" class="form-control workout" name="wpdf[]" accept="application/pdf">
+		                      </div>
+		                      <a href="#" id="wpdf_adder">+&ensp;Add another file</a><br/>
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
@@ -407,25 +443,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  <div class="tab-pane" id="plays">
 
-						<h3 style="text-align: center;">Create Play Item</h3><br/>
+						<h3 style="text-align: center;">Create A Play</h3><br/>
 
-		                <form class="form-horizontal" role="form" id="play_form" method="post" onSubmit="return false;">
+			            <form class="form-horizontal" role="form" id="play_form" method="post" onSubmit="return false;">
 		                  <div class="form-group" id="g_ptitle">
-		                    <label for="ptitle" class="col-md-offset-1 col-md-3 control-label">Play Title</label>
+		                    <label for="ptitle" class="col-md-3 control-label">Play Title</label>
 		                    <div class="col-md-4">
-		                      <input type="text" class="form-control" id="ptitle" name="ptitle" placeholder="Nud Play Diagram">
+		                      <input type="text" class="form-control" id="ptitle" name="ptitle" placeholder="Zone Defense">
 		                    </div>
 		                  </div>
+		                  <div class="form-group" id="g_ptext">
+				            <label for="ptext" class="col-md-3 control-label">Body</label>
+				            <div class="col-md-7">
+				              <textarea class="form-control" id="ptext" name="ptext" rows="10" placeholder="Make sure that the far man covers the corner. See pdf for more info and diagrams."></textarea>
+				            </div>
+				          </div>
 		                  <div class="form-group" id="g_ppdf">
-		                    <label for="ppdf" class="col-md-offset-1 col-md-3 control-label">Play</label>
+		                    <label for="ppdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <input type="text" class="form-control" id="ppdf" name="ppdf" placeholder="replace with upload file">
-		                      <span style="text-align: center; font-style: italic;"><small>Note: Please upload a PDF file </small></span>
+		                      <div id="ppdf_container">
+		                      	<input type="file" class="form-control play" name="ppdf[]" accept="application/pdf">
+		                      </div>
+		                      <a href="#" id="ppdf_adder">+&ensp;Add another file</a><br/>
+		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
 		                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
-		                      <button class="btn btn-success" id="play_btn">Post Play</button>
+		                      <button class="btn btn-success" id="play_btn">Post Workout</button>
 		                    </div>
 		                  </div>
 		                </form>
