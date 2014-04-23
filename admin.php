@@ -248,10 +248,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 	    // Workouts
 	    $('#workout_form').on('click', '#workout_btn', function(e) {
-	    	var g_id = <?php echo $group['id']; ?>;
-	    	var wtitle = $("#wtitle").val();
-	    	var wtext = $("#wtext").val();
-
 	    	e.stopPropagation();
 	    	e.preventDefault();
 
@@ -264,7 +260,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			});
 
 
-			// Submit
 			$.ajax({
 		        url: 'upload.php?files&pg=workout',
 		        type: 'POST',
@@ -278,7 +273,30 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		        	if(typeof data.error === 'undefined')
 		        	{
 		        		// Success so call function to process the form
-		        		submitForm(event, data);
+		        		var g_id = <?php echo $group['id']; ?>;
+				    	var wtitle = $("#wtitle").val();
+				    	var wtext = $("#wtext").val();
+				    	var file_n = new Array();
+
+				    	// Grab file names
+						$.each(data.files, function(key, value)
+						{
+							file_n.push(value);
+						});
+
+						var m_id = {
+							'g_id' : g_id,
+				        	'title' : wtitle,
+				        	'text' : wtext,
+				        	'files' : file_n,
+						}
+						m_id = JSON.stringify(m_id);
+
+		        		sendAjax("workout", m_id);
+
+		        		// Stop loading bar
+		        		$("#workout_bar").attr("style", "display: none;");
+		    			$(this).attr("style", "display: inline-block;");
 		        	}
 		        	else
 		        	{
@@ -291,6 +309,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		        	// Handle errors here
 		        	console.log('ERRORS: ' + textStatus);
 
+		        	// Stop loading bar
 		        	$("#workout_bar").attr("style", "display: none;");
 		    		$(this).attr("style", "display: inline-block;");
 		        }
