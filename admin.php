@@ -98,6 +98,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		margin-left: auto;
 		display: none;
 	}
+	.dangerzone {
+		color: #df3e3e;
+		background-image: linear-gradient(#fcfcfc, #eee);
+	}
     </style>
     
     <script type="text/javascript">
@@ -197,10 +201,47 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 				$(\"#feedback\").show();";
 			}
 		}
-		?>		
+		?>
+
+		// Danger Zone
+		$('.dangerzone').hover(
+			function() {
+				$(this).css("color", "#ffffff");
+				$(this).css("background-image", "linear-gradient(#f97171, #df3e3e)");
+			},
+			function() {
+				$(this).css("color", "#df3e3e");
+				$(this).css("background-image", "linear-gradient(#fcfcfc, #eee)");
+			}
+		);
+		$('#table2').on('click', '#clear_news', function(e) {
+			if (confirm("Are you sure you want to delete all news posts?")) {
+		    	// Delete
+		    }
+		});
+		$('#table2').on('click', '#clear_workouts', function(e) {
+			if (confirm("Are you sure you want to delete all workout posts and files?")) {
+		    	// Delete
+		    }
+		});
+		$('#table2').on('click', '#clear_plays', function(e) {
+			if (confirm("Are you sure you want to delete all play posts and files?")) {
+		    	// Delete
+		    }
+		});
+		$('#table2').on('click', '#clear_videos', function(e) {
+			if (confirm("Are you sure you want to delete all video posts?")) {
+		    	// Delete
+		    }
+		});
+		$('#table2').on('click', '#delete_group', function(e) {
+			if (confirm("Are you sure you want to delete this group?")) {
+		    	// Delete
+		    }
+		});
 
 		// Member Management
-        $('.del-member').click(function(e) {
+		$('#table1').on('click', '.del-member', function(e) {
             var m_id = $(this).attr('member');
             var row = $(this).closest('tr');
             row.fadeOut(1000);
@@ -327,7 +368,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <div class="row">
       	<div class="col-md-offset-1 col-md-3">
       		<div class="panel panel-default">
-			  <div class="panel-heading">
+			  <div class="panel-heading" style="background-image: linear-gradient(#fcfcfc, #eee);">
 			    <h3 class="panel-title">Members</h3>
 			  </div>
 			  <div class="panel-body">
@@ -369,23 +410,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			  	  <table class="table table-condensed" id="table2" style="border: none;">
 			  	  	<tr>
 			  	  		<td style="text-align: left;"><h4>Clear News</h4><small>Deletes all news posts for the group.</small></td>
-			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_news" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear News</button></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-default btn-sm dangerzone" id="clear_news">Clear News</button></td>
 			  	  	</tr>
 			  	  	<tr>
 			  	  		<td style="text-align: left;"><h4>Clear Workouts</h4><small>Deletes all workout posts <strong>and files</strong> for the group.</small></td>
-			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_workouts" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Workouts</button></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-default btn-sm dangerzone" id="clear_workouts">Clear Workouts</button></td>
 			  	  	</tr>
 			  	  	<tr>
 			  	  		<td style="text-align: left;"><h4>Clear Plays</h4><small>Deletes all play posts <strong>and files</strong> for the group.</small></td>
-			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_plays" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Plays</button></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-default btn-sm dangerzone" id="clear_plays">Clear Plays</button></td>
 			  	  	</tr>
 			  	  	<tr>
 			  	  		<td style="text-align: left;"><h4>Clear Videos</h4><small>Deletes all video posts for the group.</small></td>
-			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_videos" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Videos</button></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-default btn-sm dangerzone" id="clear_videos">Clear Videos</button></td>
 			  	  	</tr>
 			  	  	<tr>
 			  	  		<td style="text-align: left;"><h4 style="color: #df3e3e;"><strong>Delete Group</strong></h4><small>Deletes the group and all associated posts and files.</small></td>
-			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="delete_group" style="background-image: linear-gradient(#f97171, #df3e3e);">Delete Group</button></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-default btn-sm dangerzone" id="delete_group">Delete Group</button></td>
 			  	  	</tr>
 			  	  </table>
 			  	  </div>
@@ -395,7 +436,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       	<div class="col-md-7">
       		<div class="panel panel-default">
-			  <div class="panel-heading">
+			  <div class="panel-heading" style="background-image: linear-gradient(#fcfcfc, #eee);">
 			    <h3 class="panel-title">Dashboard</h3>
 			  </div>
 			  <div class="panel-body">
