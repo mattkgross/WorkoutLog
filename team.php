@@ -326,11 +326,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                   <div class="col-md-offset-2 col-md-8">
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <?php
-                        echo "<h3 class=\"panel-title\">" . $workout['title'] . "</h3>";
-                        ?>
+                        <h3 class="panel-title"><?php echo $workout['title']; ?></h3>
                       </div>                            
-                      <?php echo "<div class=\"panel-body\">" . $workout['filepath'] . "</div>"; ?>
+                      <div class="panel-body">
+                      <?php
+                        echo $workout['text'];
+                        $w_files = array();
+                        $sql = mysql_query("SELECT name,filepath FROM workout_files");
+                      ?>
+                      </div>
                     </div>
                   </div>
                 </div>

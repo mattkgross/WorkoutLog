@@ -15,8 +15,6 @@ $admin = $_SESSION['G_ADMIN'];
 // Kick out anyone who's not logged in or an admin.
 if(empty($user) || !$admin) {
 	header('Location: index.php'); }
-
-$message = $_SESSION['message'];
 ?>
 <!--
 Workout Log
@@ -361,6 +359,38 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 				  </div>
 			  </div>
 			</div>
+
+			<div class="panel panel-default">
+			  <div class="panel-heading" style="background-image: linear-gradient(#f97171, #df3e3e);">
+			    <h3 class="panel-title" style="color: #ffffff;"><strong>Danger Zone</strong></h3>
+			  </div>
+			  <div class="panel-body">
+			  	  <div class="table-responsive">
+			  	  <table class="table table-condensed" id="table2" style="border: none;">
+			  	  	<tr>
+			  	  		<td style="text-align: left;"><h4>Clear News</h4><small>Deletes all news posts for the group.</small></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_news" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear News</button></td>
+			  	  	</tr>
+			  	  	<tr>
+			  	  		<td style="text-align: left;"><h4>Clear Workouts</h4><small>Deletes all workout posts <strong>and files</strong> for the group.</small></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_workouts" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Workouts</button></td>
+			  	  	</tr>
+			  	  	<tr>
+			  	  		<td style="text-align: left;"><h4>Clear Plays</h4><small>Deletes all play posts <strong>and files</strong> for the group.</small></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_plays" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Plays</button></td>
+			  	  	</tr>
+			  	  	<tr>
+			  	  		<td style="text-align: left;"><h4>Clear Videos</h4><small>Deletes all video posts for the group.</small></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="clear_videos" style="background-image: linear-gradient(#f97171, #df3e3e);">Clear Videos</button></td>
+			  	  	</tr>
+			  	  	<tr>
+			  	  		<td style="text-align: left;"><h4 style="color: #df3e3e;"><strong>Delete Group</strong></h4><small>Deletes the group and all associated posts and files.</small></td>
+			  	  		<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger btn-sm" id="delete_group" style="background-image: linear-gradient(#f97171, #df3e3e);">Delete Group</button></td>
+			  	  	</tr>
+			  	  </table>
+			  	  </div>
+			  </div>
+			</div>
       	</div>
 
       	<div class="col-md-7">
@@ -554,6 +584,5 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			</div>
       	</div>
       </div>
-    </div>
   </body>
 </html>

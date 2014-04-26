@@ -140,8 +140,9 @@ else {
 			else {
 				mysql_query("INSERT INTO workouts (g_id, title, text) VALUES ('" . $group['id'] . "','$title','$text')");
 				$w_id = mysql_insert_id();
+				$i = 0;
 				foreach ($file_names as $name) {
-					mysql_query("INSERT INTO workout_files (w_id, filepath) VALUE ('$w_id','$name')");
+					mysql_query("INSERT INTO workout_files (w_id, name, filepath) VALUE ('$w_id', '" . $files[$i++]['name'] . "', '$name')");
 				}
 				$error = "Workout successfully posted!";
 			}
