@@ -65,7 +65,7 @@ else {
 		// Let's catch some errors
 		$max_files = ini_get('max_file_uploads')?ini_get('max_file_uploads'):10;
 		if($max_files < $file_count) {
-			$error = "Too many files were uploaded!"
+			$error = "Too many files were uploaded!";
 		}
 
 		if(empty($error)) {
@@ -128,7 +128,7 @@ else {
 			foreach ($file_names as $name) {
 				// Flip shit if the file can't be deleted.
 				if(!unlink($name)) {
-					throw new RuntimeException('File deletion malfunction. Fatal error. Please alert the webmaster immediately.')
+					throw new RuntimeException('File deletion malfunction. Fatal error. Please alert the webmaster immediately.');
 				}
 			}
 		}
@@ -157,87 +157,4 @@ else {
 	else {
 		header('Location: index.php');
 	}
-}
-
-
-
-
-	$data = array();
-
-	$pg = $_GET['pg'];
- 
-	if(isset($_GET['files']))
-	{  
-		$error = false;
-		$files = array();
-	 
-		if($pg == "workout") {
-			$uploaddir = 'workouts';
-		}
-		else if ($pg == "play") {
-			$uploaddir = 'plays';
-		}
-		else
-		{
-			$error = true;
-		}
-
-		switch ($_FILES['upfile']['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_NO_FILE:
-        	// No file sent
-            $error = true;
-        case UPLOAD_ERR_INI_SIZE:
-        	$error = true;
-        case UPLOAD_ERR_FORM_SIZE:
-        	// Exceeded file size limit
-            $error = true;
-        default:
-        	// Unknown errors
-            $error = true;
-    	}
-
-		if(!$error) {
-			foreach($_FILES as $file)
-			{
-				if ($_FILES['size'] > 1000000) {
-		        	// Exceeded file size limit
-		        	$error = true;
-		    	}
-
-				// DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
-			    // Check MIME Type by yourself.
-			    $finfo = new finfo(FILEINFO_MIME_TYPE);
-			    if (false === $ext = array_search(
-			        $finfo->file($_FILES['tmp_name']),
-			        array(
-			            'pdf' => 'application/pdf',
-			        ),
-			        true
-			    )) {
-			        // Invalid file format
-			        $error = true;
-			    }
-
-			    if(!$error) {
-					if(move_uploaded_file($file['tmp_name'], sprintf('./%s/%s.%s', $uploaddir, sha1_file($_FILES['tmp_name']), $ext)))
-					{
-						$files[] = $uploaddir . $filename;
-					}
-					else
-					{
-					    $error = true;
-					}
-				}
-			}
-		}
-		$data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
-	}
-	else
-	{
-		$data = array('success' => 'Form was submitted', 'formData' => $_POST);
-	}
-	 
-	echo json_encode($data);
 }

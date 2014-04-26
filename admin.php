@@ -15,6 +15,8 @@ $admin = $_SESSION['G_ADMIN'];
 // Kick out anyone who's not logged in or an admin.
 if(empty($user) || !$admin) {
 	header('Location: index.php'); }
+
+$message = $_SESSION['message'];
 ?>
 <!--
 Workout Log
