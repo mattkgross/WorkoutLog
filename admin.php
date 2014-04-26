@@ -279,8 +279,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 				    	var file_n = new Array();
 
 				    	// Grab file names
-						$.each(data.files, function(key, value)
-						{
+						$.each(data.files, function(key, value)	{
 							file_n.push(value);
 						});
 
