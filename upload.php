@@ -104,7 +104,7 @@ else {
 			        true
 			    )) {
 			        // Invalid file format
-			        $error = "File format is invalid! Type detected is " . $finfo->file($file['tmp_name']);
+			        $error = "File format is invalid! Type detected is " . $finfo->file($file['tmp_name']) . ". Only pdf types are allowed at this time.";
 			    }
 			}
 		}
@@ -142,7 +142,7 @@ else {
 				$w_id = mysql_insert_id();
 				$i = 0;
 				foreach ($file_names as $name) {
-					mysql_query("INSERT INTO workout_files (w_id, name, filepath) VALUE ('$w_id', '" . $files[$i++]['name'] . "', '$name')");
+					mysql_query("INSERT INTO workout_files (w_id, name, filepath) VALUE ('$w_id', '" . substr($files[$i++]['name'], 0, -4) . "', '$name')");
 				}
 				$error = "Workout successfully posted!";
 			}
