@@ -62,10 +62,6 @@ if(!empty($user) && $admin)
 			echo "Groups did not match in the video post request!";
 		}
 	}
-	else if($req == "workout") {
-		$body = json_decode($body);
-		echo $body;
-	}
 	else {
 		echo "No operation request was matched.";
 	}

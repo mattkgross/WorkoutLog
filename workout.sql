@@ -33,15 +33,6 @@ CREATE TABLE `groups` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `groups`
---
-
-LOCK TABLES `groups` WRITE;
-/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `news`
 --
 
@@ -60,15 +51,6 @@ CREATE TABLE `news` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `news`
---
-
-LOCK TABLES `news` WRITE;
-/*!40000 ALTER TABLE `news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `play_files`
 --
 
@@ -85,15 +67,6 @@ CREATE TABLE `play_files` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `play_files`
---
-
-LOCK TABLES `play_files` WRITE;
-/*!40000 ALTER TABLE `play_files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `play_files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `plays`
 --
 
@@ -105,20 +78,11 @@ CREATE TABLE `plays` (
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
   `text` longtext NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `plays`
---
-
-LOCK TABLES `plays` WRITE;
-/*!40000 ALTER TABLE `plays` DISABLE KEYS */;
-/*!40000 ALTER TABLE `plays` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `post_groups`
@@ -138,15 +102,6 @@ CREATE TABLE `post_groups` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `post_groups`
---
-
-LOCK TABLES `post_groups` WRITE;
-/*!40000 ALTER TABLE `post_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `posts`
 --
 
@@ -162,15 +117,6 @@ CREATE TABLE `posts` (
   KEY `u_id_idx` (`u_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `posts`
---
-
-LOCK TABLES `posts` WRITE;
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_groups`
@@ -191,15 +137,6 @@ CREATE TABLE `user_groups` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_groups`
---
-
-LOCK TABLES `user_groups` WRITE;
-/*!40000 ALTER TABLE `user_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -216,15 +153,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `videos`
@@ -245,15 +173,6 @@ CREATE TABLE `videos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `videos`
---
-
-LOCK TABLES `videos` WRITE;
-/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `workout_files`
 --
 
@@ -270,15 +189,6 @@ CREATE TABLE `workout_files` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `workout_files`
---
-
-LOCK TABLES `workout_files` WRITE;
-/*!40000 ALTER TABLE `workout_files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `workout_files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `workouts`
 --
 
@@ -290,20 +200,11 @@ CREATE TABLE `workouts` (
   `g_id` bigint(20) unsigned NOT NULL,
   `title` text NOT NULL,
   `text` longtext NOT NULL,
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `g_id_idx` (`g_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `workouts`
---
-
-LOCK TABLES `workouts` WRITE;
-/*!40000 ALTER TABLE `workouts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `workouts` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -314,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-16  1:33:54
+-- Dump completed on 2014-04-25 20:32:32

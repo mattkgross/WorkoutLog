@@ -237,91 +237,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	        $("#vtitle").val("");
 	        $("#vlink").val("");
 	    });
-
-	    // Globals for files
-	    var w_files;
-
-	    $('input[type=file] .workout').on('click', function(event) {
-	    	w_files = event.target.files;
-	    });
-
-
-	    // Workouts
-	    $('#workout_form').on('click', '#workout_btn', function(e) {
-	    	e.stopPropagation();
-	    	e.preventDefault();
-
-	    	$(this).attr("style", "display: none;");
-	    	$("#workout_bar").attr("style", "display: inline-block;");
-
-	    	var data = new FormData();
-	    	$.each(w_files, function(key, value) {
-				data.append(key, value);
-			});
-
-
-			$.ajax({
-		        url: 'upload.php?files&pg=workout',
-		        type: 'POST',
-		        data: data,
-		        cache: false,
-		        dataType: 'json',
-		        processData: false, // Don't process the files
-		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-		        success: function(data, textStatus, jqXHR)
-		        {
-		        	if(typeof data.error === 'undefined')
-		        	{
-		        		// Success so call function to process the form
-		        		var g_id = <?php echo $group['id']; ?>;
-				    	var wtitle = $("#wtitle").val();
-				    	var wtext = $("#wtext").val();
-				    	var file_n = new Array();
-
-				    	// Grab file names
-						$.each(data.files, function(key, value)	{
-							file_n.push(value);
-						});
-
-						var m_id = {
-							'g_id' : g_id,
-				        	'title' : wtitle,
-				        	'text' : wtext,
-				        	'files' : file_n,
-						}
-						m_id = JSON.stringify(m_id);
-
-		        		sendAjax("workout", m_id);
-
-		        		// Stop loading bar
-		        		$("#workout_bar").attr("style", "display: none;");
-		    			$(this).attr("style", "display: inline-block;");
-		        	}
-		        	else
-		        	{
-		        		// Handle errors here
-		        		console.log('ERRORS: ' + data.error);
-		        	}
-		        },
-		        error: function(jqXHR, textStatus, errorThrown)
-		        {
-		        	// Handle errors here
-		        	console.log('ERRORS: ' + textStatus);
-
-		        	// Stop loading bar
-		        	$("#workout_bar").attr("style", "display: none;");
-		    		$(this).attr("style", "display: inline-block;");
-		        }
-		    });
-
-	    });
-	    // Plays
-	    $('#play_form').on('click', '#play_btn', function(e) {
-	    	var g_id = <?php echo $group['id']; ?>;
-	    	var ptitle = $("#ptitle").val();
-	    	var ptext = $("#ptext").val();
-
-	    });
 	});
 	</script>
 
@@ -474,7 +389,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  	<h3 style="text-align: center;">Create A Workout</h3><br/>
 
-			            <form class="form-horizontal" role="form" id="workout_form" method="post" onSubmit="return false;">
+			            <form class="form-horizontal" role="form" id="workout_form" method="post" action="upload.php" enctype="multipart/form-data">
 		                  <div class="form-group" id="g_wtitle">
 		                    <label for="wtitle" class="col-md-3 control-label">Workout Title</label>
 		                    <div class="col-md-4">
@@ -496,12 +411,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  </div>
 		                  <div class="form-group">
 		                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
+		                      <input type="hidden" name="form_type" value="workout">
 		                      <button class="btn btn-success" id="workout_btn">Post Workout</button>
-		                      <div class="progress progress-striped active load_bar" id="workout_bar">
-								<div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-								  <span class="sr-only">Posting...</span>
-								</div>
-							  </div>
 		                    </div>
 		                  </div>
 		                </form>
