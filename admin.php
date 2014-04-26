@@ -425,7 +425,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  <div class="form-group" id="g_wpdf">
 		                    <label for="wpdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <input type="file" class="form-control workout" name="wpdf" accept="application/pdf" multiple>
+		                      <input type="file" class="form-control workout" name="wpdf[]" accept="application/pdf" multiple>
 		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold &quot;Ctrl&quot; to select multiple files.</small></span>
 		                    </div>
 		                  </div>

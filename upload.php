@@ -31,7 +31,6 @@ Array
 )
 */
 function reArrayFiles(&$file_post) {
-
     $file_ary = array();
     $file_count = count($file_post['name']);
     $file_keys = array_keys($file_post);
@@ -92,11 +91,6 @@ else {
 		        	// Unknown errors
 		            $error = "Unknown upload error. Please contact the webmaster.";
 	    		}
-
-	    		// Check filesize
-	    		if ($file['size'] > ini_get('upload_max_filesize')) {
-		        	$error = "File size of " . ini_get('upload_max_filesize') . " was exceeded!";
-		    	}
 
 		    	// Verify file type
 		    	// DO NOT TRUST $file['mime'] VALUE !!
