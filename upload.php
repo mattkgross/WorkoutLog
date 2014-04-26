@@ -57,9 +57,15 @@ else {
 		$text = addslashes($_POST['wtext']);
 		$error = "";
 
-		$file_count = count($_FILES['wpdf']['name']);
+		if($_FILES['wpdf']['error'] == 4) {
+			$file_count = 0;
+		}
+		else {
+			$file_count = count($_FILES['wpdf']['name']);
+		}
+
 		$file_names = array();
-		$files = reArrayFiles($_FILES['wpdf']);
+		$files = ($file_count>0)?reArrayFiles($_FILES['wpdf']):array();
 		$uploaddir = "workouts";
 
 		// Let's catch some errors
@@ -104,7 +110,7 @@ else {
 			        true
 			    )) {
 			        // Invalid file format
-			        $error = "File format is invalid!";
+			        $error = "File format is invalid! Type detected is " . $finfo->file($file['tmp_name']);
 			    }
 			}
 		}

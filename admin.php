@@ -182,6 +182,24 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	}
 
 	$(document).ready(function(e) {
+		// Upload alerts
+		<?php
+		if(isset($_SESSION['message'])) {
+			$mess = $_SESSION['message'];
+			unset($_SESSION['message']);
+
+			if($mess == "Workout successfully posted!") {
+				echo "$(\"#feedback\").attr(\"class\", \"alert alert-success alert-dismissable in fade feedback\");
+				$(\"#feedback_text\").text(\"" . $mess . "\");
+				$(\"#feedback\").show();";
+			}
+			else {
+				echo "$(\"#feedback\").attr(\"class\", \"alert alert-danger alert-dismissable in fade feedback\");
+				$(\"#feedback_text\").text(\"" . $mess . "\");
+				$(\"#feedback\").show();";
+			}
+		}
+		?>		
 
 		// Member Management
         $('.del-member').click(function(e) {
