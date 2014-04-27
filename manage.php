@@ -32,7 +32,7 @@ if(!empty($user) && $admin)
 		}
 
 		// [0] = g_id, [1] = title, [2] = text
-		if(empty($args[1]) || $empty($args[2])) {
+		if(empty($args[1]) || empty($args[2])) {
 			echo "Your post must have a title and a body!";
 		}
 		else if($args[0] == $group['id']) {
@@ -61,6 +61,44 @@ if(!empty($user) && $admin)
 		else {
 			echo "Groups did not match in the video post request!";
 		}
+	}
+
+	else if($req == "c-n") {
+		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+		echo "Deleted all news posts!";
+	}
+	else if($req == "c-w") {
+		// Find all workout post ids
+		$sql = mysql_query("SELECT id FROM workouts WHERE g_id='" . $group['id'] . "'");
+		$w_s = array();
+		while($temp = mysql_fetch_array($sql)) {
+			array_push($w_s, $temp['id']);
+		}
+		$in_str = "'" . implode("', '", $w_s) . "'";
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM workout_files WHERE w_id IN (" . $in_str . ")");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+
+		// Delete all file posts
+		mysql_query("DELETE FROM workout_files WHERE w_id IN (" . $in_str . ")");
+		// Delete all workout posts
+		mysql_query("DELETE FROM workouts WHERE g_id='" . $group['id'] . "'");
+
+		echo "Deleted all workout posts!";
+	}
+	else if($req == "c-p") {
+		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+		echo "Deleted all play posts!";
+	}
+	else if($req == "c-v") {
+		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+		echo "Deleted all video posts!";
+	}
+	else if($req == "d-g") {
+		
 	}
 	else {
 		echo "No operation request was matched.";

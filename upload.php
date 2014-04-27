@@ -56,7 +56,7 @@ else {
 		$text = addslashes($_POST['wtext']);
 		$error = "";
 
-		if($_FILES['wpdf']['error'] == 4) {
+		if($_FILES['wpdf']['error'][0] == 4) {
 			$file_count = 0;
 		}
 		else {

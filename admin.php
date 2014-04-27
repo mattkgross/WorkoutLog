@@ -178,6 +178,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
+		else if(resp == "Deleted all news posts!") {
+			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
 		else {
 			// For good measure...
 		}
@@ -216,27 +221,27 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		);
 		$('#table2').on('click', '#clear_news', function(e) {
 			if (confirm("Are you sure you want to delete all news posts?")) {
-		    	// Delete
+		    	sendAjax("c-n", null);
 		    }
 		});
 		$('#table2').on('click', '#clear_workouts', function(e) {
 			if (confirm("Are you sure you want to delete all workout posts and files?")) {
-		    	// Delete
+		    	sendAjax("c-w", null);
 		    }
 		});
 		$('#table2').on('click', '#clear_plays', function(e) {
 			if (confirm("Are you sure you want to delete all play posts and files?")) {
-		    	// Delete
+		    	sendAjax("c-p", null);
 		    }
 		});
 		$('#table2').on('click', '#clear_videos', function(e) {
 			if (confirm("Are you sure you want to delete all video posts?")) {
-		    	// Delete
+		    	sendAjax("c-v", null);
 		    }
 		});
 		$('#table2').on('click', '#delete_group', function(e) {
 			if (confirm("Are you sure you want to delete this group?")) {
-		    	// Delete
+		    	sendAjax("d-g", null);
 		    }
 		});
 
