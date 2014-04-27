@@ -77,6 +77,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     .plays_content {
 
     }
+    .panel-heading {
+      background-image: linear-gradient(#fcfcfc, #eee);
+    }
     </style>
 
     <?php
