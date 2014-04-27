@@ -21,7 +21,18 @@ if(!empty($user) && $admin)
 		echo "Admin Privileges Revoked!";
 	}
 	else if($req == "del") {
-		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "'");
+		// Delete all user posts to group
+		$sql = mysql_query("SELECT id FROM posts WHERE u_id = '" . intval($body) . "'");
+		while($temp = mysql_fetch_array($sql)) {
+			mysql_query("DELETE FROM post_groups WHERE p_id='" . $temp['id'] . "' AND g_id='" . $group['id'] . "'");
+			$count = mysql_num_rows(mysql_query("SELECT * FROM post_groups WHERE p_id='" . $temp['id'] . "'"));
+			// Delete post if it isn't in any other groups
+			if($count == 0) {
+				mysql_query("DELETE FROM posts WHERE id='" . $temp['id'] . "' LIMIT 1");
+			}
+		}
+		// Remove user from group
+		mysql_query("DELETE FROM user_groups WHERE u_id='" . intval($body) . "' AND g_id='" . $group['id'] . "' LIMIT 1");
 		echo "User Removed!";
 	}
 	else if($req == "news") {
