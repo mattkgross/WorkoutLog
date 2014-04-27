@@ -162,7 +162,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
-		//Videos
+		// Videos
 		else if(resp == "Added video post!") {
 			$("#feedback").attr("class", "alert alert-success alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
@@ -178,10 +178,30 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
+		// Danger Zone
 		else if(resp == "Deleted all news posts!") {
 			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
+		}
+		else if(resp == "Deleted all workout posts!") {
+			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Deleted all play posts!") {
+			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Deleted all video posts!") {
+			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
+			$("#feedback_text").text(resp);
+			$("#feedback").show();
+		}
+		else if(resp == "Group terminated.") {
+			// Reload page from server, not cache
+			location.reload(true);
 		}
 		else {
 			// For good measure...

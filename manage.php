@@ -90,15 +90,110 @@ if(!empty($user) && $admin)
 		echo "Deleted all workout posts!";
 	}
 	else if($req == "c-p") {
-		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+		// Find all play post ids
+		$sql = mysql_query("SELECT id FROM plays WHERE g_id='" . $group['id'] . "'");
+		$w_s = array();
+		while($temp = mysql_fetch_array($sql)) {
+			array_push($w_s, $temp['id']);
+		}
+		$in_str = "'" . implode("', '", $w_s) . "'";
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM play_files WHERE p_id IN (" . $in_str . ")");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+
+		// Delete all file posts
+		mysql_query("DELETE FROM play_files WHERE p_id IN (" . $in_str . ")");
+		// Delete all play posts
+		mysql_query("DELETE FROM plays WHERE g_id='" . $group['id'] . "'");
+
 		echo "Deleted all play posts!";
 	}
 	else if($req == "c-v") {
-		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+		mysql_query("DELETE FROM videos WHERE g_id='" . $group['id'] . "'");
 		echo "Deleted all video posts!";
 	}
 	else if($req == "d-g") {
-		
+		// Big whammy here... alright, first let's:
+
+		// 1) Delete all news posts
+		mysql_query("DELETE FROM news WHERE g_id='" . $group['id'] . "'");
+
+		// 2) Delete all videos
+		mysql_query("DELETE FROM videos WHERE g_id='" . $group['id'] . "'");
+
+		// 3) Delete all workout posts & files
+		// Find all workout post ids
+		$sql = mysql_query("SELECT id FROM workouts WHERE g_id='" . $group['id'] . "'");
+		$w_s = array();
+		while($temp = mysql_fetch_array($sql)) {
+			array_push($w_s, $temp['id']);
+		}
+		$in_str = "'" . implode("', '", $w_s) . "'";
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM workout_files WHERE w_id IN (" . $in_str . ")");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+
+		// Delete all file posts
+		mysql_query("DELETE FROM workout_files WHERE w_id IN (" . $in_str . ")");
+		// Delete all workout posts
+		mysql_query("DELETE FROM workouts WHERE g_id='" . $group['id'] . "'");
+
+		// 4) Delete all play posts & files
+		// Find all play post ids
+		$sql = mysql_query("SELECT id FROM plays WHERE g_id='" . $group['id'] . "'");
+		$w_s = array();
+		while($temp = mysql_fetch_array($sql)) {
+			array_push($w_s, $temp['id']);
+		}
+		$in_str = "'" . implode("', '", $w_s) . "'";
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM play_files WHERE p_id IN (" . $in_str . ")");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+
+		// Delete all file posts
+		mysql_query("DELETE FROM play_files WHERE p_id IN (" . $in_str . ")");
+		// Delete all play posts
+		mysql_query("DELETE FROM plays WHERE g_id='" . $group['id'] . "'");
+
+		// 5) Delete all workout posts by users to this group
+		$p_s = array();
+		$sql = mysql_query("SELECT p_id FROM post_groups WHERE g_id='" . $group['id'] . "'");
+		while($temp = mysql_fetch_array($sql)) {
+			array_push($p_s, $temp['p_id']);
+		}
+		mysql_query("DELETE FROM post_groups WHERE g_id='" . $group['id'] . "'");
+
+		// 6) Delete all posts that only were associated with this group
+		foreach ($p_s as $p) {
+			$count = mysql_num_rows(mysql_query("SELECT * FROM post_groups WHERE p_id='$p'"));
+			if($count == 0) {
+				mysql_query("DELETE FROM posts WHERE id='$p' LIMIT 1");
+			}
+		}
+
+		// 7) Delete all user associations with the group
+		mysql_query("DELETE FROM user_groups WHERE g_id='" . $group['id'] . "'");
+
+		// 8) Delete the group itself
+		mysql_query("DELETE FROM groups WHERE id='" . $group['id'] . "'");
+
+		// 9) Finally, delete all the user's session variables associated with this group
+		unset($_SESSION['G_ADMIN']);
+		unset($_SESSION['GROUP']);
+
+		/*
+		* @todo Perhaps some sort of spinner or something - as this operation could take a while
+		*/
+		echo "Group terminated.";
 	}
 	else {
 		echo "No operation request was matched.";
