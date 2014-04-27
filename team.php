@@ -71,6 +71,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     .videos_content {
 
     }
+    .workouts_content {
+
+    }
+    .plays_content {
+
+    }
     </style>
 
     <?php
@@ -106,10 +112,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
         $w_fs = array();
         $sql2 = mysql_query("SELECT name,filepath FROM workout_files WHERE w_id='" . $temp['id'] . "'");
+        $count = 0;
         while($temp2 = mysql_fetch_array($sql2)) {
           array_push($w_fs, $temp2);
+          $count++;
         }
         $temp['files'] = $w_fs;
+        $temp['f_count'] = $count;
         array_push($workoutsItems, $temp);
       }
 
@@ -124,10 +133,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
         $p_fs = array();
         $sql2 = mysql_query("SELECT name,filepath FROM play_files WHERE p_id='" . $temp['id'] . "'");
+        $count = 0;
         while($temp2 = mysql_fetch_array($sql2)) {
           array_push($p_fs, $temp2);
+          $count++;
         }
         $temp['files'] = $p_fs;
+        $temp['f_count'] = $count;
         array_push($playsItems, $temp);
       }
 
@@ -238,9 +250,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
           var w_id = "#workouts" + ((i%5)+1).toString();
           if(workouts_c > i) {
             $(w_id + "title").text(workouts[i]['title']);
-            $(w_id + "src").attr("src", workouts[i]['filepath']);
-            $(w_id + "link").attr("href", workouts[i]['filepath']);
-            $(w_id + "link").text(workouts[i]['filepath']);
+            $(w_id + "text").text(workouts[i]['text']);
+            var f_count = parseInt(workouts[i]['f_count']);
+            $(w_id + "files").html('');
+            for(var j = 0; j < f_count; j++) {
+              $(w_id + "files").append("<a href=\"" + workouts[i]['files'][j]['filepath'].slice(2) + "\" target=\"_blank\">" + workouts[i]['files'][j]['name'] + "</a>");
+              if(j+1 < f_count) {
+                $(w_id + "files").append("&ensp;|&ensp;");
+              }
+            }
             $(w_id + "date").text(workouts[i]['date']);
             $(w_id).attr("style", "display: block;");
           }
@@ -278,6 +296,52 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       var plays_c = <?php echo $plays_num; ?>;
       var plays_p = 0;
       var pp_max = <?php echo $plays_max; ?>;
+
+      function displayPlays() {
+        for (var i = 5*plays_p; i < 5*(plays_p+1); i++) {
+          var p_id = "#plays" + ((i%5)+1).toString();
+          if(plays_c > i) {
+            $(p_id + "title").text(plays[i]['title']);
+            $(p_id + "text").text(plays[i]['text']);
+            var f_count = parseInt(plays[i]['f_count']);
+            $(p_id + "files").html('');
+            for(var j = 0; j < f_count; j++) {
+              $(p_id + "files").append("<a href=\"" + plays[i]['files'][j]['filepath'].slice(2) + "\" target=\"_blank\">" + plays[i]['files'][j]['name'] + "</a>");
+              if(j+1 < f_count) {
+                $(p_id + "files").append("&ensp;|&ensp;");
+              }
+            }
+            $(p_id + "date").text(plays[i]['date']);
+            $(p_id).attr("style", "display: block;");
+          }
+          else {
+            $(p_id).attr("style", "display: none;");
+          }
+        }
+      }
+
+      displayPlays();
+
+      $("#playstabs").on('click', '#nav_playstab_back', function(e) {
+        if(plays_p > 0) {
+          $("#playstab" + (plays_p+1).toString()).attr("class", "");
+          $("#playstab" + (--plays_p+1).toString()).attr("class", "active");
+          displayPlays();
+        }
+      });
+      $("#playstabs").on('click', '#nav_playstab_next', function(e) {
+        if(plays_p < pp_max-1) {
+          $("#playstab" + (plays_p+1).toString()).attr("class", "");
+          $("#playstab" + (++plays_p+1).toString()).attr("class", "active");
+          displayPlays();
+        }
+      });
+      $("#playstabs").on('click', '[id^="playstab"]', function(e) {
+        $("#playstab" + (plays_p+1).toString()).attr("class", "");
+        $(this).attr("class", "active");
+        plays_p = parseInt((this.id).slice(-1))-1;
+        displayPlays();
+      });
     });
     </script>
   </head>
@@ -402,74 +466,150 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <div class="tab-pane fade" id="workouts">
             <h1 style="text-align: center;">Workouts</h1><br/>
             <p>
-                <?php
-                $sql = mysql_query("SELECT * FROM workouts where g_id='" . $group['id'] . "' ORDER BY date DESC");
-                $workoutItems = array();
-                while($temp = mysql_fetch_array($sql)) {
-                  array_push($workoutItems, $temp); 
-                }
-
-                if (!empty($workoutItems)) {
-                  foreach ($workoutItems as $workout) {
-                 ?>
-                <div class="row">
+                <div class="row workouts_content">
                   <div class="col-md-offset-2 col-md-8">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="workouts1" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title"><?php echo $workout['title']; ?></h3>
+                        <h3 class="panel-title" id="workouts1title"></h3>
                       </div>                            
                       <div class="panel-body">
-                      <?php
-                        echo $workout['text'];
-                        $w_files = array();
-                        $sql = mysql_query("SELECT name,filepath FROM workout_files");
-                      ?>
+                        <p id="workouts1text"></p><br/>
+                        <p id="workouts1files"></p>
+                        &ensp;&ndash; <small id="workouts1date"></small>
                       </div>
+                    </div>
+                    <div class="panel panel-default" id="workouts2" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="workouts2title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="workouts2text"></p><br/>
+                        <p id="workouts2files"></p>
+                        &ensp;&ndash; <small id="workouts2date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="workouts3" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="workouts3title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="workouts3text"></p><br/>
+                        <p id="workouts3files"></p>
+                        &ensp;&ndash; <small id="workouts3date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="workouts4" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="workouts4title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="workouts4text"></p><br/>
+                        <p id="workouts4files"></p>
+                        &ensp;&ndash; <small id="workouts4date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="workouts5" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="workouts5title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="workouts5text"></p><br/>
+                        <p id="workouts5files"></p>
+                        &ensp;&ndash; <small id="workouts5date"></small>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="text-center" id="workoutstabs">
+                      <ul class="pagination">
+                        <li id="nav_workoutstab_back"><a href="#">&laquo;</a></li>
+                        <?php
+                        for ($i = 1; $i <= $workouts_max; $i++) {
+                          if($i == 1)
+                            echo "<li class=\"active\" id=\"workoutstab1\"><a href=\"#\">1</a></li>";
+                          else
+                            echo "<li id=\"workoutstab" . $i . "\"><a href=\"#\">" . $i . "</a></li>";
+                        }
+                        ?>
+                        <li id="nav_workoutstab_next"><a href="#">&raquo;</a></li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-                <?php 
-                  }
-                }
-                else {
-                  echo "This group has no workouts to display.";
-                }
-                ?>
             </p>
         </div>
 
         <div class="tab-pane fade" id="plays">
             <h1 style="text-align: center;">Plays</h1><br/>
             <p>
-                <?php
-                $sql = mysql_query("SELECT * FROM plays where g_id='" . $group['id'] . "' ORDER BY date DESC");
-                $playItems = array();
-                while($temp = mysql_fetch_array($sql)) {
-                  array_push($playItems, $temp); 
-                }
-
-                if (!empty($playItems)) {
-                  foreach ($playItems as $play) {
-                ?>
-                <div class="row">
+                <div class="row plays_content">
                   <div class="col-md-offset-2 col-md-8">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="plays1" style="display: none;">
                       <div class="panel-heading">
-                        <?php
-                        echo "<h3 class=\"panel-title\">" . $play['title'] . "</h3>";
-                        ?>
+                        <h3 class="panel-title" id="plays1title"></h3>
                       </div>                            
-                      <?php echo "<div class=\"panel-body\">" . $play['filepath'] . "</div>"; ?>         
+                      <div class="panel-body">
+                        <p id="plays1text"></p><br/>
+                        <p id="plays1files"></p>
+                        &ensp;&ndash; <small id="plays1date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="plays2" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="plays2title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="plays2text"></p><br/>
+                        <p id="plays2files"></p>
+                        &ensp;&ndash; <small id="plays2date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="plays3" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="plays3title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="plays3text"></p><br/>
+                        <p id="plays3files"></p>
+                        &ensp;&ndash; <small id="plays3date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="plays4" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="plays4title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="plays4text"></p><br/>
+                        <p id="plays4files"></p>
+                        &ensp;&ndash; <small id="plays4date"></small>
+                      </div>
+                    </div>
+                    <div class="panel panel-default" id="plays5" style="display: none;">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="plays5title"></h3>
+                      </div>                            
+                      <div class="panel-body">
+                        <p id="plays5text"></p><br/>
+                        <p id="plays5files"></p>
+                        &ensp;&ndash; <small id="plays5date"></small>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="text-center" id="playstabs">
+                      <ul class="pagination">
+                        <li id="nav_playstab_back"><a href="#">&laquo;</a></li>
+                        <?php
+                        for ($i = 1; $i <= $workouts_max; $i++) {
+                          if($i == 1)
+                            echo "<li class=\"active\" id=\"playstab1\"><a href=\"#\">1</a></li>";
+                          else
+                            echo "<li id=\"playstab" . $i . "\"><a href=\"#\">" . $i . "</a></li>";
+                        }
+                        ?>
+                        <li id="nav_playstab_next"><a href="#">&raquo;</a></li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-                <?php 
-                  }
-                }
-                else {
-                  echo "This group has no videos to display.";
-                }
-                ?>
             </p>
         </div>
 
