@@ -220,6 +220,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 				$(\"#feedback_text\").text(\"" . $mess . "\");
 				$(\"#feedback\").show();";
 			}
+			else if($mess == "Play successfully posted!") {
+				echo "$(\"#feedback\").attr(\"class\", \"alert alert-success alert-dismissable in fade feedback\");
+				$(\"#feedback_text\").text(\"" . $mess . "\");
+				$(\"#feedback\").show();";
+			}
 			else {
 				echo "$(\"#feedback\").attr(\"class\", \"alert alert-danger alert-dismissable in fade feedback\");
 				$(\"#feedback_text\").text(\"" . $mess . "\");
@@ -261,6 +266,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		});
 		$('#table2').on('click', '#delete_group', function(e) {
 			if (confirm("Are you sure you want to delete this group?")) {
+				// Make 'em wait
+				$('#del_modal').modal({
+					backdrop: "static",
+					keyboard: false
+				});
 		    	sendAjax("d-g", null);
 		    }
 		});
@@ -388,6 +398,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <button type="button" class="close" aria-hidden="true" id="feedback_btn">&times;</button>
       <strong><span id="feedback_text"></span></strong>
     </div>
+    <!-- Small modal -->
+	<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content" style="text-align: center;">
+	      <img src="img/circle_loading.gif" style="padding: 30px;"><br/>
+	      <small>Please wait while the group is deleted. This may take a while depending on the size of your group.</small>
+	    </div>
+	  </div>
+	</div>
     <div class="container-fluid">
       <h1 style="text-align: center"><?php echo $group['name']; ?></h1><br /><br />
       <div class="row">
@@ -538,7 +557,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 						<h3 style="text-align: center;">Create A Play</h3><br/>
 
-			            <form class="form-horizontal" role="form" id="play_form" method="post" onSubmit="return false;">
+			            <form class="form-horizontal" role="form" id="play_form" method="post" action="upload.php" enctype="multipart/form-data">
 		                  <div class="form-group" id="g_ptitle">
 		                    <label for="ptitle" class="col-md-3 control-label">Play Title</label>
 		                    <div class="col-md-4">
@@ -554,18 +573,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                  <div class="form-group" id="g_ppdf">
 		                    <label for="ppdf" class="col-md-3 control-label">File</label>
 		                    <div class="col-md-4">
-		                      <input type="file" class="form-control play" name="ppdf" accept="application/pdf" multiple>
+		                      <input type="file" class="form-control play" name="ppdf[]" accept="application/pdf" multiple>
 		                      <span style="text-align: center; font-style: italic;"><small>Note: Please updload only PDFs. Hold &quot;Ctrl&quot; to select multiple files.</small></span>
 		                    </div>
 		                  </div>
 		                  <div class="form-group">
 		                    <div class="col-md-offset-2 col-md-8" style="text-align: center">
-		                      <button class="btn btn-success" id="play_btn">Post Workout</button>
-		                      <div class="progress progress-striped active load_bar" id="play_bar">
-								<div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-								  <span class="sr-only">Posting...</span>
-								</div>
-							  </div>
+		                      <input type="hidden" name="form_type" value="play">
+		                      <button class="btn btn-success" id="workout_btn">Post Play</button>
 		                    </div>
 		                  </div>
 		                </form>
