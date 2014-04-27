@@ -51,9 +51,12 @@ if($submission == "yes")
 	else if(empty($email) || $e_check > 0 || !preg_match("/^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i", $email)) {
 		$error = "email";
 	}
-	else if(empty($pword) || $pword != $pwordc || $p_len < 6) {
+	else if(empty($pword) || $p_len < 6) {
 		$error = "pword";
 	}
+  else if(empty($pwordc)|| $pword != $pwordc) {
+    $error = "pwordc";
+  }
 	else {
 		// Salt the password
 		$pword = create_hash($pword);
@@ -74,6 +77,8 @@ if($submission == "yes")
 		$warning_message = "We need to know who you are - throw us a first name."; }
 	else if ($error == "lname") {
 		$warning_message = "We need to know who you are - throw us a last name."; }
+      else if ($error == "pwordc") {
+    $warning_message = "Confirm password did not match password"; }
 	else {
 		$warning_message = "Oops! Something went wrong. Try again."; }
 }
