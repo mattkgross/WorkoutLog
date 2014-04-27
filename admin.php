@@ -413,7 +413,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       	<div class="col-md-offset-1 col-md-3">
       		<div class="panel panel-default">
 			  <div class="panel-heading" style="background-image: linear-gradient(#fcfcfc, #eee);">
-			    <h3 class="panel-title">Members</h3>
+			    <h3 class="panel-title"><strong>Members</strong></h3>
 			  </div>
 			  <div class="panel-body">
 			  	  <div class="table-responsive">
@@ -481,7 +481,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       	<div class="col-md-7">
       		<div class="panel panel-default">
 			  <div class="panel-heading" style="background-image: linear-gradient(#fcfcfc, #eee);">
-			    <h3 class="panel-title">Dashboard</h3>
+			    <h3 class="panel-title"><strong>Dashboard</strong></h3>
 			  </div>
 			  <div class="panel-body">
 			  	    <!-- Nav tabs -->

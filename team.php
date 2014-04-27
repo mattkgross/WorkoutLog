@@ -74,7 +74,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </style>
 
     <?php
-      $sql = mysql_query("SELECT * FROM news where g_id='" . $group['id'] . "' ORDER BY date DESC");
+      // News 
+      $sql = mysql_query("SELECT * FROM news WHERE g_id='" . $group['id'] . "' ORDER BY date DESC");
       $news_num = mysql_num_rows($sql);
       $newsItems = array();
       while($temp = mysql_fetch_array($sql)) {
@@ -85,7 +86,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       $news_json = json_encode($newsItems);
       $news_max = ceil($news_num/5);
 
-      $sql = mysql_query("SELECT * FROM videos where g_id='" . $group['id'] . "' ORDER BY date DESC");
+      // Videos
+      $sql = mysql_query("SELECT * FROM videos WHERE g_id='" . $group['id'] . "' ORDER BY date DESC");
       $videos_num = mysql_num_rows($sql);
       $videosItems = array();
       while($temp = mysql_fetch_array($sql)) {
@@ -95,6 +97,42 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
       $videos_json = json_encode($videosItems);
       $videos_max = ceil($videos_num/5);
+
+      // Workouts
+      $sql = mysql_query("SELECT * FROM workouts WHERE g_id='" . $group['id'] . "' ORDER BY date DESC");
+      $workouts_num = mysql_num_rows($sql);
+      $workoutsItems = array();
+      while($temp = mysql_fetch_array($sql)) {
+        $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
+        $w_fs = array();
+        $sql2 = mysql_query("SELECT name,filepath FROM workout_files WHERE w_id='" . $temp['id'] . "'");
+        while($temp2 = mysql_fetch_array($sql2)) {
+          array_push($w_fs, $temp2);
+        }
+        $temp['files'] = $w_fs;
+        array_push($workoutsItems, $temp);
+      }
+
+      $workouts_json = json_encode($workoutsItems);
+      $workouts_max = ceil($workouts_num/5);
+
+      // Plays
+      $sql = mysql_query("SELECT * FROM plays WHERE g_id='" . $group['id'] . "' ORDER BY date DESC");
+      $plays_num = mysql_num_rows($sql);
+      $playsItems = array();
+      while($temp = mysql_fetch_array($sql)) {
+        $temp['date'] = date('F jS, Y - g:i A',strtotime($temp['date']));
+        $p_fs = array();
+        $sql2 = mysql_query("SELECT name,filepath FROM play_files WHERE p_id='" . $temp['id'] . "'");
+        while($temp2 = mysql_fetch_array($sql2)) {
+          array_push($p_fs, $temp2);
+        }
+        $temp['files'] = $p_fs;
+        array_push($playsItems, $temp);
+      }
+
+      $plays_json = json_encode($playsItems);
+      $plays_max = ceil($plays_num/5);
     ?>
 
     <script type="text/javascript">
@@ -188,6 +226,58 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         videos_p = parseInt((this.id).slice(-1))-1;
         displayVideos();
       });
+
+      // Workouts Navigation
+      var workouts = <?php echo $workouts_json; ?>;
+      var workouts_c = <?php echo $workouts_num; ?>;
+      var workouts_p = 0;
+      var wp_max = <?php echo $workouts_max; ?>;
+
+      function displayWorkouts() {
+        for (var i = 5*workouts_p; i < 5*(workouts_p+1); i++) {
+          var w_id = "#workouts" + ((i%5)+1).toString();
+          if(workouts_c > i) {
+            $(w_id + "title").text(workouts[i]['title']);
+            $(w_id + "src").attr("src", workouts[i]['filepath']);
+            $(w_id + "link").attr("href", workouts[i]['filepath']);
+            $(w_id + "link").text(workouts[i]['filepath']);
+            $(w_id + "date").text(workouts[i]['date']);
+            $(w_id).attr("style", "display: block;");
+          }
+          else {
+            $(w_id).attr("style", "display: none;");
+          }
+        }
+      }
+
+      displayWorkouts();
+
+      $("#workoutstabs").on('click', '#nav_workoutstab_back', function(e) {
+        if(workouts_p > 0) {
+          $("#workoutstab" + (workouts_p+1).toString()).attr("class", "");
+          $("#workoutstab" + (--workouts_p+1).toString()).attr("class", "active");
+          displayWorkouts();
+        }
+      });
+      $("#workoutstabs").on('click', '#nav_workoutstab_next', function(e) {
+        if(workouts_p < wp_max-1) {
+          $("#workoutstab" + (workouts_p+1).toString()).attr("class", "");
+          $("#workoutstab" + (++workouts_p+1).toString()).attr("class", "active");
+          displayWorkouts();
+        }
+      });
+      $("#workoutstabs").on('click', '[id^="workoutstab"]', function(e) {
+        $("#workoutstab" + (workouts_p+1).toString()).attr("class", "");
+        $(this).attr("class", "active");
+        workouts_p = parseInt((this.id).slice(-1))-1;
+        displayWorkouts();
+      });
+
+      // Plays Navigation
+      var plays = <?php echo $plays_json; ?>;
+      var plays_c = <?php echo $plays_num; ?>;
+      var plays_p = 0;
+      var pp_max = <?php echo $plays_max; ?>;
     });
     </script>
   </head>
