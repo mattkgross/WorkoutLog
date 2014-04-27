@@ -38,3 +38,37 @@ Tests
   * GroupBubernak, MattBubernak
   * GroupGross, MattGross
   * GroupGross2, MattGross
+  
+###Group Joining
+* Group Join Test: 
+  * Confirmed Group Name dropdown contains every group name in DB
+  * Group Selected -- Join button pressed, UI warning message thrown(incorrect enrollment key) 
+  * Group Selected/Valid password -- Join butotn pressed, success. 
+  * Confirmed user groups now contains entry for current user in group and admin bit = 0 
+
+*Testing Joins 
+  * jdoe32 joins GroupBubernak,GroupGross, GroupGross2
+  * CameronPeden joins GroupBubernak, GroupGross, GroupGross2
+  * DerekBaum joins GroupBubernak, GroupGross, GroupGross2
+  * 
+
+###Group Admin Posts 
+* News Post Creation Test: 
+  * Title and Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
+  * Title/Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
+  * Title Left Blank/Body - Post news Presed, UI warning message thrown(post must have title and body) 
+* News Post Creation Test Posts: 
+  * 6 Items, News 1-6, Body 1-6
+  * Confirmed News Page displays News Items 2-6
+  * Confirmed Pagination creates page 2 
+  * Confirmed Page 2 contains News 1.  
+ 
+* Video Post Creation Test: 
+  * Title and Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
+  * Title/Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
+  * Title Left Blank/Body - Post news Presed, UI warning message thrown(post must have title and body) 
+* Video Post Creation Test Posts: 
+  * 6 Items, News 1-6, Body 1-6
+  * Confirmed News Page displays News Items 2-6
+  * Confirmed Pagination creates page 2 
+  * Confirmed Page 2 contains News 1. 
