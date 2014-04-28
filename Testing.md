@@ -94,5 +94,23 @@ Tests
   * Confirmed Play Page displays Plays Items 2-6
   * Confirmed Pagination creates page 2 
   * Confirmed Page 2 contains play 1. 
-  * 
   
+###Admin Functionality testing 
+
+* Deleting player from group 
+  * johndoe creates workout for 4/27 and 4/28 
+  * confirmed posts contains both workouts
+  * confirmed that new post_groups created for each group johndoe is in. 
+  * MattBubernak removes johndoe from group 
+  * confirmed john doe posts no longer show up within log 
+  * confirmed that posts_groups no longer contains records for johns posts in this group. 
+
+
+###Log Post Functionality Testing
+
+*Creating log post 
+ * Description left blank -- Add workout pressed, UI warning message thrown(needs at least 20 characters) 
+ * Description filled out, group deselected -- Add workout button pressed, UI warning thrown(must add to at least one group) 
+ * Description and valid group -- add workout pressed, workout added. 
+ * confirmed posts and posts_groups have correct DB entries. 
+ * Attempt at creating second workout for same day -- UI warning thrown (a workout already exists for this day) 
