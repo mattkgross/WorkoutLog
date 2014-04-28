@@ -64,11 +64,35 @@ Tests
   * Confirmed Page 2 contains News 1.  
  
 * Video Post Creation Test: 
-  * Title and Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
-  * Title/Body left blank - Post news Presed, UI warning message thrown(post must have title and body) 
-  * Title Left Blank/Body - Post news Presed, UI warning message thrown(post must have title and body) 
+  * Title and Link left blank - Post video Presed, UI warning message thrown(post must have title and link) 
+  * Title/Link blank - Post video Presed, UI warning message thrown(post must have title and link) 
+  * Title blank/Link  - Post video Presed, UI warning message thrown(post must have title and link) 
 * Video Post Creation Test Posts: 
-  * 6 Items, News 1-6, Body 1-6
-  * Confirmed News Page displays News Items 2-6
+  * 6 Items, Videos 1-6, Various links 
+  * Confirmed Video Page displays Video Items 2-6
   * Confirmed Pagination creates page 2 
-  * Confirmed Page 2 contains News 1. 
+  * Confirmed Page 2 contains Video 1. 
+  * 
+  
+* Workout Post Creation Test: 
+  * Title and Link left blank - Post workout  Presed, UI warning message thrown(post must have title and body) 
+  * Title/body blank - Post workout Presed, UI warning message thrown(post must have title and body) 
+  * Title blank/body  - Post workout Presed, UI warning message thrown(post must have title and body) 
+* Workout Post Creation Test Posts: 
+  * 6 Items, Workout 1-6, Body 1-6 ,Various files  
+  * Confirmed Workout Page displays Workout Items 2-6
+  * Confirmed Pagination creates page 2 
+  * Confirmed Page 2 contains Workout 1. 
+  * 
+  
+* Plays Post Creation Test: 
+  * Title and Link left blank - Post play  Presed, UI warning message thrown(post must have title and body) 
+  * Title/body blank - Post play Presed, UI warning message thrown(post must have title and body) 
+  * Title blank/body  - Post play Presed, UI warning message thrown(post must have title and body) 
+* Plays Post Creation Test Posts: 
+  * 6 Items, Play 1-6, Body 1-6 ,Various files  
+  * Confirmed Play Page displays Plays Items 2-6
+  * Confirmed Pagination creates page 2 
+  * Confirmed Page 2 contains play 1. 
+  * 
+  
