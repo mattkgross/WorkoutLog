@@ -95,17 +95,25 @@ else {
 		    	// Verify file type
 		    	// DO NOT TRUST $file['mime'] VALUE !!
 			    // Check MIME Type by yourself.
-			    $finfo = new finfo(FILEINFO_MIME_TYPE);
-			    if (false === $ext = array_search(
-			        $finfo->file($file['tmp_name']),
-			        array(
-			            'pdf' => 'application/pdf',
-			        ),
-			        true
-			    )) {
-			        // Invalid file format
-			        $error = "File format is invalid! Type detected is " . $finfo->file($file['tmp_name']) . ". Only pdf types are allowed at this time.";
-			    }
+
+			    // Check to see if fileinfo is installed
+	    		if(!class_exists("finfo")) {
+	    			$error = "File type could not be checked. Fileinfo extension is missing. Uploads temporarily disabled.";
+	    		}
+
+			    else {
+			    	$finfo = new finfo(FILEINFO_MIME_TYPE);
+				    if (false === $ext = array_search(
+				        $finfo->file($file['tmp_name']),
+				        array(
+				            'pdf' => 'application/pdf',
+				        ),
+				        true
+				    )) {
+				        // Invalid file format
+				        $error = "File format is invalid! Type detected is " . $finfo->file($file['tmp_name']) . ". Only pdf types are allowed at this time.";
+				    }
+				}
 			}
 		}
 
