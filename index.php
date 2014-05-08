@@ -3,11 +3,14 @@ session_start();
 
 require_once("headers/mysql.php");
 
+// Grab the session variables
 $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 $admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
 
+// Variable for how many n weeks back we are displaying in the log
 $d_loc = (empty($_GET['d_loc']) || intval($_GET['d_loc']) < 0)?0:$_GET['d_loc'];
+// Get any alert passed to the page.
 $alert = empty($_GET['alert'])?"":$_GET['alert'];
 ?>
 <!--
@@ -65,7 +68,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     
     <script type="text/javascript">
 	$(document).ready(function(e) {	
-		// Auto-bullet
+		// Auto-bullet workout modal body
 		$("#desc").keyup(function(e) {
 			if(e.which == 13) {
 				$("#desc").val(function(i, val) {
@@ -79,6 +82,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <script type="text/javascript">
 	// Modal
 	$(document).ready(function(e) {
+		// Populate the modal with the info from the box clicked to edit
         $('.edit-icon').click(function(e) {
             var post = $(this).attr('value');
 			var date = $(this).attr('date');
@@ -100,14 +104,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 			xmlhttp.onreadystatechange=function() {
 			  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			  		// Populate the group checkboxes
 			    	document.getElementById("u_groups").innerHTML=xmlhttp.responseText;
+			    	// Show the edit modal
+					$('#myModal').modal('show');
 			    }
 			}
 			xmlhttp.open("GET","getgroups.php?p="+post,true);
 			xmlhttp.send();
-
-			// Show it
-			$('#myModal').modal('show');
         });
     });
 	</script>
@@ -142,16 +146,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <li><a href="team.php">Team</a></li>
             <li class="dropdown">
             <?php
+            	// Grab all the groups the user is a part of
             	$ID = empty($user)?0:$user['id'];
             	$sql = mysql_query("SELECT id,name FROM groups WHERE id IN (SELECT g_id FROM user_groups WHERE u_id = '" . $ID . "')");
             	$groups = array();
             	while($temp = mysql_fetch_array($sql)) {
             		array_push($groups, $temp); }
-            	//print_r($groups);
             ?>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo (!empty($group))?$group['name']:"No Group"; ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
               	<?php
+              	// Populate the Groups Tab with the user's groups
               	if(!empty($groups))
              	{
               		foreach ($groups as $g) {
