@@ -119,6 +119,19 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		})
 	});
 
+	// Busy Waiting Modal Actions
+	function busyWaiting(content) {
+		$('#busy_modal_text').text(content);
+		$('#busy_modal').modal({
+			backdrop: "static",
+			keyboard: false
+		});
+	}
+	function busyWaitingStop() {
+		$('#busy_modal_text').text('');
+		$('#busy_modal').modal('hide');
+	}
+
     // AJAX Handler
     function sendAjax(req, body, freeze)
     {
@@ -191,21 +204,25 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		}
 		// Danger Zone
 		else if(resp == "Deleted all news posts!") {
+			busyWaitingStop();
 			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
 		else if(resp == "Deleted all workout posts!") {
+			busyWaitingStop();
 			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
 		else if(resp == "Deleted all play posts!") {
+			busyWaitingStop();
 			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
 		}
 		else if(resp == "Deleted all video posts!") {
+			busyWaitingStop();
 			$("#feedback").attr("class", "alert alert-warning alert-dismissable in fade feedback");
 			$("#feedback_text").text(resp);
 			$("#feedback").show();
@@ -257,32 +274,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		);
 		$('#table2').on('click', '#clear_news', function(e) {
 			if (confirm("Are you sure you want to delete all news posts?")) {
+				// Make 'em wait
+				busyWaiting("Please wait while all news posts are deleted. This may take a while depending on how many posts you've made.");
 		    	sendAjax("c-n", null, "clear_news");
 		    }
 		});
 		$('#table2').on('click', '#clear_workouts', function(e) {
 			if (confirm("Are you sure you want to delete all workout posts and files?")) {
+				busyWaiting("Please wait while all workout posts are deleted. This may take a while depending on how many posts you've made.");
 		    	sendAjax("c-w", null, "clear_workouts");
 		    }
 		});
 		$('#table2').on('click', '#clear_plays', function(e) {
 			if (confirm("Are you sure you want to delete all play posts and files?")) {
+				busyWaiting("Please wait while all play posts are deleted. This may take a while depending on how many posts you've made.");
 		    	sendAjax("c-p", null, "clear_plays");
 		    }
 		});
 		$('#table2').on('click', '#clear_videos', function(e) {
 			if (confirm("Are you sure you want to delete all video posts?")) {
+				busyWaiting("Please wait while all video posts are deleted. This may take a while depending on how many posts you've made.");
 		    	sendAjax("c-v", null, "clear_videos");
 		    }
 		});
 		$('#table2').on('click', '#delete_group', function(e) {
 			if (confirm("Are you sure you want to delete this group?")) {
 				// Make 'em wait
-				$('#del_modal').modal({
-					backdrop: "static",
-					keyboard: false
-				});
-		    	sendAjax("d-g", null, "delete_group");
+				busyWaiting("Please wait while the group is deleted. This may take a while depending on the size of your group.");
+				sendAjax("d-g", null, "delete_group");
 		    }
 		});
 
@@ -410,11 +429,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <strong><span id="feedback_text"></span></strong>
     </div>
     <!-- Small modal -->
-	<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal fade" id="busy_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-sm">
 	    <div class="modal-content" style="text-align: center;">
 	      <img src="img/circle_loading.gif" style="padding: 30px;"><br/>
-	      <small>Please wait while the group is deleted. This may take a while depending on the size of your group.</small>
+	      <small id="busy_modal_text"></small>
 	    </div>
 	  </div>
 	</div>
@@ -535,7 +554,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  	<h3 style="text-align: center;">Create A Workout</h3><br/>
 
-			            <form class="form-horizontal" role="form" id="workout_form" method="post" action="upload.php" enctype="multipart/form-data">
+			            <form class="form-horizontal" role="form" id="workout_form" method="post" action="upload.php" enctype="multipart/form-data" onSubmit="busyWaiting('Please wait while your workout and its files are posted.');">
 		                  <div class="form-group" id="g_wtitle">
 		                    <label for="wtitle" class="col-md-3 control-label">Workout Title</label>
 		                    <div class="col-md-4">
@@ -568,7 +587,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 						<h3 style="text-align: center;">Create A Play</h3><br/>
 
-			            <form class="form-horizontal" role="form" id="play_form" method="post" action="upload.php" enctype="multipart/form-data">
+			            <form class="form-horizontal" role="form" id="play_form" method="post" action="upload.php" enctype="multipart/form-data" onSubmit="busyWaiting('Please wait while your play and its files are posted.');">
 		                  <div class="form-group" id="g_ptitle">
 		                    <label for="ptitle" class="col-md-3 control-label">Play Title</label>
 		                    <div class="col-md-4">

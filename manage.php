@@ -201,9 +201,6 @@ if(!empty($user) && $admin)
 		unset($_SESSION['G_ADMIN']);
 		unset($_SESSION['GROUP']);
 
-		/*
-		* @todo Perhaps some sort of spinner or something - as this operation could take a while
-		*/
 		echo "Group terminated.";
 	}
 	else {
