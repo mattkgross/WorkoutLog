@@ -120,7 +120,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	});
 
     // AJAX Handler
-    function sendAjax(req, body)
+    function sendAjax(req, body, freeze)
     {
     	// Get group data via AJAX to PHP request
 		if (window.XMLHttpRequest) {
@@ -136,8 +136,19 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 		    	console.log(xmlhttp.responseText);
 		    	responseHandle(xmlhttp.responseText);
+		    	// Unfreeze the freeze element
+		    	if(typeof freeze !== 'undefined') {
+					$(freeze).removeAttr("disabled");
+					//console.log(freeze + " re-enabled!");
+				}
 		    }
 		}
+		// If a freeze element is provided, freeze it
+		if(typeof freeze !== 'undefined') {
+			$(freeze).attr("disabled", "disabled");
+			//console.log(freeze + " disabled!");
+		}
+
 		xmlhttp.open("POST","manage.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("req="+req+"&body="+body);
@@ -246,22 +257,22 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		);
 		$('#table2').on('click', '#clear_news', function(e) {
 			if (confirm("Are you sure you want to delete all news posts?")) {
-		    	sendAjax("c-n", null);
+		    	sendAjax("c-n", null, "clear_news");
 		    }
 		});
 		$('#table2').on('click', '#clear_workouts', function(e) {
 			if (confirm("Are you sure you want to delete all workout posts and files?")) {
-		    	sendAjax("c-w", null);
+		    	sendAjax("c-w", null, "clear_workouts");
 		    }
 		});
 		$('#table2').on('click', '#clear_plays', function(e) {
 			if (confirm("Are you sure you want to delete all play posts and files?")) {
-		    	sendAjax("c-p", null);
+		    	sendAjax("c-p", null, "clear_plays");
 		    }
 		});
 		$('#table2').on('click', '#clear_videos', function(e) {
 			if (confirm("Are you sure you want to delete all video posts?")) {
-		    	sendAjax("c-v", null);
+		    	sendAjax("c-v", null, "clear_videos");
 		    }
 		});
 		$('#table2').on('click', '#delete_group', function(e) {
@@ -271,7 +282,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 					backdrop: "static",
 					keyboard: false
 				});
-		    	sendAjax("d-g", null);
+		    	sendAjax("d-g", null, "delete_group");
 		    }
 		});
 
@@ -280,19 +291,19 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             var m_id = $(this).attr('member');
             var row = $(this).closest('tr');
             row.fadeOut(1000);
-			sendAjax("del", m_id);
+			sendAjax("del", m_id, null);
         });
 
     	// Admin Management
 	    $('#table1').on('click', '.admin-member', function(e) {
 	        var m_id = $(this).attr('member');
 	        $(this).toggleClass('admin-member n-admin-member');
-	        sendAjax("r-ad", m_id);
+	        sendAjax("r-ad", m_id, null);
 	    });  
 	    $('#table1').on('click', '.n-admin-member', function(e) {
 	        var m_id = $(this).attr('member');
 	        $(this).toggleClass('n-admin-member admin-member');
-	        sendAjax("a-ad", m_id);
+	        sendAjax("a-ad", m_id, null);
 	    });
 
 
@@ -309,7 +320,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	        };
 	        m_id = JSON.stringify(m_id);
 
-	        sendAjax("news", m_id);
+	        sendAjax("news", m_id, "news_btn");
 
 	        $("#atitle").val("");
 	        $("#atext").val("");
@@ -326,7 +337,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	        };
 	        m_id = JSON.stringify(m_id);
 
-	        sendAjax("video", m_id);
+	        sendAjax("video", m_id, "video_btn");
 
 	        $("#vtitle").val("");
 	        $("#vlink").val("");
