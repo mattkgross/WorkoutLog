@@ -64,7 +64,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
-    <script src="js/graph.js"></script>
     </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -122,9 +121,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	// Populate Analytics
 	function populateGraph(analyticData) {
         //$('#g_t').text(analyticData['city']);
-        for(var i = 1; i < 11; i++) {
-            $('#t' + i.toString()).text(analyticData[i-1]['name']);
-            $('#v' + i.toString()).text(analyticData[i-1]['count']);
+        for(var i = 1; i < 11 && i < analyticData.length+1; i++) {
+        	$('#tbody').append("<tr><th scope=\"row\" id=\"t" + i.toString() + "\">" + analyticData[i-1]['name'] + "</th><td id=\"v" + i.toString() + "\">" + analyticData[i-1]['count'] + "</td></tr>");
+            /*$('#t' + i.toString()).text(analyticData[i-1]['name']);
+            $('#v' + i.toString()).text(analyticData[i-1]['count']);*/
         }
     };
     <?php 
@@ -140,10 +140,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		$d_start = date("Y", $d_start) . "-" . date("m", $d_start) . "-" . date("d", $d_start);
 		$d_end = date("Y", $d_end) . "-" . date("m", $d_end) . "-" . date("d", $d_end);
 
-		// Grab all user ids of posts made to the group this week
-    	$sql = mysql_query("SELECT u_id, COUNT(u_id) AS num FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id'] . "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "' GROUP BY u_id ORDER BY COUNT(u_id) DESC LIMIT 10");
+		// Grab top 10 users of posts made to the group this week
+    	$sql = mysql_query("SELECT f_name, l_name, num FROM users, (SELECT u_id, COUNT(u_id) AS num FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id'] . "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "' GROUP BY u_id ORDER BY COUNT(u_id) DESC LIMIT 10) AS uids WHERE uids.u_id = users.id");
     	while($temp = mysql_fetch_array($sql)) {
-    		array_push($analytics_users, array("name" => $temp['u_id'], "count" => $temp['num']));
+    		array_push($analytics_users, array("name" => $temp['f_name'] . " " . $temp['l_name'], "count" => $temp['num']));
     	}
     ?>
 	$(document).ready(function(e) {
@@ -394,7 +394,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	        $("#vlink").val("");
 	    });
 	});
-	</script>
+	</script>	
+    <script src="js/graph.js"></script>
 
   </head>
   <body>
@@ -696,8 +697,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                                    <th scope="col" id="t10"></th>-->
 		                                </tr>
 		                            </thead>
-		                            <tbody>
-		                                <tr>
+		                            <tbody id="tbody">
+		                                <!--<tr>
 		                                    <th scope="row" id="t1"></th>
 		                                    <td id="v1"></td>
 		                                </tr>
@@ -736,7 +737,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		                                <tr>
 		                                    <th scope="row" id="t10"></th>
 		                                    <td id="v10"></td>
-		                                </tr>
+		                                </tr>-->
 		                            </tbody>
 		                        </table>
 		                    </div>
