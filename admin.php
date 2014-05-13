@@ -136,15 +136,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	    	return date('Y-m-d', $start);
 		}
 		$d_start = strtotime("0 days 00:00:00", strtotime(week_start(date('m/d/Y h:i:s a', time()))));
-		$d_end = strtotime("0 days 00:00:00", strtotime(week_start(date('m/d/Y h:i:s a', time()))));
+		$d_end = strtotime("6 days 00:00:00", strtotime(week_start(date('m/d/Y h:i:s a', time()))));
 		$d_start = date("Y", $d_start) . "-" . date("m", $d_start) . "-" . date("d", $d_start);
 		$d_end = date("Y", $d_end) . "-" . date("m", $d_end) . "-" . date("d", $d_end);
 
 		// Grab all user ids of posts made to the group this week
-    	//$sql = mysql_query("SELECT u_id FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id']. "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "'");
-    	$sql = mysql_query("SELECT u_id FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id']. "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "' GROUP BY u_id ORDER BY COUNT(u_id) DESC LIMIT 10");
+    	$sql = mysql_query("SELECT u_id, COUNT(u_id) AS num FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id'] . "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "' GROUP BY u_id ORDER BY COUNT(u_id) DESC LIMIT 10");
     	while($temp = mysql_fetch_array($sql)) {
-    		array_push($analytics_users, array("name" => $temp['u_id'], ));
+    		array_push($analytics_users, array("name" => $temp['u_id'], "count" => $temp['num']));
     	}
     ?>
 	$(document).ready(function(e) {
