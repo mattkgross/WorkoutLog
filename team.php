@@ -80,6 +80,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     .panel-heading {
       background-image: linear-gradient(#fcfcfc, #eee);
     }
+    .news-del-icon {
+      float: right;
+      top: -25px;
+      cursor: pointer;
+    }
+    .workout-del-icon {
+      float: right;
+      top: -15px;
+      cursor: pointer;
+    }
+    .play-del-icon {
+      float: right;
+      top: -15px;
+      cursor: pointer;
+    }
+    .video-del-icon {
+      float: right;
+      top: -25px;
+      cursor: pointer;
+    }
     </style>
 
     <?php
@@ -151,8 +171,53 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     ?>
 
     <script type="text/javascript">
-    // News navigation
+    // AJAX Handler
+    function sendAjax(req, body)
+    {
+      // Get group data via AJAX to PHP request
+      if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+      }
+      else {
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      xmlhttp.onreadystatechange=function() {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            console.log(xmlhttp.responseText);
+            //return xmlhttp.responseText;
+          }
+      }
+      xmlhttp.open("POST","manage.php",true);
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xmlhttp.send("req="+req+"&body="+body);
+    }
+
     $(document).ready(function(e) {
+      // News Deletion
+      $('.news-del-icon').on('click', function(e) {
+        sendAjax('d-news', $(this).attr('n_id'));
+        location.reload(true);
+      });
+      // Workouts Deletion
+      $('.workout-del-icon').on('click', function(e) {
+        sendAjax('d-workout', $(this).attr('w_id'));
+        location.reload(true);
+      });
+      // Plays Deletion
+      $('.play-del-icon').on('click', function(e) {
+        sendAjax('d-play', $(this).attr('p_id'));
+        location.reload(true);
+      });
+      // Videos Deletion
+      $('.video-del-icon').on('click', function(e) {
+        sendAjax('d-video', $(this).attr('v_id'));
+        location.reload(true);
+      });
+
+      // News navigation
       var news = <?php echo $news_json; ?>;
       var news_c = <?php echo $news_num; ?>;
       var news_p = 0;
@@ -162,6 +227,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         for (var i = 5*news_p; i < 5*(news_p+1); i++) {
           var n_id = "#news" + ((i%5)+1).toString();
           if(news_c > i) {
+            $(n_id + "del").attr("n_id", news[i]['id']);
             $(n_id + "title").text(news[i]['title']);
             $(n_id + "text").text(news[i]['text']);
             $(n_id + "date").text(news[i]['date']);
@@ -206,6 +272,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         for (var i = 5*videos_p; i < 5*(videos_p+1); i++) {
           var v_id = "#videos" + ((i%5)+1).toString();
           if(videos_c > i) {
+            $(v_id + "del").attr("v_id", videos[i]['id']);
             $(v_id + "title").text(videos[i]['title']);
             $(v_id + "src").attr("src", videos[i]['filepath']);
             $(v_id + "link").attr("href", videos[i]['filepath']);
@@ -252,6 +319,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         for (var i = 5*workouts_p; i < 5*(workouts_p+1); i++) {
           var w_id = "#workouts" + ((i%5)+1).toString();
           if(workouts_c > i) {
+            $(w_id + "del").attr("w_id", workouts[i]['id']);
             $(w_id + "title").text(workouts[i]['title']);
             $(w_id + "text").text(workouts[i]['text']);
             var f_count = parseInt(workouts[i]['f_count']);
@@ -304,6 +372,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         for (var i = 5*plays_p; i < 5*(plays_p+1); i++) {
           var p_id = "#plays" + ((i%5)+1).toString();
           if(plays_c > i) {
+            $(p_id + "del").attr("p_id", plays[i]['id']);
             $(p_id + "title").text(plays[i]['title']);
             $(p_id + "text").text(plays[i]['text']);
             var f_count = parseInt(plays[i]['f_count']);
@@ -422,27 +491,27 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <div class="row news_content">
               <div class="col-md-offset-2 col-md-8">
                 <div id="news1" style="display: none;">
-                  <h2 id="news1title"></h2>
+                  <h2 id="news1title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove news-del-icon\" id=\"news1del\" n_id=\"\"></span>";} ?>
                   <br/><blockquote><p id="news1text"></p><footer id="news1date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="news2" style="display: none;">
-                  <h2 id="news2title"></h2>
+                  <h2 id="news2title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove news-del-icon\" id=\"news2del\" n_id=\"\"></span>";} ?>
                   <br/><blockquote><p id="news2text"></p><footer id="news2date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="news3" style="display: none;">
-                  <h2 id="news3title"></h2>
+                  <h2 id="news3title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove news-del-icon\" id=\"news3del\" n_id=\"\"></span>";} ?>
                   <br/><blockquote><p id="news3text"></p><footer id="news3date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="news4" style="display: none;">
-                  <h2 id="news4title"></h2>
+                  <h2 id="news4title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove news-del-icon\" id=\"news4del\" n_id=\"\"></span>";} ?>
                   <br/><blockquote><p id="news4text"></p><footer id="news4date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="news5" style="display: none;">
-                  <h2 id="news5title"></h2>
+                  <h2 id="news5title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove news-del-icon\" id=\"news5del\" n_id=\"\"></span>";} ?>
                   <br/><blockquote><p id="news5text"></p><footer id="news5date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
@@ -473,7 +542,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                   <div class="col-md-offset-2 col-md-8">
                     <div class="panel panel-default" id="workouts1" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="workouts1title"></h3>
+                        <h3 class="panel-title" id="workouts1title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove workout-del-icon\" id=\"workouts1del\" w_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="workouts1text"></p><br/>
@@ -483,7 +552,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="workouts2" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="workouts2title"></h3>
+                        <h3 class="panel-title" id="workouts2title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove workout-del-icon\" id=\"workouts2del\" w_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="workouts2text"></p><br/>
@@ -493,7 +562,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="workouts3" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="workouts3title"></h3>
+                        <h3 class="panel-title" id="workouts3title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove workout-del-icon\" id=\"workouts3del\" w_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="workouts3text"></p><br/>
@@ -503,7 +572,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="workouts4" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="workouts4title"></h3>
+                        <h3 class="panel-title" id="workouts4title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove workout-del-icon\" id=\"workouts4del\" w_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="workouts4text"></p><br/>
@@ -513,7 +582,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="workouts5" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="workouts5title"></h3>
+                        <h3 class="panel-title" id="workouts5title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove workout-del-icon\" id=\"workouts5del\" w_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="workouts5text"></p><br/>
@@ -548,7 +617,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                   <div class="col-md-offset-2 col-md-8">
                     <div class="panel panel-default" id="plays1" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="plays1title"></h3>
+                        <h3 class="panel-title" id="plays1title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove play-del-icon\" id=\"plays1del\" p_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="plays1text"></p><br/>
@@ -558,7 +627,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="plays2" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="plays2title"></h3>
+                        <h3 class="panel-title" id="plays2title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove play-del-icon\" id=\"plays2del\" p_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="plays2text"></p><br/>
@@ -568,7 +637,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="plays3" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="plays3title"></h3>
+                        <h3 class="panel-title" id="plays3title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove play-del-icon\" id=\"plays3del\" p_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="plays3text"></p><br/>
@@ -578,7 +647,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="plays4" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="plays4title"></h3>
+                        <h3 class="panel-title" id="plays4title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove play-del-icon\" id=\"plays4del\" p_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="plays4text"></p><br/>
@@ -588,7 +657,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                     </div>
                     <div class="panel panel-default" id="plays5" style="display: none;">
                       <div class="panel-heading">
-                        <h3 class="panel-title" id="plays5title"></h3>
+                        <h3 class="panel-title" id="plays5title"></h3><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove play-del-icon\" id=\"plays5del\" p_id=\"\"></span>";} ?>
                       </div>                            
                       <div class="panel-body">
                         <p id="plays5text"></p><br/>
@@ -622,27 +691,27 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <div class="row videos_content">
               <div class="col-md-offset-2 col-md-8">
                 <div id="videos1" style="display: none;">
-                  <h2 id="videos1title"></h2>
+                  <h2 id="videos1title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove video-del-icon\" id=\"videos1del\" v_id=\"\"></span>";} ?>
                   <br/><blockquote><div class="text-center"><iframe id="videos1src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos1link" target="_blank"></a><footer id="videos1date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="videos2" style="display: none;">
-                  <h2 id="videos2title"></h2>
+                  <h2 id="videos2title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove video-del-icon\" id=\"videos2del\" v_id=\"\"></span>";} ?>
                   <br/><blockquote><div class="text-center"><iframe id="videos2src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos2link" target="_blank"></a><footer id="videos2date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="videos3" style="display: none;">
-                  <h2 id="videos3title"></h2>
+                  <h2 id="videos3title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove video-del-icon\" id=\"videos3del\" v_id=\"\"></span>";} ?>
                   <br/><blockquote><div class="text-center"><iframe id="videos3src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos3link" target="_blank"></a><footer id="videos3date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="videos4" style="display: none;">
-                  <h2 id="videos4title"></h2>
+                  <h2 id="videos4title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove video-del-icon\" id=\"videos4del\" v_id=\"\"></span>";} ?>
                   <br/><blockquote><div class="text-center"><iframe id="videos4src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos4link" target="_blank"></a><footer id="videos4date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>
                 <div id="videos5" style="display: none;">
-                  <h2 id="videos5title"></h2>
+                  <h2 id="videos5title"></h2><?php if($admin) {echo "<span class=\"glyphicon glyphicon-remove video-del-icon\" id=\"videos5del\" v_id=\"\"></span>";} ?>
                   <br/><blockquote><div class="text-center"><iframe id="videos5src" width="420" height="315" frameborder="0" allowfullscreen></iframe></div><br /><br />Link: <a id="videos5link" target="_blank"></a><footer id="videos5date"></footer></blockquote>
                   <br/><hr/><br/>
                 </div>

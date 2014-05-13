@@ -203,6 +203,46 @@ if(!empty($user) && $admin)
 
 		echo "Group terminated.";
 	}
+	elseif ($req == "d-news") {
+		$body = intval($body);
+
+		mysql_query("DELETE FROM news WHERE id='$body' AND g_id='" . $group['id'] . "' LIMIT 1");
+
+		echo "Deleted news post #" . $body . ".";
+	}
+	elseif ($req == "d-workout") {
+		$body = intval($body);
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM workout_files WHERE w_id='$body'");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+		mysql_query("DELETE FROM workout_files WHERE w_id='$body'");
+		mysql_query("DELETE FROM workouts WHERE id='$body' AND g_id='" . $group['id'] . "' LIMIT 1");
+
+		echo "Deleted workout post #" . $body . ".";
+	}
+	elseif ($req == "d-play") {
+		$body = intval($body);
+
+		// Delete all files for the group
+		$sql = mysql_query("SELECT filepath FROM play_files WHERE p_id='$body'");
+		while($temp = mysql_fetch_array($sql)) {
+			unlink($temp['filepath']);
+		}
+		mysql_query("DELETE FROM play_files WHERE p_id='$body'");
+		mysql_query("DELETE FROM plays WHERE id='$body' AND g_id='" . $group['id'] . "' LIMIT 1");
+
+		echo "Deleted play post #" . $body . ".";
+	}
+	elseif ($req == "d-video") {
+		$body = intval($body);
+
+		mysql_query("DELETE FROM videos WHERE id='$body' AND g_id='" . $group['id'] . "' LIMIT 1");
+
+		echo "Deleted video post #" . $body . ".";
+	}
 	else {
 		echo "No operation request was matched.";
 	}
