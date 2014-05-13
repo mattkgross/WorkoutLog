@@ -119,6 +119,39 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 		})
 	});
 
+	// Populate Analytics
+	function populateGraph(analyticData) {
+        //$('#g_t').text(analyticData['city']);
+        for(var i = 1; i < 11; i++) {
+            $('#t' + i.toString()).text(analyticData[i-1]['name']);
+            $('#v' + i.toString()).text(analyticData[i-1]['count']);
+        }
+    };
+    <?php 
+    	$analytics_users = array();
+
+    	function week_start($date) {
+	    	$ts = strtotime($date);
+	    	$start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
+	    	return date('Y-m-d', $start);
+		}
+		$d_start = strtotime("0 days 00:00:00", strtotime(week_start(date('m/d/Y h:i:s a', time()))));
+		$d_end = strtotime("0 days 00:00:00", strtotime(week_start(date('m/d/Y h:i:s a', time()))));
+		$d_start = date("Y", $d_start) . "-" . date("m", $d_start) . "-" . date("d", $d_start);
+		$d_end = date("Y", $d_end) . "-" . date("m", $d_end) . "-" . date("d", $d_end);
+
+		// Grab all user ids of posts made to the group this week
+    	//$sql = mysql_query("SELECT u_id FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id']. "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "'");
+    	$sql = mysql_query("SELECT u_id FROM posts WHERE id IN (SELECT p_id FROM post_groups WHERE g_id='" . $group['id']. "') AND date >= '" . $d_start . "' AND date <= '" . $d_end . "' GROUP BY u_id ORDER BY COUNT(u_id) DESC LIMIT 10");
+    	while($temp = mysql_fetch_array($sql)) {
+    		array_push($analytics_users, array("name" => $temp['u_id'], ));
+    	}
+    ?>
+	$(document).ready(function(e) {
+		var users = <?php echo json_encode($analytics_users); ?>;
+		populateGraph(users);
+	});
+
 	// Busy Waiting Modal Actions
 	function busyWaiting(content) {
 		$('#busy_modal_text').text(content);
@@ -644,51 +677,71 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 					  <div class="tab-pane" id="analytics">
 					  <h3 style="text-align: center;">Team Analytics</h3><br/>
-					  	<p style="text-align: center;">Team Analytics will roll out in the next release.</p>
-					  	<!--<div id="wrapper">
-							<div class="chart">
-								<h2>Population of endangered species from 2012 &ndash; 2016</h2>
-								<table id="data-table" border="1" cellpadding="10" cellspacing="0" summary="The effects of the zombie outbreak on the populations of endangered species from 2012 to 2016">
-									<caption>Population in thousands</caption>
-									<thead>
-										<tr>
-											<td>&nbsp;</td>
-											<th scope="col">2012</th>
-											<th scope="col">2013</th>
-											<th scope="col">2014</th>
-											<th scope="col">2015</th>
-											<th scope="col">2016</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">Carbon Tiger</th>
-											<td>4080</td>
-											<td>6080</td>
-											<td>6240</td>
-											<td>3520</td>
-											<td>2240</td>
-										</tr>
-										<tr>
-											<th scope="row">Blue Monkey</th>
-											<td>5680</td>
-											<td>6880</td>
-											<td>5760</td>
-											<td>5120</td>
-											<td>2640</td>
-										</tr>
-										<tr>
-											<th scope="row">Tanned Zombie</th>
-											<td>1040</td>
-											<td>1760</td>
-											<td>2880</td>
-											<td>4720</td>
-											<td>7520</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>-->
+					  	<div id="wrapper">
+		                    <div class="chart">
+		                        <h2 id="g_t"></h2>
+		                        <table id="data-table" border="1" cellpadding="10" cellspacing="0" summary="The effects of the zombie outbreak on the populations of endangered species from 2012 to 2016">
+		                            <caption>This Week's Workout Count</caption>
+		                            <thead>
+		                                <tr>
+		                                    <td>&nbsp;</td>
+		                                    <!--<th scope="col" id="t1"></th>
+		                                    <th scope="col" id="t2"></th>
+		                                    <th scope="col" id="t3"></th>
+		                                    <th scope="col" id="t4"></th>
+		                                    <th scope="col" id="t5"></th>
+		                                    <th scope="col" id="t6"></th>
+		                                    <th scope="col" id="t7"></th>
+		                                    <th scope="col" id="t8"></th>
+		                                    <th scope="col" id="t9"></th>
+		                                    <th scope="col" id="t10"></th>-->
+		                                </tr>
+		                            </thead>
+		                            <tbody>
+		                                <tr>
+		                                    <th scope="row" id="t1"></th>
+		                                    <td id="v1"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t2"></th>
+		                                    <td id="v2"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t3"></th>
+		                                    <td id="v3"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t4"></th>
+		                                    <td id="v4"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t5"></th>
+		                                    <td id="v5"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t6"></th>
+		                                    <td id="v6"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t7"></th>
+		                                    <td id="v7"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t8"></th>
+		                                    <td id="v8"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t9"></th>
+		                                    <td id="v9"></td>
+		                                </tr>
+		                                <tr>
+		                                    <th scope="row" id="t10"></th>
+		                                    <td id="v10"></td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+		                    </div>
+		                </div>
 					  </div>
 					</div>
 			  </div>
