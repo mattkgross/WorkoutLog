@@ -86,8 +86,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         $('.edit-icon').click(function(e) {
             var post = $(this).attr('value');
 			var date = $(this).attr('date');
-			var post_id = "#post_" + post.toString();
-			var desc = $(post_id).text();
+			var post_id = "#post_" + post.toString() + "_entry";
+			// Grab the HTML representation, but omit <br>s - that'd be annoying
+			var desc = $(post_id).html().replace("<br>", "");
 			$("#desc").val(desc);
 			$("#date").val(date);
 			$("#p_id").val(post);
@@ -328,7 +329,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 						else {
 							if($edit_icon) {
 								$out_date = date("m", strtotime($e['date'])) . "/" . date("d", strtotime($e['date'])) . "/" . date("Y", strtotime($e['date']));
-								echo "<td style=\"vertical-align: middle; position: relative; font-size: 10px; background-color: " . $color . ";\" id=\"post_" . $e['id'] . "\"><span class=\"edit-icon glyphicon glyphicon-pencil\" date=\"" . $out_date . "\" value=\"" . $e['id'] . "\"></span>" . stripslashes(nl2br($e['text'])) . "</td>";
+								echo "<td style=\"vertical-align: middle; position: relative; font-size: 10px; background-color: " . $color . ";\" id=\"post_" . $e['id'] . "\"><span class=\"edit-icon glyphicon glyphicon-pencil\" date=\"" . $out_date . "\" value=\"" . $e['id'] . "\"></span><span id=\"post_" . $e['id'] . "_entry\">" . stripslashes(nl2br($e['text'])) . "</span></td>";
 							}
 							else {
 								echo "<td style=\"vertical-align: middle; font-size: 10px; background-color: " . $color . ";\" id=\"post_" . $e['id'] . "\">" . stripslashes(nl2br($e['text'])) . "</td>";
