@@ -7,8 +7,8 @@ $user = empty($_SESSION['USER'])?"":$_SESSION['USER'];
 $group = empty($_SESSION['GROUP'])?"":$_SESSION['GROUP'];
 $admin = empty($_SESSION['G_ADMIN'])?false:$_SESSION['G_ADMIN'];
 
-// Kick out anyone who's not logged in.
-if(empty($user)) {
+// Kick out anyone who's not logged in or belonging to a group.
+if(empty($user) || empty($group)) {
 	header('Location: index.php'); }
 ?>
 <!--
