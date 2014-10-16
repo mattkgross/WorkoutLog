@@ -160,7 +160,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			$("#desc").keyup(function(e) {
                 if(e.which == 13) {
 					$("#desc").val(function(i, val) {
-						return val + "- ";
+						// Treat for squish.
+						if(<?php echo $ID; ?> == 61)
+						{
+							return val + "SQWEEEEESSSSHHHHH LYF";
+						}
+						else
+						{
+							return val + "- ";
+						}
 					});
 				}
             });
