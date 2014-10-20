@@ -17,6 +17,7 @@ if($submission == "yes")
 {
 	$uname = addslashes($_POST['uname']);
 	$pword = md5($_POST['pword']);
+  $remember = addslashes($_POST['remember']);
 	
 	// Prevent injection
 	if(!get_magic_quotes_gpc())
@@ -36,6 +37,13 @@ if($submission == "yes")
 			$_SESSION['GROUP'] = mysql_fetch_array($sql);
 			$_SESSION['G_ADMIN'] = (intval($group['admin']) == 1)?true:false;
 		}
+
+    // Remember for 30 days if opted.
+    if($remember == "selected") {
+      $params = session_get_cookie_params();
+      setcookie(session_name(), $_COOKIE[session_name()], time() + 60*60*24*30, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+    }
+
 		header('Location: index.php');
 	}
 	else {
@@ -188,6 +196,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
               <input type="password" class="form-control" id="pword" name="pword">
               <span class="glyphicon glyphicon-ok form-control-feedback" id="s_pword_ok" style="display: none;"></span>
               <span class="glyphicon glyphicon-remove form-control-feedback" id="s_pword_bad" style="display: none;"></span>
+            </div>
+          </div>
+          <div class="form-group" id="g_remember">          
+            <div class="col-md-offset-5 col-md-2">
+              <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" style="height: 13px; width: 13px;" id="remember" name="remember" value="selected"> Remember Me
+              </label>
             </div>
           </div>
           <div class="form-group">
