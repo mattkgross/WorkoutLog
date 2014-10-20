@@ -88,7 +88,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			var date = $(this).attr('date');
 			var post_id = "#post_" + post.toString() + "_entry";
 			// Grab the HTML representation, but omit <br>s - that'd be annoying
-			var desc = $(post_id).html().replace("<br>", "");
+			//var desc = $(post_id).html().replace("<br>", "");
+      // Just grab the text for now, can revert back to the above if we ever want HTML tagging features.
+      var desc = $(post_id).text();
 			$("#desc").val(desc);
 			$("#date").val(date);
 			$("#p_id").val(post);
