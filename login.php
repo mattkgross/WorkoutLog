@@ -24,7 +24,7 @@ if($submission == "yes")
 		$uname = mysql_real_escape_string($uname);
 	}
 	
-	$sql = mysql_query("SELECT * FROM users WHERE u_name='" . $uname . "' LIMIT 1");
+	$sql = mysql_query("SELECT * FROM users WHERE u_name='" . $uname . "' OR email='" . $uname . "' LIMIT 1");
 	$user = mysql_fetch_array($sql);
 	
 	if(!empty($user) && validate_password($pword, $user['password'])) {
@@ -175,7 +175,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     	<h1 style="text-align: center">Log In</h1><br /><br />
         <form class="form-horizontal" role="form" method="post" action="login.php">
           <div class="form-group" id="g_uname">
-            <label for="uname" class="col-md-offset-3 col-md-2 control-label">Username</label>
+            <label for="uname" class="col-md-offset-3 col-md-2 control-label">Username/Email</label>
             <div class="col-md-2">
               <input type="text" class="form-control" id="uname" name="uname">
               <span class="glyphicon glyphicon-ok form-control-feedback" id="s_uname_ok" style="display: none;"></span>
