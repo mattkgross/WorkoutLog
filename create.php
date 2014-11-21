@@ -163,7 +163,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 						// Treat for squish.
 						if(<?php echo $ID; ?> == 61)
 						{
-							return val + "SQWEEEEESSSSHHHHH LYF";
+							return val + "SQWEEEEESSSSHHHHH LYF FIXED";
 						}
 						else
 						{
