@@ -5,6 +5,4 @@ Allows users to log, edit, and track their workouts and compare their progress w
 
 For more information about the capabilities of this tool and how to setup and use it, visit the [Wiki](../../wiki).
 
-**Sites Using:**
-
-[Mamabird](http://mamabird.com/)
+[Access the Site Here](http://www.workoutlog.mattkgross.com/)
