@@ -5,4 +5,6 @@ Allows users to log, edit, and track their workouts and compare their progress w
 
 For more information about the capabilities of this tool and how to setup and use it, visit the [Wiki](../../wiki).
 
+For the latest (deprecated) PHP version of this site, [visit the final PHP release](https://github.com/mattkgross/WorkoutLogger/releases/tag/v1.1).
+
 [Access the Site Here](http://www.workoutlog.mattkgross.com/)
