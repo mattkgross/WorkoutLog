@@ -64,10 +64,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Log", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("New Entry", "New_Entry")</li>
+                    <li>@Html.ActionLink("Team", "Team")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Groups <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <!-- Fill with other groups that they're a member of. -->
+                            <li><a href="#">None</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Join Group", "Join_Group")</li>
+                            <li>@Html.ActionLink("Create Group", "Create_Group")</li>
+                        </ul>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    @Html.Partial("_LoginPartial")
+                </ul>
             </div>
         </div>
     </div>
