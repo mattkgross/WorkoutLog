@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Center the footer text */
+footer {
+    width: 100%;
+    text-align: center;
+}
