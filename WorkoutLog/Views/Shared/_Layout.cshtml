@@ -10,7 +10,7 @@ Disclaimer: The author of this tool is not responsible for any misuse, loss, or 
 This product is provided AS IS and, by using this software, the site owner agrees to all responsibility resulting from any actions taken when using this service.
 Rights: This software is openly distributed and may be used, altered, and redistributed so long as credit remains given where it is due.
 
-Copyright (C) 2014  Matthew Gross
+Copyright (C) @DateTime.Now.Year Matthew Gross
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +28,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 =================================================================================================================================================================
 -->
+
+@{ 
+    ViewBag.Title = "Workout Log - " + ViewBag.Title;
+}
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,4 +1,6 @@
-﻿body {
+﻿/* Site Wide Styles */
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -27,4 +29,10 @@ textarea {
 footer {
     width: 100%;
     text-align: center;
+}
+
+/* Registration Page Styles */
+
+.register_button {
+    width: 280px;
 }
