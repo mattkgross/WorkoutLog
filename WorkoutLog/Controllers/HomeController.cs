@@ -19,5 +19,22 @@ namespace WorkoutLog.Controllers
         {
             return View();
         }
+
+        // GET /EasterEgg/{optional text string}
+        public ActionResult EasterEgg(string text)
+        {
+            var data = "What were you trying to do with my egg?!";
+
+            if (text == "found")
+            {
+                data = "You found the egg!";
+            }
+            else if(text == "cracked")
+            {
+                data = "You cracked the egg!";
+            }
+
+            return Content(data);
+        }
     }
 }
