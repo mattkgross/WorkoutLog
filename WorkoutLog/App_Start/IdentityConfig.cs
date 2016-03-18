@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WorkoutLog.Models;
+using System.Configuration;
 
 namespace WorkoutLog
 {
@@ -53,17 +54,17 @@ namespace WorkoutLog
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordRequiredLength"].ToString()),
+                RequireNonLetterOrDigit = Convert.ToBoolean(ConfigurationManager.AppSettings["PasswordRequireNonLetterOrDigit"].ToString()),
+                RequireDigit = Convert.ToBoolean(ConfigurationManager.AppSettings["PasswordRequireDigit"].ToString()),
+                RequireLowercase = Convert.ToBoolean(ConfigurationManager.AppSettings["PasswordRequireLowercase"].ToString()),
+                RequireUppercase = Convert.ToBoolean(ConfigurationManager.AppSettings["PasswordRequireUppercase"].ToString()),
             };
 
-            // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            // Configure user lockout defaults (retrieve them from Web.config)
+            manager.UserLockoutEnabledByDefault = Convert.ToBoolean(ConfigurationManager.AppSettings["UserLockoutEnabledByDefault"].ToString());
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(Double.Parse(ConfigurationManager.AppSettings["DefaultAccountLockoutTimeSpan"].ToString()));
+            manager.MaxFailedAccessAttemptsBeforeLockout = Convert.ToInt32(ConfigurationManager.AppSettings["MaxFailedAccessAttemptsBeforeLockout"].ToString());
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.

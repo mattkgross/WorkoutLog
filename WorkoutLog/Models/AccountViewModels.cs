@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 
 namespace WorkoutLog.Models
 {
@@ -64,6 +66,10 @@ namespace WorkoutLog.Models
 
     public class RegisterViewModel
     {
+        // TODO: Have MinimumLength read from Web.config
+        //private static readonly int passwordMaxLength = int.Parse(ConfigurationManager.AppSettings["PasswordRequiredLength"].ToString());
+        private const int passwordMaxLength = 10;
+
         [Required]
         [MaxLength(50, ErrorMessage = "Maximum of 50 characters allowed for your first name.")]
         [DataType(DataType.Text)]
@@ -83,7 +89,7 @@ namespace WorkoutLog.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 10)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = passwordMaxLength)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

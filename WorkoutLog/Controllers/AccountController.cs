@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WorkoutLog.Models;
+using System.Configuration;
 
 namespace WorkoutLog.Controllers
 {
@@ -73,20 +74,29 @@ namespace WorkoutLog.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            // Count failures towards lockout (lockout specification in Web.config appSettings)
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+
+            var user = await UserManager.FindByNameAsync(model.Email);
+            int attemptsLeft = Convert.ToInt32(ConfigurationManager.AppSettings["MaxFailedAccessAttemptsBeforeLockout"].ToString());
+            if (user != null)
+            {
+                attemptsLeft -= user.AccessFailedCount;
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
+                    ViewBag.TimeRemaining = String.Format("Your account has been locked out for {0} minutes due to multiple failed login attempts.", ConfigurationManager.AppSettings["DefaultAccountLockoutTimeSpan"].ToString());
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    string loginFailMessage = String.Format("Invalid login attempt. {0} more attempt(s) remain before the account is locked.", attemptsLeft);
+                    ModelState.AddModelError("", loginFailMessage);
                     return View(model);
             }
         }
