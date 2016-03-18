@@ -34,6 +34,13 @@ namespace WorkoutLog.Controllers
                 data = "You cracked the egg!";
             }
 
+            // Deny them access.
+            /*else
+            {
+                return new HttpStatusCodeResult(403);
+            }*/
+            
+            // Be nice and question them.
             return Content(data);
         }
     }
