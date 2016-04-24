@@ -28,30 +28,30 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
         if ((index != -1 && index == fdurl.length-snSrc.length)
             || fdurl == "about:blank")
             return;
-		var fdurlb = fdurl.split("?")[0];
-		if (document.location.href.indexOf(fdurlb) < 0)
-		{
+        var fdurlb = fdurl.split("?")[0];
+        if (document.location.href.indexOf(fdurlb) < 0)
+        {
             document.location.href=fdurl;
-		    return;
-		}
-		sn._savedOnLoad = window.onload;
-		window.onload = null;
-		window.__smartNav.updateHelper();
-	}
-	window.__smartNav.updateHelper = function()
-	{
-		if (document.readyState != "complete")
-		{
-		    window.setTimeout(window.__smartNav.updateHelper, 25);
-		    return;
-		}
-		window.__smartNav.loadNewContent();
-	}
-	window.__smartNav.loadNewContent = function()
-	{
-		var sn = window.__smartNav;
-		var fd;
-		try { fd = frames["__hifSmartNav"].document; } catch (e) {return;}
+            return;
+        }
+        sn._savedOnLoad = window.onload;
+        window.onload = null;
+        window.__smartNav.updateHelper();
+    }
+    window.__smartNav.updateHelper = function()
+    {
+        if (document.readyState != "complete")
+        {
+            window.setTimeout(window.__smartNav.updateHelper, 25);
+            return;
+        }
+        window.__smartNav.loadNewContent();
+    }
+    window.__smartNav.loadNewContent = function()
+    {
+        var sn = window.__smartNav;
+        var fd;
+        try { fd = frames["__hifSmartNav"].document; } catch (e) {return;}
         if ((typeof(sn.sHif) != "undefined") && (sn.sHif != null))
         {
             sn.sHif.removeNode(true);
@@ -252,12 +252,12 @@ if ((typeof(window.__smartNav) == "undefined") || (window.__smartNav == null))
     var rc = window.__smartNav.attachForm();
     var hif = document.all("__hifSmartNav");
     if ((typeof(snSrc) == "undefined") || (snSrc == null)) {
-	    if (typeof(window.dialogHeight) != "undefined") {
-	            snSrc = "IEsmartnav1";
-		    hif.src = snSrc;
-	    } else {
-		    snSrc = hif.src;
-	    }
+        if (typeof(window.dialogHeight) != "undefined") {
+                snSrc = "IEsmartnav1";
+            hif.src = snSrc;
+        } else {
+            snSrc = hif.src;
+        }
     }
     if (rc)
     {
