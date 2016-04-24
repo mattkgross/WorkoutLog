@@ -13,5 +13,11 @@ namespace WorkoutLog
         {
 
         }
+
+        protected void RegisterButton_Click(object sender, EventArgs e)
+        {
+            // https://stackoverflow.com/questions/224569/server-transfer-vs-response-redirect
+            Response.Redirect("~/Account/Register");
+        }
     }
 }
