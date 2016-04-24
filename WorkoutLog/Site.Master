@@ -91,7 +91,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Register" class="hvr-underline-from-center-menu">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login" class="hvr-underline-from-center-menu">Log in</a></li>
+                                <li><a runat="server" href="~/Account/Login" class="hvr-underline-from-center-menu">Log In</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
