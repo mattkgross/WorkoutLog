@@ -44,6 +44,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <webopt:bundleReference runat="server" path="~/Content/purecss/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <!-- Fonts & Icon Imports -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600" rel="stylesheet" type="text/css">
 </head>
 <body>
     <form runat="server">
@@ -76,18 +80,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Workout Log</a>
+                    <a class="navbar-brand" runat="server" href="~/" style="font-weight: 700;">Workout Log</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Log</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/" class="hvr-underline-from-center-menu">Log</a></li>
+                        <li><a runat="server" href="~/About" class="hvr-underline-from-center-menu">About</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="~/Account/Register" class="hvr-underline-from-center-menu">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login" class="hvr-underline-from-center-menu">Log in</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>

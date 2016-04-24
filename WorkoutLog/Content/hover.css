@@ -2479,6 +2479,40 @@
   right: 0;
 }
 
+/* Underline From Center for Menu*/
+.hvr-underline-from-center-menu {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-center-menu:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background: #ffffff;
+  height: 2px;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-from-center-menu:hover:before, .hvr-underline-from-center-menu:focus:before, .hvr-underline-from-center-menu:active:before {
+  left: 12px;
+  right: 12px;
+}
+
 /* Underline From Right */
 .hvr-underline-from-right {
   display: inline-block;

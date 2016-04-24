@@ -55,6 +55,24 @@ input[type="select"] {
 
 /* Additional Universal Styles */
 
+/* Set default header font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* Set default body font */
+body {
+    font-family: 'Crimson Text', serif;
+}
+
+/* Increase the navbar's font size */
+.navbar {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}
+
 /* Center the footer text */
 footer {
     width: 100%;
