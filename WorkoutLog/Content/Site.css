@@ -56,31 +56,24 @@ input[type="select"] {
 /* Additional Universal Styles */
 
 /* Set default header font */
-h1, h2, h3 {
-    /*font-family: 'Montserrat', sans-serif;
-    font-weight: 700;*/
-    font-family: 'Istok Web', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cabin', sans-serif;
     font-weight: 700;
 }
 
-h4, h5, h6 {
-    font-family: 'Istok Web', sans-serif;
+button, input {
+    font-family: 'Cabin', sans-serif;
     font-weight: 400;
 }
 
 /* Set default body font */
 body {
-    /*font-family: 'Crimson Text', serif;*/
-    /*font-family: 'Lora', serif;
-    font-weight: 400;*/
     font-family: 'Average', serif;
 }
 
 /* Increase the navbar's font size */
 .navbar {
-    /*font-family: 'Montserrat', sans-serif;
-    font-weight: 400;*/
-    font-family: 'Istok Web', sans-serif;
+    font-family: 'Cabin', sans-serif;
     font-weight: 400;
     font-size: 15px;
 }

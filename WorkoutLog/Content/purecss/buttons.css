@@ -60,7 +60,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 /*csslint outline-none:false*/
 
 .pure-button {
-    font-family: inherit;
+    /*font-family: inherit;*/
     font-size: 100%;
     padding: 0.5em 1em;
     color: #444; /* rgba not supported (IE 8) */

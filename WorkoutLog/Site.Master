@@ -47,6 +47,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <!-- Fonts & Icon Imports -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Istok+Web:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
 </head>
 <body>
