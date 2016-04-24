@@ -26,6 +26,7 @@ namespace WorkoutLog.Account
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
             var user = new ApplicationUser() { UserName = Email.Text, Email = Email.Text };
+            AddUserIdentityProperties(user);
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
@@ -41,6 +42,16 @@ namespace WorkoutLog.Account
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }
+        }
+
+        /// <summary>
+        /// Sets additional (dev added) ApplicationUser properties.
+        /// </summary>
+        /// <param name="user">The user object to add property values to.</param>
+        protected void AddUserIdentityProperties(ApplicationUser user)
+        {
+            user.FirstName = this.FirstName.Text;
+            user.LastName = this.LastName.Text;
         }
     }
 }

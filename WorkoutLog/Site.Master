@@ -1,4 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WorkoutLog.SiteMaster" %>
+<!-- Include the additional ApplicationUser properties added by dev. -->
+<%@ Import Namespace="WorkoutLog.Extensions" %>
 
 <!DOCTYPE html>
 <!--
@@ -97,7 +99,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account"><%: Context.User.Identity.GetFirstName() %></a></li>
                                 <li>
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>

@@ -18,8 +18,15 @@ namespace WorkoutLog.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = manager.CreateIdentity(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("FirstName", this.FirstName));
+            userIdentity.AddClaim(new Claim("LastName", this.LastName));
+
             return userIdentity;
         }
+
+        // Additional User Properties
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager manager)
         {
