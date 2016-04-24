@@ -1,12 +1,41 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WorkoutLog.SiteMaster" %>
 
 <!DOCTYPE html>
+<!--
+Workout Log
+===========
 
+Developer: Matthew Gross
+Email: mattkgross@gmail.com
+Website: http://www.mattkgross.com
+Repository: https://github.com/mattkgross/WorkoutLog
+Disclaimer: The author of this tool is not responsible for any misuse, loss, or distribution of data or information associated with this site.
+This product is provided AS IS and, by using this software, the site owner agrees to all responsibility resulting from any actions taken when using this service.
+Rights: This software is openly distributed and may be used, altered, and redistributed so long as credit remains given where it is due.
+
+Copyright (C) <%: DateTime.Now.Year %> Matthew Gross
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+=================================================================================================================================================================
+-->
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: "Workout Log - " + Page.Title %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -46,13 +75,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                    <a class="navbar-brand" runat="server" href="~/">Workout Log</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/">Log</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
@@ -78,7 +106,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener">Matt Gross</a></p>
             </footer>
         </div>
     </form>

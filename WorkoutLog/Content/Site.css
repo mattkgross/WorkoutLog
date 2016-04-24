@@ -36,3 +36,9 @@ input[type="select"] {
         padding: 0;
     }
 }
+
+/* Center the footer text */
+footer {
+    width: 100%;
+    text-align: center;
+}
