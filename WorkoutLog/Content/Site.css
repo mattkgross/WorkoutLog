@@ -1,4 +1,6 @@
-﻿/* Move down content because we have a fixed navbar that is 50px tall */
+﻿/* Default Styles */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -37,8 +39,26 @@ input[type="select"] {
     }
 }
 
+/* End Default Styles */
+
+/* Bootstrap Overrides */
+
+.navbar {
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+
+.jumbotron {
+    box-shadow: 0 0 2px rgba(0,0,0,0.12),0 2px 2px rgba(0,0,0,0.24);
+}
+
+/* End - Bootstrap Overrides */
+
+/* Additional Universal Styles */
+
 /* Center the footer text */
 footer {
     width: 100%;
     text-align: center;
 }
+
+/* End - Additional Universal Styles */

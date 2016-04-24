@@ -41,6 +41,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:bundleReference runat="server" path="~/Content/purecss/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
