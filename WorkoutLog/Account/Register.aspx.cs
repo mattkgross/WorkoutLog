@@ -17,8 +17,8 @@ namespace WorkoutLog.Account
             FirstName.Attributes.Add("placeholder", "John");
             LastName.Attributes.Add("placeholder", "Doe");
             Email.Attributes.Add("placeholder", "jdoe32@gmail.com");
-            Password.Attributes.Add("placeholder", "At Least 12 Characters - Be Smart");
-            ConfirmPassword.Attributes.Add("placeholder", "Confirm Password");
+            Password.Attributes.Add("placeholder", "1 number, 1 lowercase, 1 uppercase");
+            ConfirmPassword.Attributes.Add("placeholder", "Be sure it's 10 charcters or more");
         }
 
         protected void CreateUser_Click(object sender, EventArgs e)
