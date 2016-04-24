@@ -73,6 +73,10 @@ body {
     font-size: 15px;
 }
 
+.text-center {
+    text-align: center;
+}
+
 /* Center the footer text */
 footer {
     width: 100%;

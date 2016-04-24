@@ -11,6 +11,16 @@ namespace WorkoutLog.Account
 {
     public partial class Register : Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Set the placeholders for the form fields.
+            FirstName.Attributes.Add("placeholder", "John");
+            LastName.Attributes.Add("placeholder", "Doe");
+            Email.Attributes.Add("placeholder", "jdoe32@gmail.com");
+            Password.Attributes.Add("placeholder", "At Least 12 Characters - Be Smart");
+            ConfirmPassword.Attributes.Add("placeholder", "Confirm Password");
+        }
+
         protected void CreateUser_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
