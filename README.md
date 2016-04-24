@@ -8,3 +8,7 @@ For more information about the capabilities of this tool and how to setup and us
 For the latest (deprecated) PHP version of this site, [visit the final PHP release](https://github.com/mattkgross/WorkoutLog/releases/tag/v1.1).
 
 [Access the Site Here](http://www.workoutlog.mattkgross.com/)
+
+##Sneak Peak
+
+![Homepage](https://dl.dropboxusercontent.com/u/49709949/sneak_peek.PNG)
