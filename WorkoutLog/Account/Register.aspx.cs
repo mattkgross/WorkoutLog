@@ -11,6 +11,10 @@ namespace WorkoutLog.Account
 {
     public partial class Register : Page
     {
+        private const int FirstNameMaxLength = 100;
+        private const int LastNameMaxLength = 100;
+        private const int EmailMaxLength = 256;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Set the placeholders for the form fields.
@@ -19,6 +23,11 @@ namespace WorkoutLog.Account
             Email.Attributes.Add("placeholder", "jdoe32@gmail.com");
             Password.Attributes.Add("placeholder", "1 number, 1 lowercase, 1 uppercase");
             ConfirmPassword.Attributes.Add("placeholder", "Be sure it's 10 charcters or more");
+
+            // Set the maxlengths for the form fields.
+            FirstName.MaxLength = FirstNameMaxLength;
+            LastName.MaxLength = LastNameMaxLength;
+            Email.MaxLength = EmailMaxLength;
         }
 
         protected void CreateUser_Click(object sender, EventArgs e)
@@ -26,7 +35,14 @@ namespace WorkoutLog.Account
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
             var user = new ApplicationUser() { UserName = Email.Text, Email = Email.Text };
-            AddUserIdentityProperties(user);
+            bool validate = AddUserIdentityProperties(user);
+
+            // If validation failed, then we stop.
+            if(!validate)
+            {
+                return;
+            }
+
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
@@ -45,13 +61,55 @@ namespace WorkoutLog.Account
         }
 
         /// <summary>
+        /// Validates the form fields for a new user.
+        /// </summary>
+        /// <returns>True if all fields pass, false if not.</returns>
+        protected bool ValidateUserSubmission()
+        {
+            bool retval = true;
+
+            // First Name
+            if(FirstName.Text.Length > FirstNameMaxLength)
+            {
+                ErrorMessage.Text = "Weird. Your input seemed mailicious.";
+                retval = false;
+            }
+
+            // Last Name
+            if (LastName.Text.Length > LastNameMaxLength)
+            {
+                ErrorMessage.Text = "Weird. Your input seemed mailicious.";
+                retval = false;
+            }
+
+            // Email
+            if(Email.Text.Length > EmailMaxLength)
+            {
+                ErrorMessage.Text = "Weird. Your input seemed mailicious.";
+                retval = false;
+            }
+
+            return retval;
+        }
+
+        /// <summary>
         /// Sets additional (dev added) ApplicationUser properties.
         /// </summary>
         /// <param name="user">The user object to add property values to.</param>
-        protected void AddUserIdentityProperties(ApplicationUser user)
+        /// <returns>True if successful, false if not.</returns>
+        protected bool AddUserIdentityProperties(ApplicationUser user)
         {
+            // If validation failed, then we stop processing.
+            if(!ValidateUserSubmission())
+            {
+                ErrorMessage.Visible = true;
+                return false;
+            }
+
             user.FirstName = this.FirstName.Text;
             user.LastName = this.LastName.Text;
+
+            return true;
         }
     }
 }
