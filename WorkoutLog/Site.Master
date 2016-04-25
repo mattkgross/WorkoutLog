@@ -53,6 +53,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     <link href='https://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="bodywrapper">
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -112,11 +113,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener" class="hyperlink">Matt Gross</a></p>
-            </footer>
         </div>
     </form>
+    <div class="footer">
+        <hr />
+        <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener" class="hyperlink">Matt Gross</a></p>
+        </footer>
+    </div>
+</div>
 </body>
 </html>
