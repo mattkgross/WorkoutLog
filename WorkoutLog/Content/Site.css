@@ -82,6 +82,21 @@ body {
     text-align: center;
 }
 
+.align-center {
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Because ASP wraps checkboxes in spans, styles aren't directly applied unless we do this. */
+.checkbox-center > * {
+    float: none !important;
+}
+
+.checkbox-label-align {
+    vertical-align: text-bottom;
+}
+
 /* Center the footer text */
 footer {
     width: 100%;
