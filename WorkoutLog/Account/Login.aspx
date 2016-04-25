@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <div class="text-center checkbox">
-                                <asp:CheckBox runat="server" ID="RememberMe" CssClass="checkbox-center" />
+                                <asp:CheckBox runat="server" ID="RememberMe" CssClass="checkbox-center" Checked />
                                 <asp:Label runat="server" AssociatedControlID="RememberMe" CssClass="checkbox-label-align">Remember me?</asp:Label>
                             </div>
                         </div>
