@@ -51,7 +51,12 @@ input[type="select"] {
 /* Bootstrap Overrides */
 
 .navbar {
-    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    /* Normal Shadow */
+    /*box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);*/
+    /* Blue Shadow */
+    /*box-shadow: 0 0 4px rgba(0,120,231,.14),0 6px 8px rgba(0,120,231,.7);*/
+    /* Solid Border */
+    border-bottom: 3px solid #2196F3;
 }
 
 .jumbotron {
