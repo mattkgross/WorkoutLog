@@ -12,7 +12,12 @@ namespace WorkoutLog.Team
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // If they aren't logged in, they can't access this page.
+            if(!User.Identity.IsAuthenticated)
+            {
+                // Set this as the return url so they come back after logging in.
+                Response.Redirect("~/Account/Login?ReturnUrl=~/Team/Team");
+            }
         }
     }
 }
