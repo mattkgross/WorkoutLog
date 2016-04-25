@@ -121,6 +121,6 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .pure-button-selected,
 a.pure-button-primary,
 a.pure-button-selected {
-    background-color: rgb(0, 120, 231);
+    background-color: #2196F3/*rgb(0, 120, 231)*/;
     color: #fff;
 }
