@@ -99,9 +99,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account"><%: Context.User.Identity.GetFirstName() %></a></li>
+                                <li><a runat="server" href="~/Account/Manage" class="hvr-underline-from-center-menu" title="Manage your account"><%: Context.User.Identity.GetFirstName() %></a></li>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                    <asp:LoginStatus runat="server" class="hvr-underline-from-center-menu" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>
                             </ul>
                         </LoggedInTemplate>
@@ -114,7 +114,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener">Matt Gross</a></p>
+                <p>&copy; <%: DateTime.Now.Year %> - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener" class="hyperlink">Matt Gross</a></p>
             </footer>
         </div>
     </form>

@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <section id="loginForm">
                 <div class="form-horizontal">
-                    <h5>If you are a new user, please <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled">register</asp:HyperLink>.</h5>
+                    <h5>If you are a new user, please <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled" CssClass="hyperlink">register</asp:HyperLink>.</h5>
                     <hr />
                     <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
                         <p class="text-danger">
