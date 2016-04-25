@@ -22,7 +22,7 @@ namespace WorkoutLog.Account
             LastName.Attributes.Add("placeholder", "Doe");
             Email.Attributes.Add("placeholder", "jdoe32@gmail.com");
             Password.Attributes.Add("placeholder", "1 number, 1 lowercase, 1 uppercase");
-            ConfirmPassword.Attributes.Add("placeholder", "Be sure it's 10 charcters or more");
+            ConfirmPassword.Attributes.Add("placeholder", "Be sure it's 10 characters or more");
 
             // Set the maxlengths for the form fields.
             FirstName.MaxLength = FirstNameMaxLength;
