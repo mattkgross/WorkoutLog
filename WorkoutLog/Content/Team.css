@@ -4,3 +4,12 @@
     margin: 20px 0px;
     padding: 40px 60px;
 }
+
+.button-icon {
+    padding-right: 7px;
+}
+
+.button-text {
+    vertical-align: text-top;
+    font-weight: 700;
+}

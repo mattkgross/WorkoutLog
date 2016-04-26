@@ -84,5 +84,11 @@ namespace WorkoutLog.Team
 
             return retval;
         }
+
+        // Postback to page for team creation.
+        protected void CreateTeamButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
