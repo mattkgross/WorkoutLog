@@ -56,7 +56,7 @@ input[type="select"] {
     /* Blue Shadow */
     /*box-shadow: 0 0 4px rgba(0,120,231,.14),0 6px 8px rgba(0,120,231,.7);*/
     /* Solid Border */
-    border-bottom: 3px solid #2196F3;
+    border-bottom: 2px solid #2196F3;
 }
 
 .jumbotron {

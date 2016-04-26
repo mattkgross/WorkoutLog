@@ -18,5 +18,15 @@ namespace WorkoutLog.Models
     public class TeamDBContext : DbContext
     {
         public DbSet<Team> Teams { get; set; }
+
+        public TeamDBContext()
+            : base("DefaultConnection")
+        {
+        }
+
+        public static TeamDBContext Create()
+        {
+            return new TeamDBContext();
+        }
     }
 }
