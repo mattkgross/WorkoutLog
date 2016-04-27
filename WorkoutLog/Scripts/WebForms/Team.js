@@ -1,5 +1,6 @@
 ﻿/**
  * Vertically center Bootstrap 3 modals so they aren't always stuck at the top
+ * http://www.abeautifulsite.net/vertically-centering-bootstrap-modals/
  */
 $(document).ready(function () {
     $(function () {
