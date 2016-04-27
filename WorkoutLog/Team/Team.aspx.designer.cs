@@ -11,5 +11,14 @@ namespace WorkoutLog.Team {
     
     
     public partial class Team {
+        
+        /// <summary>
+        /// uc_CreateTeam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WorkoutLog.Team.uc.uc_CreateTeam uc_CreateTeam;
     }
 }

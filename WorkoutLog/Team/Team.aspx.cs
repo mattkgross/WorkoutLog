@@ -23,7 +23,7 @@ namespace WorkoutLog.Team
             }
 
             // If postback, process the data.
-            if(Page.IsPostBack)
+            if (Page.IsPostBack)
             {
                 // Create team by user.
                 //CreateTeam("Sample", "");
@@ -83,12 +83,6 @@ namespace WorkoutLog.Team
             }
 
             return retval;
-        }
-
-        // Postback to page for team creation.
-        protected void CreateTeamButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

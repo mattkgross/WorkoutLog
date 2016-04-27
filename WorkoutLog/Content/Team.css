@@ -13,3 +13,23 @@
     vertical-align: text-top;
     font-weight: 700;
 }
+
+.modal-dialog {
+    vertical-align: middle;
+}
+
+.modal-button {
+    margin-top: 40px;
+}
+
+.create-team-header {
+    margin-bottom: 30px;
+}
+
+.create-team-modal-content {
+    padding: 40px;
+}
+
+.create-team-input {
+    margin-top: 20px;
+}

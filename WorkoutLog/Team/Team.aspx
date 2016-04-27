@@ -1,13 +1,13 @@
 ﻿<%@ Page Title="Team" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Team.aspx.cs" Inherits="WorkoutLog.Team.Team" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-<!-- New Team Modal UC -->
+<%@ Register TagPrefix="uc" TagName="uc_CreateTeam" Src="~/Team/uc/uc_CreateTeam.ascx" %>
 
-<!-- End New Team Modal -->
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="<%=ResolveUrl("~/Scripts/WebForms/Team.js") %>" type="text/javascript"></script>
     <div class="row">
         <div class="team-container col-md-12">
-            <button id="NewTeamButton" class="pure-button pure-button-primary-green" title="Create Team">
-                <i class="fa fa-plus button-icon" aria-hidden="true"></i><span class="button-text">Team</span>
-            </button>
+            <!-- New Team Modal UC -->
+            <uc:uc_CreateTeam id="uc_CreateTeam" runat="server"></uc:uc_CreateTeam>
+            <!-- End New Team Modal -->
         </div>
     </div>
 </asp:Content>

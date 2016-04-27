@@ -317,6 +317,7 @@
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
     <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\Team.js" />
     <Content Include="Scripts\WebForms\TreeView.js" />
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
@@ -327,6 +328,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="Team\Team.aspx" />
+    <Content Include="Team\uc\uc_CreateTeam.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -504,6 +506,13 @@
     </Compile>
     <Compile Include="Team\Team.aspx.designer.cs">
       <DependentUpon>Team.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Team\uc\uc_CreateTeam.ascx.cs">
+      <DependentUpon>uc_CreateTeam.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Team\uc\uc_CreateTeam.ascx.designer.cs">
+      <DependentUpon>uc_CreateTeam.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
