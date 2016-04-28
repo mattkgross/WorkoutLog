@@ -13,7 +13,10 @@ namespace WorkoutLog.Team.uc
         {
             // Populate placeholders.
             TeamName.Attributes.Add("placeholder", "Team Name");
-            EnrollKey.Attributes.Add("placeholder", "(Optional) Enrollment Key");
+            EnrollKey.Attributes.Add("placeholder", "Enrollment Key (Optional)");
+            // Disable autocomplete.
+            /*TeamName.Attributes.Add("onfocus", "$(this).removeAttr('readonly');");
+            EnrollKey.Attributes.Add("onfocus", "$(this).removeAttr('readonly');");*/
         }
 
         // Post back to create new team.
