@@ -21,14 +21,4 @@ $(document).ready(function () {
             $('.modal:visible').each(reposition);
         });
     });
-
-    // Disable autocomplete for form fields. This is done by setting the 'autocomplete' attribute (which is deprecated)
-    // as an indicator that we want this field to not be autofilled. We also set these forms to load as readonly (which
-    // will cause browsers to ignore them), and now we mark them writable.
-    $('form[autocomplete="off"] input, input[autocomplete="off"]').each(function () {
-        var input = this;
-        setTimeout(function () {
-            $(input).removeAttr('readonly');
-        }, 200); // 100 does not work - too fast.
-    });
 });
