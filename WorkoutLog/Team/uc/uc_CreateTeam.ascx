@@ -1,8 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="uc_CreateTeam.ascx.cs" Inherits="WorkoutLog.Team.uc.uc_CreateTeam" %>
 
-<!-- Disable Autocomplete -->
-
-
 <!-- Small modal -->
 <button type="button" id="NewTeamButton" class="pure-button pure-button-primary-green" title="Create Team" data-toggle="modal" data-target="#createTeamModal">
     <i class="fa fa-plus button-icon" aria-hidden="true"></i><span class="button-text">Team</span>
