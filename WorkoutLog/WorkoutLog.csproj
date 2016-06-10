@@ -91,6 +91,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -200,6 +202,36 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataModels\Master.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Master.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Master.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Master.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Master.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\NewsPost.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Player.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PlayerTeamPermissions.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Team.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WorkoutPost.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +246,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DataModels\Master.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Master.Context.cs</LastGenOutput>
+      <DependentUpon>Master.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataModels\Master.edmx.sql" />
+    <Content Include="DataModels\Master.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Master.cs</LastGenOutput>
+      <DependentUpon>Master.edmx</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -231,6 +274,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="DataModels\Master.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Master.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataModels\Master.edmx.diagram">
+      <DependentUpon>Master.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\WorkoutLog.pubxml" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -290,6 +340,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

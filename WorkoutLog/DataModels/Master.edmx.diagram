@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ffb9a88efbdc4c819ace7bf090fb78b9" Name="Diagram1" >
+        <EntityTypeShape EntityType="Master.Team" Width="1.5" PointX="2.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Master.Player" Width="1.5" PointX="0.5" PointY="0.875" />
+        <AssociationConnector Association="Master.PlayerTeam" />
+        <EntityTypeShape EntityType="Master.PlayerTeamPermissions" Width="1.5" PointX="4" PointY="4.875" />
+        <AssociationConnector Association="Master.PlayerTeamPermissionsPlayer" />
+        <AssociationConnector Association="Master.PlayerTeamPermissionsTeam" />
+        <EntityTypeShape EntityType="Master.NewsPost" Width="1.5" PointX="7.75" PointY="0.875" />
+        <AssociationConnector Association="Master.NewsPostPlayer" />
+        <AssociationConnector Association="Master.NewsPostTeam" />
+        <EntityTypeShape EntityType="Master.WorkoutPost" Width="1.5" PointX="9.375" PointY="0.875" />
+        <AssociationConnector Association="Master.PlayerWorkoutPost" />
+        <AssociationConnector Association="Master.TeamWorkoutPost" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Master.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MasterStoreContainer">
+    <EntitySet Name="Teams" EntityType="Master.Store.Teams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Players" EntityType="Master.Store.Players" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PlayerTeamPermissions" EntityType="Master.Store.PlayerTeamPermissions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsPosts" EntityType="Master.Store.NewsPosts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkoutPosts" EntityType="Master.Store.WorkoutPosts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PlayerTeam" EntityType="Master.Store.PlayerTeam" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsPostTeam" EntityType="Master.Store.NewsPostTeam" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TeamWorkoutPost" EntityType="Master.Store.TeamWorkoutPost" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_PlayerTeam_Player" Association="Master.Store.FK_PlayerTeam_Player">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="PlayerTeam" EntitySet="PlayerTeam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlayerTeam_Team" Association="Master.Store.FK_PlayerTeam_Team">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="PlayerTeam" EntitySet="PlayerTeam" />
+    </AssociationSet>
+    <AssociationSet Name="PlayerTeamPermissionsPlayer" Association="Master.Store.PlayerTeamPermissionsPlayer">
+      <End Role="PlayerTeamPermissions" EntitySet="PlayerTeamPermissions" />
+      <End Role="Player" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="PlayerTeamPermissionsTeam" Association="Master.Store.PlayerTeamPermissionsTeam">
+      <End Role="PlayerTeamPermissions" EntitySet="PlayerTeamPermissions" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
+    <AssociationSet Name="NewsPostPlayer" Association="Master.Store.NewsPostPlayer">
+      <End Role="NewsPost" EntitySet="NewsPosts" />
+      <End Role="Player" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NewsPostTeam_NewsPost" Association="Master.Store.FK_NewsPostTeam_NewsPost">
+      <End Role="NewsPost" EntitySet="NewsPosts" />
+      <End Role="NewsPostTeam" EntitySet="NewsPostTeam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NewsPostTeam_Team" Association="Master.Store.FK_NewsPostTeam_Team">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="NewsPostTeam" EntitySet="NewsPostTeam" />
+    </AssociationSet>
+    <AssociationSet Name="PlayerWorkoutPost" Association="Master.Store.PlayerWorkoutPost">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="WorkoutPost" EntitySet="WorkoutPosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamWorkoutPost_Team" Association="Master.Store.FK_TeamWorkoutPost_Team">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="TeamWorkoutPost" EntitySet="TeamWorkoutPost" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeamWorkoutPost_WorkoutPost" Association="Master.Store.FK_TeamWorkoutPost_WorkoutPost">
+      <End Role="WorkoutPost" EntitySet="WorkoutPosts" />
+      <End Role="TeamWorkoutPost" EntitySet="TeamWorkoutPost" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="EnrollmentKey" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlayerTeamPermissions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkoutPost" Type="int" Nullable="false" />
+    <Property Name="NewsPost" Type="int" Nullable="false" />
+    <Property Name="ManageMembers" Type="int" Nullable="false" />
+    <Property Name="Players_Id" Type="int" Nullable="false" />
+    <Property Name="Teams_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewsPosts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostDate" Type="datetime" Nullable="false" />
+    <Property Name="Players_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkoutPosts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostDate" Type="datetime" Nullable="false" />
+    <Property Name="Player_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlayerTeam">
+    <Key>
+      <PropertyRef Name="Player_Id" />
+      <PropertyRef Name="Teams_Id" />
+    </Key>
+    <Property Name="Player_Id" Type="int" Nullable="false" />
+    <Property Name="Teams_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewsPostTeam">
+    <Key>
+      <PropertyRef Name="NewsPost_Id" />
+      <PropertyRef Name="Teams_Id" />
+    </Key>
+    <Property Name="NewsPost_Id" Type="int" Nullable="false" />
+    <Property Name="Teams_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TeamWorkoutPost">
+    <Key>
+      <PropertyRef Name="Team_Id" />
+      <PropertyRef Name="WorkoutPosts_Id" />
+    </Key>
+    <Property Name="Team_Id" Type="int" Nullable="false" />
+    <Property Name="WorkoutPosts_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="PlayerTeamPermissionsPlayer">
+    <End Role="PlayerTeamPermissions" Type="Master.Store.PlayerTeamPermissions" Multiplicity="*" />
+    <End Role="Player" Type="Master.Store.Players" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayerTeamPermissions">
+        <PropertyRef Name="Players_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlayerTeamPermissionsTeam">
+    <End Role="PlayerTeamPermissions" Type="Master.Store.PlayerTeamPermissions" Multiplicity="*" />
+    <End Role="Team" Type="Master.Store.Teams" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayerTeamPermissions">
+        <PropertyRef Name="Teams_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NewsPostPlayer">
+    <End Role="NewsPost" Type="Master.Store.NewsPosts" Multiplicity="*" />
+    <End Role="Player" Type="Master.Store.Players" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewsPost">
+        <PropertyRef Name="Players_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlayerWorkoutPost">
+    <End Role="Player" Type="Master.Store.Players" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WorkoutPost" Type="Master.Store.WorkoutPosts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkoutPost">
+        <PropertyRef Name="Player_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlayerTeam_Player">
+    <End Role="Player" Type="Master.Store.Players" Multiplicity="1" />
+    <End Role="PlayerTeam" Type="Master.Store.PlayerTeam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayerTeam">
+        <PropertyRef Name="Player_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlayerTeam_Team">
+    <End Role="PlayerTeam" Type="Master.Store.PlayerTeam" Multiplicity="*" />
+    <End Role="Team" Type="Master.Store.Teams" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayerTeam">
+        <PropertyRef Name="Teams_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NewsPostTeam_NewsPost">
+    <End Role="NewsPost" Type="Master.Store.NewsPosts" Multiplicity="1" />
+    <End Role="NewsPostTeam" Type="Master.Store.NewsPostTeam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewsPost">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewsPostTeam">
+        <PropertyRef Name="NewsPost_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NewsPostTeam_Team">
+    <End Role="NewsPostTeam" Type="Master.Store.NewsPostTeam" Multiplicity="*" />
+    <End Role="Team" Type="Master.Store.Teams" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewsPostTeam">
+        <PropertyRef Name="Teams_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeamWorkoutPost_Team">
+    <End Role="Team" Type="Master.Store.Teams" Multiplicity="1" />
+    <End Role="TeamWorkoutPost" Type="Master.Store.TeamWorkoutPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeamWorkoutPost">
+        <PropertyRef Name="Team_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeamWorkoutPost_WorkoutPost">
+    <End Role="TeamWorkoutPost" Type="Master.Store.TeamWorkoutPost" Multiplicity="*" />
+    <End Role="WorkoutPost" Type="Master.Store.WorkoutPosts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkoutPost">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeamWorkoutPost">
+        <PropertyRef Name="WorkoutPosts_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Master" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MasterContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Teams" EntityType="Master.Team" />
+          <EntitySet Name="Players" EntityType="Master.Player" />
+          <AssociationSet Name="PlayerTeam" Association="Master.PlayerTeam">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="PlayerTeamPermissions" EntityType="Master.PlayerTeamPermissions" />
+          <AssociationSet Name="PlayerTeamPermissionsPlayer" Association="Master.PlayerTeamPermissionsPlayer">
+            <End Role="PlayerTeamPermissions" EntitySet="PlayerTeamPermissions" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="PlayerTeamPermissionsTeam" Association="Master.PlayerTeamPermissionsTeam">
+            <End Role="PlayerTeamPermissions" EntitySet="PlayerTeamPermissions" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="NewsPosts" EntityType="Master.NewsPost" />
+          <AssociationSet Name="NewsPostPlayer" Association="Master.NewsPostPlayer">
+            <End Role="NewsPost" EntitySet="NewsPosts" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="NewsPostTeam" Association="Master.NewsPostTeam">
+            <End Role="NewsPost" EntitySet="NewsPosts" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="WorkoutPosts" EntityType="Master.WorkoutPost" />
+          <AssociationSet Name="PlayerWorkoutPost" Association="Master.PlayerWorkoutPost">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="WorkoutPost" EntitySet="WorkoutPosts" />
+          </AssociationSet>
+          <AssociationSet Name="TeamWorkoutPost" Association="Master.TeamWorkoutPost">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="WorkoutPost" EntitySet="WorkoutPosts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" cg:SetterAccess="Public" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="EnrollmentKey" Type="String" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Master.PlayerTeam" FromRole="Team" ToRole="Player" />
+          <NavigationProperty Name="PlayerTeamPermission" Relationship="Master.PlayerTeamPermissionsTeam" FromRole="Team" ToRole="PlayerTeamPermissions" />
+          <NavigationProperty Name="NewsPost" Relationship="Master.NewsPostTeam" FromRole="Team" ToRole="NewsPost" />
+          <NavigationProperty Name="WorkoutPosts" Relationship="Master.TeamWorkoutPost" FromRole="Team" ToRole="WorkoutPost" />
+        </EntityType>
+        <EntityType Name="Player" Abstract="false">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Teams" Relationship="Master.PlayerTeam" FromRole="Player" ToRole="Team" />
+          <NavigationProperty Name="PlayerTeamPermission" Relationship="Master.PlayerTeamPermissionsPlayer" FromRole="Player" ToRole="PlayerTeamPermissions" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <NavigationProperty Name="NewsPost" Relationship="Master.NewsPostPlayer" FromRole="Player" ToRole="NewsPost" />
+          <NavigationProperty Name="WorkoutPosts" Relationship="Master.PlayerWorkoutPost" FromRole="Player" ToRole="WorkoutPost" />
+        </EntityType>
+        <Association Name="PlayerTeam">
+          <End Type="Master.Player" Role="Player" Multiplicity="*" >
+          </End>
+          <End Type="Master.Team" Role="Team" Multiplicity="*" >
+          </End>
+        </Association>
+        <EntityType Name="PlayerTeamPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Players" Relationship="Master.PlayerTeamPermissionsPlayer" FromRole="PlayerTeamPermissions" ToRole="Player" />
+          <NavigationProperty Name="Teams" Relationship="Master.PlayerTeamPermissionsTeam" FromRole="PlayerTeamPermissions" ToRole="Team" />
+          <Property Name="WorkoutPost" Type="Int32" Nullable="false" />
+          <Property Name="NewsPost" Type="Int32" Nullable="false" />
+          <Property Name="ManageMembers" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="PlayerTeamPermissionsPlayer">
+          <End Type="Master.PlayerTeamPermissions" Role="PlayerTeamPermissions" Multiplicity="*" />
+          <End Type="Master.Player" Role="Player" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <Association Name="PlayerTeamPermissionsTeam">
+          <End Type="Master.PlayerTeamPermissions" Role="PlayerTeamPermissions" Multiplicity="*" />
+          <End Type="Master.Team" Role="Team" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <EntityType Name="NewsPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Players" Relationship="Master.NewsPostPlayer" FromRole="NewsPost" ToRole="Player" />
+          <NavigationProperty Name="Teams" Relationship="Master.NewsPostTeam" FromRole="NewsPost" ToRole="Team" />
+        </EntityType>
+        <Association Name="NewsPostPlayer">
+          <End Type="Master.NewsPost" Role="NewsPost" Multiplicity="*" />
+          <End Type="Master.Player" Role="Player" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <Association Name="NewsPostTeam">
+          <End Type="Master.NewsPost" Role="NewsPost" Multiplicity="*" />
+          <End Type="Master.Team" Role="Team" Multiplicity="*" >
+          </End>
+        </Association>
+        <EntityType Name="WorkoutPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Master.PlayerWorkoutPost" FromRole="WorkoutPost" ToRole="Player" />
+          <NavigationProperty Name="Team" Relationship="Master.TeamWorkoutPost" FromRole="WorkoutPost" ToRole="Team" />
+        </EntityType>
+        <Association Name="PlayerWorkoutPost">
+          <End Type="Master.Player" Role="Player" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Master.WorkoutPost" Role="WorkoutPost" Multiplicity="*" />
+        </Association>
+        <Association Name="TeamWorkoutPost">
+          <End Type="Master.Team" Role="Team" Multiplicity="*" >
+          </End>
+          <End Type="Master.WorkoutPost" Role="WorkoutPost" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MasterStoreContainer" CdmEntityContainer="MasterContainer">
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="IsTypeOf(Master.Team)">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="EnrollmentKey" ColumnName="EnrollmentKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="IsTypeOf(Master.Player)">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlayerTeamPermissions">
+      <EntityTypeMapping TypeName="IsTypeOf(Master.PlayerTeamPermissions)">
+        <MappingFragment StoreEntitySet="PlayerTeamPermissions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WorkoutPost" ColumnName="WorkoutPost" />
+          <ScalarProperty Name="NewsPost" ColumnName="NewsPost" />
+          <ScalarProperty Name="ManageMembers" ColumnName="ManageMembers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewsPosts">
+      <EntityTypeMapping TypeName="IsTypeOf(Master.NewsPost)">
+        <MappingFragment StoreEntitySet="NewsPosts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkoutPosts">
+      <EntityTypeMapping TypeName="IsTypeOf(Master.WorkoutPost)">
+        <MappingFragment StoreEntitySet="WorkoutPosts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PlayerTeam" TypeName="Master.PlayerTeam" StoreEntitySet="PlayerTeam">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="Id" ColumnName="Player_Id" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Teams_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PlayerTeamPermissionsPlayer" TypeName="Master.PlayerTeamPermissionsPlayer" StoreEntitySet="PlayerTeamPermissions">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="Id" ColumnName="Players_Id" />
+      </EndProperty>
+      <EndProperty Name="PlayerTeamPermissions">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PlayerTeamPermissionsTeam" TypeName="Master.PlayerTeamPermissionsTeam" StoreEntitySet="PlayerTeamPermissions">
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Teams_Id" />
+      </EndProperty>
+      <EndProperty Name="PlayerTeamPermissions">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NewsPostPlayer" TypeName="Master.NewsPostPlayer" StoreEntitySet="NewsPosts">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="Id" ColumnName="Players_Id" />
+      </EndProperty>
+      <EndProperty Name="NewsPost">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NewsPostTeam" TypeName="Master.NewsPostTeam" StoreEntitySet="NewsPostTeam">
+      <EndProperty Name="NewsPost">
+        <ScalarProperty Name="Id" ColumnName="NewsPost_Id" />
+      </EndProperty>
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Teams_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PlayerWorkoutPost" TypeName="Master.PlayerWorkoutPost" StoreEntitySet="WorkoutPosts">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="Id" ColumnName="Player_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkoutPost">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TeamWorkoutPost" TypeName="Master.TeamWorkoutPost" StoreEntitySet="TeamWorkoutPost">
+      <EndProperty Name="Team">
+        <ScalarProperty Name="Id" ColumnName="Team_Id" />
+      </EndProperty>
+      <EndProperty Name="WorkoutPost">
+        <ScalarProperty Name="Id" ColumnName="WorkoutPosts_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
