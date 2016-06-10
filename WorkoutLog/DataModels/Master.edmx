@@ -297,9 +297,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <Property Name="Name" Type="String" Nullable="false" cg:SetterAccess="Public" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" cg:SetterAccess="Private" />
           <Property Name="EnrollmentKey" Type="String" Nullable="false" />
           <NavigationProperty Name="Player" Relationship="Master.PlayerTeam" FromRole="Team" ToRole="Player" />
           <NavigationProperty Name="PlayerTeamPermission" Relationship="Master.PlayerTeamPermissionsTeam" FromRole="Team" ToRole="PlayerTeamPermissions" />
@@ -310,7 +310,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <NavigationProperty Name="Teams" Relationship="Master.PlayerTeam" FromRole="Player" ToRole="Team" />
           <NavigationProperty Name="PlayerTeamPermission" Relationship="Master.PlayerTeamPermissionsPlayer" FromRole="Player" ToRole="PlayerTeamPermissions" />
           <Property Name="FirstName" Type="String" Nullable="false" />
@@ -328,7 +328,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <NavigationProperty Name="Players" Relationship="Master.PlayerTeamPermissionsPlayer" FromRole="PlayerTeamPermissions" ToRole="Player" />
           <NavigationProperty Name="Teams" Relationship="Master.PlayerTeamPermissionsTeam" FromRole="PlayerTeamPermissions" ToRole="Team" />
           <Property Name="WorkoutPost" Type="Int32" Nullable="false" />
@@ -351,10 +351,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <Property Name="Title" Type="String" Nullable="false" />
           <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" cg:SetterAccess="Private" />
           <NavigationProperty Name="Players" Relationship="Master.NewsPostPlayer" FromRole="NewsPost" ToRole="Player" />
           <NavigationProperty Name="Teams" Relationship="Master.NewsPostTeam" FromRole="NewsPost" ToRole="Team" />
         </EntityType>
@@ -373,9 +373,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" cg:SetterAccess="Private" />
           <NavigationProperty Name="Player" Relationship="Master.PlayerWorkoutPost" FromRole="WorkoutPost" ToRole="Player" />
           <NavigationProperty Name="Team" Relationship="Master.TeamWorkoutPost" FromRole="WorkoutPost" ToRole="Team" />
         </EntityType>

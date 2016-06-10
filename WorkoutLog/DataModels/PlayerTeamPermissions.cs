@@ -14,7 +14,7 @@ namespace WorkoutLog.DataModels
     
     public partial class PlayerTeamPermissions
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public int WorkoutPost { get; set; }
         public int NewsPost { get; set; }
         public int ManageMembers { get; set; }

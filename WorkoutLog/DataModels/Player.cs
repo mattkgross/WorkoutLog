@@ -23,7 +23,7 @@ namespace WorkoutLog.DataModels
             this.WorkoutPosts = new HashSet<WorkoutPost>();
         }
     
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     

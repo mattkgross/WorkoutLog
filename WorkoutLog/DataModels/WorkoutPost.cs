@@ -20,9 +20,9 @@ namespace WorkoutLog.DataModels
             this.Team = new HashSet<Team>();
         }
     
-        public long Id { get; set; }
+        public long Id { get; private set; }
         public string Body { get; set; }
-        public System.DateTime PostDate { get; set; }
+        public System.DateTime PostDate { get; private set; }
     
         public virtual Player Player { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
