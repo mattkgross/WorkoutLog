@@ -11,21 +11,28 @@ namespace WorkoutLog.Models.DataModels
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
     public partial class Player
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Player()
+        public Player(string userId, string firstName, string lastName)
         {
             this.Teams = new HashSet<Team>();
             this.PlayerTeamPermission = new HashSet<PlayerTeamPermissions>();
             this.NewsPost = new HashSet<NewsPost>();
             this.WorkoutPosts = new HashSet<WorkoutPost>();
+            this.DateCreated = DateTime.UtcNow;
+
+            this.UserId = userId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
     
         public int Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [Index(IsUnique = true)]
+        public string UserId { get; private set; }
         public System.DateTime DateCreated { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

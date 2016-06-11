@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/10/2016 20:34:17
+-- Date Created: 06/10/2016 23:47:12
 -- Generated from EDMX file: C:\Users\mattkgross\Documents\GitHub\WorkoutLog\WorkoutLog\Models\DataModels\Master.edmx
 -- --------------------------------------------------
 
@@ -95,6 +95,7 @@ CREATE TABLE [dbo].[Players] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
+    [UserId] nvarchar(max)  NOT NULL,
     [DateCreated] datetime  NOT NULL
 );
 GO

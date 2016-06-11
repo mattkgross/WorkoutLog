@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WorkoutLog.Models;
 using WorkoutLog.Models.ViewModels;
+using WorkoutLog.Models.DataModels;
+using System.Data.Entity;
 
 namespace WorkoutLog.Controllers
 {
@@ -157,14 +159,26 @@ namespace WorkoutLog.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    using (var conn = new MasterContainer())
+                    {
+                        // If a player entry already exists, then something is very wrong.
+                        if(conn.Set<Player>().Any(u => u.UserId == user.Id))
+                        {
+                            throw new Exception(string.Format("Player information already exists for user-id {0}", user.Id));
+                        }
+
+                        conn.Players.Add(new Player (user.Id, model.FirstName, model.LastName));
+                        conn.SaveChanges();
+                    }
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
