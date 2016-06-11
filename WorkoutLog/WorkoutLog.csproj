@@ -220,7 +220,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DataModels\NewsPost.cs">
       <DependentUpon>Master.tt</DependentUpon>
     </Compile>
@@ -236,6 +235,7 @@
     <Compile Include="Models\DataModels\WorkoutPost.cs">
       <DependentUpon>Master.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,6 +259,7 @@
     <Content Include="Models\DataModels\Master.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Master.cs</LastGenOutput>
+      <DependentUpon>Master.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
