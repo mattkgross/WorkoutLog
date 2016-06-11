@@ -202,42 +202,42 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DataModels\Master.Context.cs">
+    <Compile Include="Models\DataModels\Master.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModels\Master.cs">
+    <Compile Include="Models\DataModels\Master.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModels\Master.Designer.cs">
+    <Compile Include="Models\DataModels\Master.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModels\NewsPost.cs">
-      <DependentUpon>Master.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Player.cs">
-      <DependentUpon>Master.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PlayerTeamPermissions.cs">
-      <DependentUpon>Master.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Team.cs">
-      <DependentUpon>Master.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\WorkoutPost.cs">
-      <DependentUpon>Master.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\DataModels\NewsPost.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\Player.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\PlayerTeamPermissions.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\Team.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModels\WorkoutPost.cs">
+      <DependentUpon>Master.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -246,21 +246,20 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DataModels\Master.Context.tt">
+    <Content Include="Models\DataModels\Master.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Master.Context.cs</LastGenOutput>
       <DependentUpon>Master.edmx</DependentUpon>
     </Content>
-    <Content Include="DataModels\Master.edmx.sql" />
-    <Content Include="DataModels\Master.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Master.cs</LastGenOutput>
-      <DependentUpon>Master.edmx</DependentUpon>
-    </Content>
+    <Content Include="Models\DataModels\Master.edmx.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\DataModels\Master.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Master.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -274,11 +273,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <EntityDeploy Include="DataModels\Master.edmx">
+    <EntityDeploy Include="Models\DataModels\Master.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Master.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DataModels\Master.edmx.diagram">
+    <Content Include="Models\DataModels\Master.edmx.diagram">
       <DependentUpon>Master.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\WorkoutLog.pubxml" />

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace WorkoutLog.Models
+namespace WorkoutLog.Models.ViewModels
 {
     public class IndexViewModel
     {
