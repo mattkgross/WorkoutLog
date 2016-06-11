@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/10/2016 01:22:44
--- Generated from EDMX file: C:\Users\mattkgross\Documents\GitHub\WorkoutLog\WorkoutLog\DataModels\Master.edmx
+-- Date Created: 06/10/2016 20:34:17
+-- Generated from EDMX file: C:\Users\mattkgross\Documents\GitHub\WorkoutLog\WorkoutLog\Models\DataModels\Master.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,65 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_PlayerTeam_Player]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlayerTeam] DROP CONSTRAINT [FK_PlayerTeam_Player];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlayerTeam_Team]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlayerTeam] DROP CONSTRAINT [FK_PlayerTeam_Team];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlayerTeamPermissionsPlayer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlayerTeamPermissions] DROP CONSTRAINT [FK_PlayerTeamPermissionsPlayer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlayerTeamPermissionsTeam]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlayerTeamPermissions] DROP CONSTRAINT [FK_PlayerTeamPermissionsTeam];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NewsPostPlayer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[NewsPosts] DROP CONSTRAINT [FK_NewsPostPlayer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NewsPostTeam_NewsPost]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[NewsPostTeam] DROP CONSTRAINT [FK_NewsPostTeam_NewsPost];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NewsPostTeam_Team]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[NewsPostTeam] DROP CONSTRAINT [FK_NewsPostTeam_Team];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlayerWorkoutPost]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WorkoutPosts] DROP CONSTRAINT [FK_PlayerWorkoutPost];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TeamWorkoutPost_Team]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TeamWorkoutPost] DROP CONSTRAINT [FK_TeamWorkoutPost_Team];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TeamWorkoutPost_WorkoutPost]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TeamWorkoutPost] DROP CONSTRAINT [FK_TeamWorkoutPost_WorkoutPost];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Teams]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Teams];
+GO
+IF OBJECT_ID(N'[dbo].[Players]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Players];
+GO
+IF OBJECT_ID(N'[dbo].[PlayerTeamPermissions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PlayerTeamPermissions];
+GO
+IF OBJECT_ID(N'[dbo].[NewsPosts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[NewsPosts];
+GO
+IF OBJECT_ID(N'[dbo].[WorkoutPosts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WorkoutPosts];
+GO
+IF OBJECT_ID(N'[dbo].[PlayerTeam]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PlayerTeam];
+GO
+IF OBJECT_ID(N'[dbo].[NewsPostTeam]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[NewsPostTeam];
+GO
+IF OBJECT_ID(N'[dbo].[TeamWorkoutPost]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TeamWorkoutPost];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -40,7 +94,8 @@ GO
 CREATE TABLE [dbo].[Players] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
-    [LastName] nvarchar(max)  NOT NULL
+    [LastName] nvarchar(max)  NOT NULL,
+    [DateCreated] datetime  NOT NULL
 );
 GO
 

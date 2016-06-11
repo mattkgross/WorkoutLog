@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WorkoutLog.DataModels
+namespace WorkoutLog.Models.DataModels
 {
     using System;
     using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace WorkoutLog.DataModels
         public int Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public System.DateTime DateCreated { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Teams { get; set; }

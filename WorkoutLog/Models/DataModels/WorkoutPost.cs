@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WorkoutLog.DataModels
+namespace WorkoutLog.Models.DataModels
 {
     using System;
     using System.Collections.Generic;

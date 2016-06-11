@@ -71,6 +71,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="PlayerTeamPermissions">
     <Key>
@@ -317,6 +318,7 @@
           <Property Name="LastName" Type="String" Nullable="false" />
           <NavigationProperty Name="NewsPost" Relationship="Master.NewsPostPlayer" FromRole="Player" ToRole="NewsPost" />
           <NavigationProperty Name="WorkoutPosts" Relationship="Master.PlayerWorkoutPost" FromRole="Player" ToRole="WorkoutPost" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" cg:SetterAccess="Private" />
         </EntityType>
         <Association Name="PlayerTeam">
           <End Type="Master.Player" Role="Player" Multiplicity="*" >
@@ -412,6 +414,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
