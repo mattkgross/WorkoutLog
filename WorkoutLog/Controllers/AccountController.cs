@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WorkoutLog.Extensions;
 using WorkoutLog.Models;
 using WorkoutLog.Models.ViewModels;
 using WorkoutLog.Models.DataModels;
@@ -82,6 +83,8 @@ namespace WorkoutLog.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    string id = await SignInManager.GetVerifiedUserIdAsync();
+                    SignInManager.UpdateSession(UserManager.FindById(id));
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -127,6 +130,7 @@ namespace WorkoutLog.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    SignInManager.UpdateSession(UserManager.FindById(SignInManager.GetVerifiedUserId()));
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -159,6 +163,7 @@ namespace WorkoutLog.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    SignInManager.UpdateSession(UserManager.FindById(SignInManager.GetVerifiedUserId()));
 
                     using (var conn = new MasterContainer())
                     {
@@ -348,6 +353,7 @@ namespace WorkoutLog.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    SignInManager.UpdateSession(UserManager.FindById(SignInManager.GetVerifiedUserId()));
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -390,6 +396,7 @@ namespace WorkoutLog.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        SignInManager.UpdateSession(UserManager.FindById(SignInManager.GetVerifiedUserId()));
                         return RedirectToLocal(returnUrl);
                     }
                 }

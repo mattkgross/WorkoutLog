@@ -1,4 +1,4 @@
-﻿@*@using Microsoft.AspNet.Identity*@
+﻿@model WorkoutLog.Models.ViewModels.NavbarViewModel
 
 @if (Request.IsAuthenticated)
 {
@@ -10,6 +10,7 @@
         <li>
             @Html.ActionLink("My Account", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
+        <li><a href="#">Welcome, @Model.FirstName @Model.LastName</a></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
@@ -17,6 +18,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Welcome, @Model.FirstName @Model.LastName</a></li>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
