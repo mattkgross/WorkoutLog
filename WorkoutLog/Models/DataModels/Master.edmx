@@ -319,7 +319,7 @@
           <Property Name="LastName" Type="String" Nullable="false" />
           <NavigationProperty Name="NewsPost" Relationship="Master.NewsPostPlayer" FromRole="Player" ToRole="NewsPost" />
           <NavigationProperty Name="WorkoutPosts" Relationship="Master.PlayerWorkoutPost" FromRole="Player" ToRole="WorkoutPost" />
-          <Property Name="UserId" Type="String" Nullable="false" cg:SetterAccess="Private" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UserId" Type="String" Nullable="false" cg:SetterAccess="Public" annotation:StoreGeneratedPattern="None" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" cg:SetterAccess="Private" />
         </EntityType>
         <Association Name="PlayerTeam">

@@ -15,7 +15,7 @@ namespace WorkoutLog.Models
     public class WorkoutLogSession
     {
         /// <summary>
-        /// Will initiated an Empty session. You must set a User to populate other fields.
+        /// Will initiate an Empty session. You must set a User to populate other fields.
         /// </summary>
         public WorkoutLogSession()
         {
@@ -43,7 +43,7 @@ namespace WorkoutLog.Models
 
         private void LoadUserDependentObjects()
         {
-            if ((user == null) || !HttpContext.Current.User.Identity.IsAuthenticated)
+            if (user == null)
             {
                 IsLoaded = false;
                 return;
@@ -52,11 +52,18 @@ namespace WorkoutLog.Models
             using (var conn = new MasterContainer())
             {
                 // Load corresponding player. No player means no user, no user means meaningless session.
-                player = conn.Players.First<Player>(p => p.UserId.Equals(user.Id));
+                player = null;
+                if (conn.Players.Count() > 0)
+                {
+                    player = conn.Players.First<Player>(p => p.UserId.Equals(user.Id));
+                }
                 if (player == null) IsLoaded = false;
 
                 // Load first team (if any).
-                team = player?.Teams.First<Team>(t => t.Id == player.Id);
+                if (player != null && player.Teams.Count() > 0)
+                {
+                    team = player.Teams.First<Team>(t => t.Id == player.Id);
+                }
             }
         }
 
