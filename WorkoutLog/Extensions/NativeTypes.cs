@@ -10,7 +10,13 @@ namespace WorkoutLog.Extensions
     {
         public static WorkoutLogSession GetSessionObject(this HttpContext current)
         {
-            return current != null ? (WorkoutLogSession)current.Session["__WorkoutLogSession"] : null;
+            if (current != null)
+            {
+                WorkoutLogSession session = current.Session["__WorkoutLogSession"] as WorkoutLogSession;
+                session.EnsureLoaded();
+                return session;
+            }
+            return null;
         }
 
         public static void UpdateSession(this ApplicationSignInManager current, ApplicationUser user)
