@@ -1,16 +1,53 @@
 ﻿@using WorkoutLog.Models.ViewModels
 
 <!DOCTYPE html>
-<html>
+<!--
+Workout Log
+===========
+
+Developer: Matthew Gross
+Email: mattkgross@gmail.com
+Website: http://www.mattkgross.com
+Repository: https://github.com/mattkgross/WorkoutLog
+Disclaimer: The author of this tool is not responsible for any misuse, loss, or distribution of data or information associated with this site.
+This product is provided AS IS and, by using this software, the site owner agrees to all responsibility resulting from any actions taken when using this service.
+Rights: This software is openly distributed and may be used, altered, and redistributed so long as credit remains given where it is due.
+
+Copyright (C) <%: DateTime.Now.Year %> Matthew Gross
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+=================================================================================================================================================================
+-->
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Workout Log - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/purecss")
     @Scripts.Render("~/bundles/modernizr")
 
+    <!-- Fonts & Icon Imports -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Istok+Web:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="bodywrapper">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,28 +56,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Workout Log", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "font-weight: 700;" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
                 @Html.Partial("_LoginPartial", new NavbarViewModel())
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
+    </div>
+    <div class="footer">
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - <a href="http://www.mattkgross.com" target="_blank" rel="noreferrer noopener" class="hyperlink">Matt Gross</a></p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+</div>
 </body>
 </html>

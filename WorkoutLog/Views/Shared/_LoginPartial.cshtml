@@ -6,20 +6,24 @@
     {
     @Html.AntiForgeryToken()
 
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Log", "Index", "Home", new { @class = "hvr-underline-from-center-menu" })</li>
+        <li>@Html.ActionLink("Team", "Team", "Home", new { @class = "hvr-underline-from-center-menu" })</li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("My Account", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="#">Welcome, @Model.FirstName</a></li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>@Html.ActionLink(Model.FirstName, "Manage", routeValues: null, htmlAttributes: new { title = "Manage your account", @class = "hvr-underline-from-center-menu" })</li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="hvr-underline-from-center-menu">Log off</a></li>
     </ul>
     }
 }
 else
 {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Log", "Index", "Home", new { @class = "hvr-underline-from-center-menu" })</li>
+        <li>@Html.ActionLink("About", "About", "Home", new { @class = "hvr-underline-from-center-menu" })</li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Welcome, @Model.FirstName @Model.LastName</a></li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "hvr-underline-from-center-menu" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "hvr-underline-from-center-menu" })</li>
     </ul>
 }
