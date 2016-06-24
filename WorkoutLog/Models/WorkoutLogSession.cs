@@ -52,7 +52,6 @@ namespace WorkoutLog.Models
             using (var conn = new MasterContainer())
             {
                 // Load corresponding player. No player means no user, no user means meaningless session.
-                player = null;
                 if (conn.Players.Count() > 0)
                 {
                     player = conn.Players.First<Player>(p => p.UserId.Equals(user.Id));
