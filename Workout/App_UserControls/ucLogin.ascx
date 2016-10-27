@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucLogin.ascx.cs" Inherits="Workout.App_UserControls.ucLogin" %>
 
-<<%@ Register Src="~/App_UserControls/ucDimensionalUc.ascx" TagPrefix="uc" TagName="Dimensions" %>
+<%@ Register Src="~/App_UserControls/ucDimensionalUc.ascx" TagPrefix="uc" TagName="Dimensions" %>
 
 <uc:Dimensions runat="server" ID="ucDimensions" />
 <asp:Panel runat="server" ID="pnlContainer">

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucDimensionalUc.ascx.cs" Inherits="Workout.App_UserControls.ucDimensionalUc" %>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#<%= clientScreenHeight.ClientID %>").val($(screen).width());
         $("#<%= clientScreenWidth.ClientID %>").val($(screen).height());
