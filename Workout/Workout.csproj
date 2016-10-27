@@ -207,16 +207,25 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\overlay.png" />
+    <Content Include="Content\noscript.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Account\Web.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="css\jsgrid-1.5.2\jsgrid-theme.css" />
     <Content Include="css\jsgrid-1.5.2\jsgrid-theme.min.css" />
     <Content Include="css\jsgrid-1.5.2\jsgrid.css" />
     <Content Include="css\jsgrid-1.5.2\jsgrid.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\avatar.jpg" />
+    <Content Include="Content\images\bg.jpg" />
     <Content Include="js\jsgrid-1.5.2\jsgrid.js" />
     <Content Include="js\jsgrid-1.5.2\jsgrid.min.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -229,14 +238,40 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\Site.scss" />
+    <Content Include="Content\noscript.scss" />
+    <Content Include="Content\libs\_functions.scss" />
+    <Content Include="Content\libs\_mixins.scss" />
+    <Content Include="Content\libs\_skel.scss" />
+    <Content Include="Content\libs\_vars.scss" />
+    <Content Include="Content\layout\_footer.scss" />
+    <Content Include="Content\layout\_main.scss" />
+    <Content Include="Content\layout\_wrapper.scss" />
+    <Content Include="Content\components\_button.scss" />
+    <Content Include="Content\components\_form.scss" />
+    <Content Include="Content\components\_icon.scss" />
+    <Content Include="Content\components\_list.scss" />
+    <Content Include="Content\base\_page.scss" />
+    <Content Include="Content\base\_typography.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PIE.htc" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -443,6 +478,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
