@@ -1,9 +1,14 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Workout._Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Workout._Default" %>
+
+<%@ Register Src="~/App_UserControls/ucLogin.ascx" TagName="Login" TagPrefix="uc" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <header>
-        <span class="avatar"><asp:Image runat="server" ImageUrl="~/Content/images/avatar.jpg" AlternateText="Logged In User" /></span>
-        <h1>Logged In User</h1>
-        <p>Senior Psychonautics Engineer</p>
-    </header>
+    <asp:LoginView runat="server" ViewStateMode="Disabled">
+        <AnonymousTemplate>
+            <uc:Login runat="server" ID="ucLogin" />
+        </AnonymousTemplate>
+        <LoggedInTemplate>
+
+        </LoggedInTemplate>
+    </asp:LoginView>
 </asp:Content>

@@ -11,7 +11,7 @@ namespace Workout
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ucLogin.WidthPercentage = 60;
         }
     }
 }

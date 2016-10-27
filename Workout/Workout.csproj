@@ -202,6 +202,8 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="App_UserControls\ucDimensionalUc.ascx" />
+    <Content Include="App_UserControls\ucLogin.ascx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -434,6 +436,20 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_UserControls\ucDimensionalUc.ascx.cs">
+      <DependentUpon>ucDimensionalUc.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_UserControls\ucDimensionalUc.ascx.designer.cs">
+      <DependentUpon>ucDimensionalUc.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_UserControls\ucLogin.ascx.cs">
+      <DependentUpon>ucLogin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_UserControls\ucLogin.ascx.designer.cs">
+      <DependentUpon>ucLogin.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -478,7 +494,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_LocalResources\" />
     <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_UserControls\App_LocalResources\Login.ascx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
