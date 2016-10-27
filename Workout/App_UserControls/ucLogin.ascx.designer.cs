@@ -19,7 +19,7 @@ namespace Workout.App_UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Workout.App_UserControls.DimensionalUC ucDimensions;
+        protected global::Workout.App_UserControls.ucDimensionalUc ucDimensions;
         
         /// <summary>
         /// pnlContainer control.
