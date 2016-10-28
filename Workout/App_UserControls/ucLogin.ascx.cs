@@ -11,18 +11,6 @@ namespace Workout.App_UserControls
     {
         #region Properties
 
-        public double Width
-        {
-            get
-            {
-                return pnlContainer.Width.Value;
-            }
-            set
-            {
-                pnlContainer.Width = new Unit(value);
-            }
-        }
-        
         #endregion Properties
 
         #region Page Events

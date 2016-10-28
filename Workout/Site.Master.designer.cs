@@ -13,6 +13,24 @@ namespace Workout {
     public partial class SiteMaster {
         
         /// <summary>
+        /// MainHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainHead;
+        
+        /// <summary>
+        /// main control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl main;
+        
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

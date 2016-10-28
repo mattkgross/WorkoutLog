@@ -202,8 +202,8 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="App_UserControls\ucDimensionalUc.ascx" />
     <Content Include="App_UserControls\ucLogin.ascx" />
+    <Content Include="Calendar.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -219,6 +219,12 @@
     </Content>
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <Content Include="css\Default.css">
+      <DependentUpon>Default.scss</DependentUpon>
+    </Content>
+    <Content Include="css\Default.min.css">
+      <DependentUpon>Default.css</DependentUpon>
     </Content>
     <Content Include="css\jsgrid-1.5.2\jsgrid-theme.css" />
     <Content Include="css\jsgrid-1.5.2\jsgrid-theme.min.css" />
@@ -264,6 +270,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="css\Default.scss" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -438,19 +445,19 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_UserControls\ucDimensionalUc.ascx.cs">
-      <DependentUpon>ucDimensionalUc.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="App_UserControls\ucDimensionalUc.ascx.designer.cs">
-      <DependentUpon>ucDimensionalUc.ascx</DependentUpon>
-    </Compile>
     <Compile Include="App_UserControls\ucLogin.ascx.cs">
       <DependentUpon>ucLogin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="App_UserControls\ucLogin.ascx.designer.cs">
       <DependentUpon>ucLogin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar.aspx.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar.aspx.designer.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -497,6 +504,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_LocalResources\" />
+    <Folder Include="App_UserControls\css\" />
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,9 @@ namespace Workout
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Set container width to 40%;
+            SiteMaster master = this.Master as SiteMaster;
+            master?.ContainerStyle.Add(HtmlTextWriterStyle.Width, "40%");
         }
     }
 }

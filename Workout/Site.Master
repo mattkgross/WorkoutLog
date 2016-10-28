@@ -14,6 +14,9 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <noscript><link rel="stylesheet" href="~/Content/noscript.css" type="text/css" /></noscript>
+
+    <asp:ContentPlaceHolder ID="MainHead" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <%--        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -84,7 +87,7 @@
         <!-- Wrapper -->
         <div id="wrapper">
             <!-- Main -->
-            <section id="main">
+            <section id="main" runat="server">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server">
                 </asp:ContentPlaceHolder>
                 <!--
