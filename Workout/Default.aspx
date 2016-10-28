@@ -3,12 +3,13 @@
 <%@ Register Src="~/App_UserControls/ucLogin.ascx" TagName="Login" TagPrefix="uc" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:LoginView runat="server" ViewStateMode="Disabled">
+    <uc:Login runat="server" ID="ucLogin" />
+    <%--<asp:LoginView runat="server" ViewStateMode="Disabled">
         <AnonymousTemplate>
             <uc:Login runat="server" ID="ucLogin" />
         </AnonymousTemplate>
         <LoggedInTemplate>
 
         </LoggedInTemplate>
-    </asp:LoginView>
+    </asp:LoginView>--%>
 </asp:Content>
