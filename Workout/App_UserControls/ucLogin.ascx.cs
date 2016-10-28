@@ -10,6 +10,7 @@ namespace Workout.App_UserControls
     public partial class ucLogin : System.Web.UI.UserControl
     {
         #region Properties
+
         public double Width
         {
             get
@@ -21,20 +22,7 @@ namespace Workout.App_UserControls
                 pnlContainer.Width = new Unit(value);
             }
         }
-
-        public double WidthPercentage
-        {
-            get
-            {
-                return this.Width / ucDimensions.Width;
-            }
-
-            set
-            {
-                this.Width = ucDimensions.Width * (value / 100);
-            }
-        }
-
+        
         #endregion Properties
 
         #region Page Events
