@@ -3,7 +3,7 @@
 <%@ Register Src="~/App_UserControls/ucLogin.ascx" TagName="Login" TagPrefix="uc" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="MainHead" runat="server">
-    <link rel="stylesheet" href="css/Default.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/Default.min.css?v=1" type="text/css" />
 </asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <uc:Login runat="server" ID="ucLogin" />
