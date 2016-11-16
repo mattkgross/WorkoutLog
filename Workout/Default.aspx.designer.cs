@@ -11,14 +11,5 @@ namespace Workout {
     
     
     public partial class _Default {
-        
-        /// <summary>
-        /// ucLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Workout.App_UserControls.ucLogin ucLogin;
     }
 }

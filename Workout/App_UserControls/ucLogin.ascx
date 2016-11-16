@@ -9,8 +9,8 @@
 
     <footer>
         <ul class="icons">
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Account/Login.aspx" CssClass="fa-google" meta:resourcekey="HyperLinkResource1" /></li>
-            <li><asp:HyperLink runat="server" NavigateUrl="~/Account/Login.aspx" CssClass="fa-facebook" meta:resourcekey="HyperLinkResource2" /></li>
+            <li><asp:LinkButton runat="server" ID="lnkGoogle" CssClass="fa-google" meta:resourcekey="HyperLinkResource1" OnClick="lnkGoogle_Click" /></li>
+            <li><asp:LinkButton runat="server" ID="lnkFacebook" CssClass="fa-facebook" meta:resourcekey="HyperLinkResource2" OnClick="lnkFacebook_Click" /></li>
         </ul>
     </footer>
 </asp:Panel>

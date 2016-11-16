@@ -29,26 +29,26 @@ namespace Workout.Models
             }
         }
 
+        public Context WorkoutContext
+        {
+            get
+            {
+                if(this.Session["WorkoutContext"] == null)
+                {
+                    this.Session["WorkoutContext"] = new Context();
+                }
+
+                return this.Session["WorkoutContext"] as Context;
+            }
+        }
+
         #endregion Properties
 
         #region Methods
 
-        /// <summary>
-        /// Sets the width of the page to a certain percent.
-        /// </summary>
-        /// <param name="percentage"></param>
-        public void SetWidthPercentage(double percentage)
+        public bool RequiresLogin()
         {
-            this.Master.ContainerStyle.Add(HtmlTextWriterStyle.Width, string.Format("{0}%", percentage));
-        }
-
-        /// <summary>
-        /// Sets the height of the page to a certain percent.
-        /// </summary>
-        /// <param name="percentage"></param>
-        public void SetHeightPercentage(double percentage)
-        {
-            this.Master.ContainerStyle.Add(HtmlTextWriterStyle.Height, string.Format("{0}%", percentage));
+            return false;
         }
 
         #endregion Methods

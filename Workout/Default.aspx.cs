@@ -12,11 +12,7 @@ namespace Workout
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Set container width to 40% for desktop.
-            if (!Request.Browser.IsMobileDevice)
-            {
-                this.SetWidthPercentage(40);
-            }
+            
         }
     }
 }

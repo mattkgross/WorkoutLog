@@ -12,6 +12,7 @@
 
     #main {
         position: relative;
+        width: 40%;
         max-width: 100%;
         min-width: 27em;
         @include padding(4.5em, 3em);
@@ -74,5 +75,11 @@
         body.is-loading & {
             opacity: 0;
             @include vendor('transform', 'rotateX(15deg)');
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        #main {
+            width: 95%;
         }
     }

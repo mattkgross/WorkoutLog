@@ -526,6 +526,7 @@ button,
 /* Main */
 #main {
   position: relative;
+  width: 40%;
   max-width: 100%;
   min-width: 27em;
   padding: 4.5em 3em 3em 3em ;
@@ -580,6 +581,10 @@ button,
     -webkit-transform: rotateX(15deg);
     -ms-transform: rotateX(15deg);
     transform: rotateX(15deg); }
+
+@media only screen and (max-width: 800px) {
+  #main {
+    width: 95%; } }
 
 /* Footer */
 #footer {
