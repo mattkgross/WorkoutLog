@@ -12,7 +12,11 @@ namespace BusinessObjects
     {
         private bool isLoaded = false;
 
-        private User() { }
+        private User(int id)
+        {
+            this.id = id;
+            EnsureLoaded();
+        }
 
         public static User CreateUser(UserType loginType)
         {
@@ -32,10 +36,7 @@ namespace BusinessObjects
 
         public static User LoadFromId(int id)
         {
-            User user = new User();
-            user.EnsureLoaded();
-
-            return user;
+            return new User(id);
         }
 
         protected void EnsureLoaded()
@@ -48,7 +49,6 @@ namespace BusinessObjects
             string sql = string.Format("SELECT * FROM users WHERE user_id={0}", id);
             DataRow data = DBHelper.ExecuteQuery(sql).Rows[0];
 
-            this.id = data.Field<int>("user_id");
             this.firstname = data.Field<string>("firstname");
             this.lastname = data.Field<string>("lastname");
             this.email = data.Field<string>("email");
