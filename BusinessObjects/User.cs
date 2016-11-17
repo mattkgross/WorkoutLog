@@ -40,6 +40,11 @@ namespace BusinessObjects
 
         protected void EnsureLoaded()
         {
+            if(isLoaded)
+            {
+                return;
+            }
+
             string sql = string.Format("SELECT * FROM users WHERE user_id={0}", id);
             DataRow data = DBHelper.ExecuteQuery(sql).Rows[0];
 
@@ -66,10 +71,7 @@ namespace BusinessObjects
         {
             get
             {
-                if(!isLoaded)
-                {
-                    EnsureLoaded();
-                }
+                EnsureLoaded();
                 return this.id;
             }
         }
@@ -79,10 +81,7 @@ namespace BusinessObjects
         {
             get
             {
-                if (!isLoaded)
-                {
-                    EnsureLoaded();
-                }
+                EnsureLoaded();
                 return this.firstname;
             }
         }
@@ -92,10 +91,7 @@ namespace BusinessObjects
         {
             get
             {
-                if (!isLoaded)
-                {
-                    EnsureLoaded();
-                }
+                EnsureLoaded();
                 return this.lastname;
             }
         }
@@ -105,10 +101,7 @@ namespace BusinessObjects
         {
             get
             {
-                if (!isLoaded)
-                {
-                    EnsureLoaded();
-                }
+                EnsureLoaded();
                 return this.email;
             }
         }
@@ -118,10 +111,7 @@ namespace BusinessObjects
         {
             get
             {
-                if (!isLoaded)
-                {
-                    EnsureLoaded();
-                }
+                EnsureLoaded();
                 return loginType;
             }
         }
