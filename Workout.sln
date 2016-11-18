@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workout", "Workout\Workout.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "BusinessObjects\BusinessObjects.csproj", "{24114169-A365-404C-A55A-9E0D54F0DF6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPlus", "GPlus\GPlus.csproj", "{52DA800C-5A00-4908-B4D6-4422F31B65A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{24114169-A365-404C-A55A-9E0D54F0DF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24114169-A365-404C-A55A-9E0D54F0DF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24114169-A365-404C-A55A-9E0D54F0DF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DA800C-5A00-4908-B4D6-4422F31B65A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DA800C-5A00-4908-B4D6-4422F31B65A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DA800C-5A00-4908-B4D6-4422F31B65A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DA800C-5A00-4908-B4D6-4422F31B65A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

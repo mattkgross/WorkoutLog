@@ -134,7 +134,7 @@
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">
-                    <li>&copy; <%: DateTime.Now.Year %> - <a href="https://mattkgross.com" target="_blank" rel="noreferrer noopener">Matt Gross</a></li><li>Design: <a href="https://html5up.net" target="_blank" rel="noreferrer noopener">HTML5 UP</a></li>
+                    <li>&copy; <%: DateTime.Now.Year %> - <a href="https://mattkgross.com" target="_blank" rel="noreferrer noopener">Matt Gross</a></li>
                 </ul>
             </footer>
         </div>
