@@ -21,5 +21,3 @@ CREATE TABLE [dbo].[users](
 ) ON [PRIMARY]
 
 GO
-
-

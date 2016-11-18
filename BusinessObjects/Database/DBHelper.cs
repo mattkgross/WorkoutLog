@@ -1,47 +1,44 @@
-﻿// Credit: https://gist.github.com/crystianwendel/f7a4aafadccac8d6aa22
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
-namespace Helpers
+namespace BusinessObjects.Database
 {
     public static class DBHelper
     {
-#if DEBUG
+        // Dev connection.
+        #if DEBUG
         private static string defaultConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WorkoutLog;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-#else
+        // Prod connection.
+        #else
         private static string defaultConnectionString = "";
-#endif
-        public static string DefaultConnectionString
-        {
-            get
-            {
-                return defaultConnectionString;
-            }
-        }
+        #endif
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PROC_NAME">Name of the stored procedure to run.</param>
+        /// <param name="parameters">List of parameter values (maximum iof 26).</param>
+        /// <returns></returns>
         public static DataTable ExecuteProcedure(string PROC_NAME, params object[] parameters)
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
+                CheckParameters(parameters);
                 DataTable a = new DataTable();
                 List<SqlParameter> filters = new List<SqlParameter>();
 
                 string query = "EXEC " + PROC_NAME;
 
                 bool first = true;
-                for (int i = 0; i < parameters.Length; i += 2)
+                char pname = 'a';
+                foreach(object parameter in parameters)
                 {
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
-                    query += (first ? " " : ", ") + ((string)parameters[i]);
+                    string name = string.Format("@{0}", pname++);
+                    filters.Add(new SqlParameter(name, parameter));
+                    query += (first ? " " : ", ") + (name);
                     first = false;
                 }
 
@@ -58,13 +55,16 @@ namespace Helpers
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
+                CheckParameters(parameters);
                 DataTable a = new DataTable();
                 List<SqlParameter> filters = new List<SqlParameter>();
 
-                for (int i = 0; i < parameters.Length; i += 2)
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
+                char pname = 'a';
+                foreach (object parameter in parameters)
+                {
+                    string name = string.Format("@{0}", pname++);
+                    filters.Add(new SqlParameter(name, parameter));
+                }
 
                 a = Query(query, filters);
                 return a;
@@ -79,12 +79,16 @@ namespace Helpers
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
+                CheckParameters(parameters);
                 List<SqlParameter> filters = new List<SqlParameter>();
 
-                for (int i = 0; i < parameters.Length; i += 2)
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
+                char pname = 'a';
+                foreach (object parameter in parameters)
+                {
+                    string name = string.Format("@{0}", pname++);
+                    filters.Add(new SqlParameter(name, parameter));
+                }
+
                 return NonQuery(query, filters);
             }
             catch (Exception ex)
@@ -97,12 +101,16 @@ namespace Helpers
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to query. Expected an even number.");
+                CheckParameters(parameters);
                 List<SqlParameter> filters = new List<SqlParameter>();
 
-                for (int i = 0; i < parameters.Length; i += 2)
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
+                char pname = 'a';
+                foreach (object parameter in parameters)
+                {
+                    string name = string.Format("@{0}", pname++);
+                    filters.Add(new SqlParameter(name, parameter));
+                }
+
                 return Scalar(query, filters);
             }
             catch (Exception ex)
@@ -113,7 +121,7 @@ namespace Helpers
 
         #region Private Methods
 
-        private static DataTable Query(String consulta, IList<SqlParameter> parametros)
+        private static DataTable Query(String query, IList<SqlParameter> parameters)
         {
             try
             {
@@ -124,10 +132,10 @@ namespace Helpers
                 try
                 {
                     command.Connection = connection;
-                    command.CommandText = consulta;
-                    if (parametros != null)
+                    command.CommandText = query;
+                    if (parameters != null)
                     {
-                        command.Parameters.AddRange(parametros.ToArray());
+                        command.Parameters.AddRange(parameters.ToArray());
                     }
                     da = new SqlDataAdapter(command);
                     da.Fill(dt);
@@ -206,7 +214,14 @@ namespace Helpers
             }
         }
 
+        private static void CheckParameters(object[] parameters)
+        {
+            // TODO: Allow any number of parameters.
+            // Max is 26 for now with the current parameter naming scheme. Good enough for now.
+            if (parameters.Length > 26)
+                throw new ArgumentException("Only 26 parameters are supported.");
+        }
+
         #endregion
     }
-
 }

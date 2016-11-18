@@ -6,5 +6,9 @@
   {
     "outputFile": "css/Default.css",
     "inputFile": "css/Default.scss"
+  },
+  {
+    "outputFile": "Account/agency.css",
+    "inputFile": "Account/agency.scss"
   }
 ]

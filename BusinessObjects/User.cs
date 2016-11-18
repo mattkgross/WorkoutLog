@@ -1,10 +1,10 @@
-﻿using Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects.Database;
 
 namespace BusinessObjects
 {
@@ -28,9 +28,9 @@ namespace BusinessObjects
                 firstname,
                 lastname,
                 email,
-                (int)loginType);
+                ((int)loginType).ToString());
 
-            int id = db.Rows[0].Field<int>("user_id");
+            int id = int.Parse(db.Rows[0].Field<Decimal>("user_id").ToString());
             return User.LoadFromId(id);
         }
 
@@ -61,7 +61,7 @@ namespace BusinessObjects
         {
             firstname = "Matt";
             lastname = "Gross";
-            email = "mattkgrossgmailcom";
+            email = "mattkgross@gmail.com";
         }
 
         #region Properties

@@ -11,8 +11,7 @@ CREATE PROCEDURE CreateUser
 	@firstname nvarchar(500),
 	@lastname nvarchar(500),
 	@email nvarchar(500),
-	@login_type int = 0,
-	@user_id int OUTPUT
+	@login_type int = 0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -22,9 +21,7 @@ BEGIN
     INSERT INTO users (firstname, lastname, email, login_type)
 	VALUES (@firstname, @lastname, @email, @login_type)
 
-	SELECT @user_id = SCOPE_IDENTITY()
-
-    SELECT @user_id AS user_id
+	SELECT SCOPE_IDENTITY() as user_id
 
     RETURN
 END

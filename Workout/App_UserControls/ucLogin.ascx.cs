@@ -7,13 +7,12 @@ using System.Web.UI.WebControls;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using BusinessObjects;
-using Helpers;
 using System.Data;
 using Workout.Models;
 
 namespace Workout.App_UserControls
 {
-    public partial class ucLogin : System.Web.UI.UserControl
+    public partial class ucLogin : WorkoutUserControl
     {
         #region Properties
 
@@ -59,7 +58,7 @@ namespace Workout.App_UserControls
                 user = User.LoadFromId(exists);
             }
 
-            (this.Page as WorkoutPage).WorkoutContext.LoadUser(user);
+            this.WorkoutContext.LoadUser(user);
         }
     }
 }
